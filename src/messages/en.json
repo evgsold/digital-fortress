@@ -1,0 +1,233 @@
+{
+  "common": {
+    "home": "Home",
+    "settings": "Settings",
+    "profile": "Profile",
+    "language": "Language",
+    "search": "Search",
+    "username": "User",
+    "notifications": "Notifications",
+    "errorTitle": "System Error",
+    "errorDescription": "An unexpected error occurred. Please try again or return to the main dashboard.",
+    "unknownError": "Unknown system error",
+    "tryAgain": "Retry",
+    "backToHome": "Return to Dashboard",
+    "clearError": "Clear error",
+    "notFoundTitle": "Resource Not Found",
+    "notFoundDescription": "The requested resource does not exist or has been moved.",
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "filter": "Filter",
+    "sort": "Sort",
+    "more": "More",
+    "less": "Less",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "header": {
+      "brand": "DIGITAL FORTRESS",
+      "nav": {
+        "forum": "Forum",
+        "create": "Create Post"
+      },
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Access Control"
+    },
+    "register": {
+      "title": "Create Account"
+    },
+    "signIn": "Sign In",
+    "signUp": "Register",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "noAccount": "No account?",
+    "haveAccount": "Already have an account?",
+    "switchToRegister": "Create one",
+    "switchToLogin": "Sign in",
+    "errors": {
+      "invalidCredentials": "Invalid credentials",
+      "emailAlreadyInUse": "Email already in use",
+      "weakPassword": "Password too weak",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "invalidEmail": "Invalid email format",
+      "requiredField": "This field is required"
+    }
+  },
+  "forum": {
+    "title": "Cybersecurity Forum",
+    "subtitle": "Share your experiences with cyber scams and help others stay safe",
+    "filters": {
+      "title": "Filters",
+      "categories": "Categories",
+      "allCategories": "All Categories",
+      "scamTypes": "Scam Types",
+      "allTypes": "All Types",
+      "severity": "Severity",
+      "allLevels": "All Levels",
+      "clear": "Clear Filters"
+    },
+    "search": {
+      "placeholder": "Search forum posts...",
+      "button": "Search"
+    },
+    "createPost": "Create New Post",
+    "loadingPosts": "Loading posts...",
+    "noPostsTitle": "No posts found",
+    "noPostsHint": "Try adjusting your search or filters",
+    "author": "Author #{{id}}",
+    "scamTypes": {
+      "phishing": "Phishing",
+      "social_engineering": "Social Engineering",
+      "fake_websites": "Fake Websites",
+      "phone_scams": "Phone Scams",
+      "email_scams": "Email Scams",
+      "investment_fraud": "Investment Fraud",
+      "romance_scams": "Romance Scams",
+      "tech_support_scams": "Tech Support Scams",
+      "cryptocurrency_scams": "Crypto Scams",
+      "identity_theft": "Identity Theft",
+      "other": "Other"
+    },
+    "severity": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "post": {
+      "loading": "Loading post...",
+      "notFoundTitle": "Post not found",
+      "backToForum": "Back to forum",
+      "pinned": "PINNED",
+      "resolved": "RESOLVED",
+      "comments": "COMMENTS ({{count}})",
+      "newCommentPlaceholder": "Share your thoughts or advice...",
+      "postComment": "Post comment",
+      "loginPrompt": "Please log in to post comments",
+      "loginHere": "Login here",
+      "loadingComments": "Loading comments...",
+      "noComments": "No comments yet. Be the first to share your thoughts!",
+      "replyPlaceholder": "Write your reply...",
+      "reply": "Reply",
+      "report": {
+        "title": "Report content",
+        "reason": "Reason:",
+        "selectReason": "Select a reason",
+        "additional": "Additional Details (optional):",
+        "submit": "Submit Report"
+      }
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "inappropriate_content": "Inappropriate Content",
+      "harassment": "Harassment",
+      "misinformation": "Misinformation",
+      "off_topic": "Off Topic",
+      "duplicate": "Duplicate",
+      "other": "Other"
+    },
+    "create": {
+      "redirectToLogin": "Redirecting to login...",
+      "title": "Create New Post",
+      "draftSaved": "Draft automatically saved",
+      "titleLabel": "Post title",
+      "titlePlaceholder": "Describe your cybersecurity incident briefly...",
+      "charsCount": "{{count}}/200 characters",
+      "categoryLabel": "Category",
+      "selectCategory": "Select a category",
+      "scamTypeLabel": "Scam type",
+      "scamTypeDesc": {
+        "phishing": "Fraudulent emails or websites designed to steal personal information",
+        "social_engineering": "Manipulation tactics to trick people into revealing information",
+        "fake_websites": "Counterfeit websites that mimic legitimate services",
+        "phone_scams": "Fraudulent calls attempting to steal money or information",
+        "email_scams": "Deceptive emails with malicious intent",
+        "investment_fraud": "Fake investment opportunities and financial scams",
+        "romance_scams": "Fake romantic relationships used to exploit victims financially",
+        "tech_support_scams": "Fake technical support calls or pop-ups",
+        "cryptocurrency_scams": "Fraudulent cryptocurrency schemes and fake exchanges",
+        "identity_theft": "Unauthorized use of personal information",
+        "other": "Other types of cybersecurity threats"
+      },
+      "severityLabel": "Severity level",
+      "severityDesc": {
+        "low": "Minor inconvenience, no financial loss",
+        "medium": "Some impact, potential for small losses",
+        "high": "Significant impact, substantial losses possible",
+        "critical": "Severe impact, major financial or personal losses"
+      },
+      "descriptionLabel": "Detailed description",
+      "descriptionPlaceholder": "Describe what happened in detail. Include:\n• How the scam was attempted\n• What red flags you noticed\n• How you responded\n• What you learned\n\nThis helps others recognize similar threats.",
+      "minChars": "Minimum 10 characters required",
+      "tagsLabel": "Tags (optional)",
+      "tagPlaceholder": "Add a tag...",
+      "add": "Add",
+      "tagsHint": "Tags help others find your post. Max 10 tags.",
+      "markResolved": "Mark as resolved",
+      "markResolvedHint": "Check this if the issue has been resolved or if you're sharing a resolved case for educational purposes.",
+      "creating": "Creating post...",
+      "submit": "Create post"
+    }
+  },
+  "home": {
+    "heroTitle": "Digital Fortress",
+    "heroSubtitle": "Advanced Cybersecurity Education Platform",
+    "mission": "Master cybersecurity fundamentals through hands-on training and real-world scenarios.",
+    "getStartedClient": "Start Learning",
+    "getStartedPro": "Instructor Access",
+    "featuresTitle": "Platform Features",
+    "clientBenefitsTitle": "For Students",
+    "proBenefitsTitle": "For Instructors",
+    "clientBenefits": [
+      "Interactive cybersecurity modules",
+      "Real-world attack simulations",
+      "Progress tracking and certification",
+      "24/7 learning environment"
+    ],
+    "proBenefits": [
+      "Course management tools",
+      "Student progress analytics",
+      "Custom scenario builder",
+      "Assessment framework"
+    ],
+    "howItWorksTitle": "Learning Process",
+    "steps": [
+      "Create Account",
+      "Choose Learning Path",
+      "Complete Modules",
+      "Practice Scenarios",
+      "Get Certified"
+    ],
+    "ctaTitle": "Secure Your Future",
+    "ctaDescription": "Join thousands of cybersecurity professionals who started their journey with Digital Fortress.",
+    "startNow": "Begin Training",
+    "faqTitle": "Frequently Asked Questions",
+    "footerText": "Building the next generation of cybersecurity professionals through comprehensive education and hands-on experience."
+  },
+  "profile": {
+    "title": "User Profile",
+    "settings": {
+      "title": "Account Settings"
+    },
+    "requireLogin": {
+      "title": "Authentication Required",
+      "desc": "Please sign in to access your profile and training progress.",
+      "login": "Sign In",
+      "register": "Create Account"
+    },
+    "loading": "Loading profile..."
+  }
+}
