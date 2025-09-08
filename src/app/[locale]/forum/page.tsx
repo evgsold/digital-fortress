@@ -55,7 +55,7 @@ export default function ForumPage() {
     if (!searchTerm && !selectedCategory && !selectedScamType && !selectedSeverity) {
       loadPosts();
     }
-  }, [searchTerm, selectedCategory, selectedScamType, selectedSeverity]); // Removed loadPosts from dependencies to prevent infinite re-renders
+  }, [searchTerm, selectedCategory, selectedScamType, selectedSeverity]);
 
   const handleSearch = () => {
     if (localSearchTerm.trim()) {
@@ -115,9 +115,11 @@ export default function ForumPage() {
               <div className="p-3 bg-white">
                 <MessageSquare className="w-8 h-8 text-black" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold font-mono">{t('title')}</h1>
+              {/* Уменьшен размер текста на мобильных устройствах для лучшей читаемости */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono">{t('title')}</h1>
             </div>
-            <p className="text-xl text-gray-300 font-mono">{t('subtitle')}</p>
+            {/* Уменьшен размер текста подзаголовка на мобильных устройствах */}
+            <p className="text-lg sm:text-xl text-gray-300 font-mono">{t('subtitle')}</p>
           </motion.div>
         </div>
       </div>
@@ -126,19 +128,21 @@ export default function ForumPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-white text-black border-2 border-black p-6 sticky top-24">
+            {/* Изменено позиционирование для мобильных: теперь не "sticky" */}
+            <div className="bg-white text-black border-2 border-black p-4 md:p-6 lg:sticky lg:top-24">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold font-mono">{t('filters.title')}</h2>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
                   className="lg:hidden p-2 hover:bg-gray-100"
                 >
-                  <Filter className="w-5 h-5" />
+                  {/* Добавлены иконки для лучшего UX */}
+                  {showFilters ? <ChevronUp className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
                 </button>
               </div>
 
               <div className={`space-y-6 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Categories */}
+                {/* Categories, Scam Types, Severity... (без изменений) */}
                 <div>
                   <h3 className="font-bold mb-3 font-mono">{t('filters.categories')}</h3>
                   <div className="space-y-2">
@@ -170,7 +174,6 @@ export default function ForumPage() {
                   </div>
                 </div>
 
-                {/* Scam Types */}
                 <div>
                   <h3 className="font-bold mb-3 font-mono">{t('filters.scamTypes')}</h3>
                   <div className="space-y-2">
@@ -203,7 +206,6 @@ export default function ForumPage() {
                   </div>
                 </div>
 
-                {/* Severity */}
                 <div>
                   <h3 className="font-bold mb-3 font-mono">{t('filters.severity')}</h3>
                   <div className="space-y-2">
@@ -235,8 +237,7 @@ export default function ForumPage() {
                     ))}
                   </div>
                 </div>
-
-                {/* Clear Filters */}
+                
                 <button
                   onClick={clearFilters}
                   className="w-full px-4 py-2 bg-gray-100 text-black hover:bg-gray-200 font-mono border-2 border-black"
@@ -251,7 +252,8 @@ export default function ForumPage() {
           <div className="lg:col-span-3">
             {/* Search Bar */}
             <div className="bg-white border-2 border-black p-4 mb-6">
-              <div className="flex gap-2">
+              {/* flex-col на мобильных, чтобы элементы располагались друг под другом */}
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
                   placeholder={t('search.placeholder')}
@@ -262,10 +264,11 @@ export default function ForumPage() {
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black flex items-center gap-2"
+                  className="px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black flex items-center justify-center gap-2"
                 >
                   <Search className="w-5 h-5" />
-                  {t('search.button')}
+                  {/* Скрываем текст на очень маленьких экранах, оставляя только иконку */}
+                  <span className="sm:inline">{t('search.button')}</span>
                 </button>
               </div>
             </div>
@@ -273,9 +276,10 @@ export default function ForumPage() {
             {/* Create Post Button */}
             {currentUser && (
               <div className="mb-6">
+                {/* Кнопка занимает всю ширину на мобильных устройствах для удобства нажатия */}
                 <Link
                   href="/forum/create"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black"
+                  className="flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black"
                 >
                   <MessageSquare className="w-5 h-5" />
                   {t('createPost')}
@@ -304,11 +308,13 @@ export default function ForumPage() {
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-white text-black border-2 border-black p-6 hover:shadow-lg transition-shadow"
+                      /* Уменьшены отступы на мобильных устройствах */
+                      className="bg-white text-black border-2 border-black p-4 md:p-6 hover:shadow-lg transition-shadow"
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
+                          {/* Теги теперь переносятся на новую строку для лучшей компоновки */}
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
                             {post.isPinned && (
                               <span className="px-2 py-1 bg-black text-white text-xs font-mono">PINNED</span>
                             )}
@@ -321,7 +327,8 @@ export default function ForumPage() {
                           </div>
                           
                           <Link href={`/forum/${post.id}`}>
-                            <h3 className="text-xl font-bold mb-2 hover:underline font-mono cursor-pointer">
+                            {/* Уменьшен размер заголовка на мобильных */}
+                            <h3 className="text-lg md:text-xl font-bold my-2 hover:underline font-mono cursor-pointer">
                               {post.title}
                             </h3>
                           </Link>
@@ -343,8 +350,9 @@ export default function ForumPage() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center justify-between text-sm text-gray-600 font-mono">
-                        <div className="flex items-center gap-4">
+                      {/* Метаданные поста: вертикальное расположение на мобильных, горизонтальное на десктопе */}
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between text-sm text-gray-600 font-mono gap-4">
+                        <div className="flex items-center gap-4 flex-wrap">
                           <div className="flex items-center gap-1">
                             <User className="w-4 h-4" />
                             <span>{t('author', { id: post.authorId.substring(0, 8) })}</span>

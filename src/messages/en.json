@@ -36,7 +36,8 @@
       "brand": "DIGITAL FORTRESS",
       "nav": {
         "forum": "Forum",
-        "create": "Create Post"
+        "create": "Create Post",
+        "blog": "Blog"
       },
       "openMenu": "Open menu",
       "closeMenu": "Close menu"

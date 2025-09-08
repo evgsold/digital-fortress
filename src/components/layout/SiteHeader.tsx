@@ -48,6 +48,7 @@ export default function SiteHeader({ locale }: Props) {
   const nav = [
     { href: `/${locale}/forum`, label: t('header.nav.forum') },
     { href: `/${locale}/forum/create`, label: t('header.nav.create') },
+    { href: `/${locale}/blog`, label: t('header.nav.blog') },
   ];
 
   const isActive = (href: string) => {

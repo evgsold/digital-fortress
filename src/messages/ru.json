@@ -36,7 +36,8 @@
       "brand": "DIGITAL FORTRESS",
       "nav": {
         "forum": "Форум",
-        "create": "Создать пост"
+        "create": "Создать пост",
+        "blog": "Блог"
       },
       "post": {
         "loading": "Загрузка поста...",
