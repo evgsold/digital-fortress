@@ -29,15 +29,15 @@ export default function Home() {
 
   // Структурированные данные для SEO
   const websiteData = {
-    name: "Digital Fortress",
-    description: "Advanced cybersecurity education platform with hands-on training and real-world scenarios.",
-    url: "https://digitalfortress.edu"
+    name: "Digital Fortress - Cybersecurity Portfolio",
+    description: "A portfolio showcasing expertise in identifying and mitigating digital threats, featuring a collection of solved cybersecurity cases.",
+    url: "https://digitalfortress.vercel.app"
   }
 
   const organizationData = {
     name: "Digital Fortress",
-    url: "https://digitalfortress.edu",
-    logo: "https://digitalfortress.edu/logo.png"
+    url: "https://digitalfortress.vercel.app",
+    logo: "https://digitalfortress.vercel.app/logo.png"
   }
 
   // Анимации
@@ -156,7 +156,7 @@ export default function Home() {
           >
             <motion.div variants={itemVariants} whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="/register"
+                href="/forum"
                 className="group inline-flex items-center justify-center px-12 py-4 text-lg font-semibold text-black bg-white hover:bg-gray-100 border-2 border-white transition-all duration-300 font-mono"
               >
                 <span className="mr-2">{t("getStartedClient")}</span>
@@ -172,7 +172,7 @@ export default function Home() {
 
             <motion.div variants={itemVariants} whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
               <Link
-                href="/register?pro=1"
+                href="/contact"
                 className="inline-flex items-center justify-center px-12 py-4 text-lg font-semibold text-white bg-black border-2 border-white hover:bg-gray-800 transition-all duration-300 font-mono"
               >
                 {t("getStartedPro")}
@@ -342,7 +342,7 @@ export default function Home() {
 
           <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
             <Link
-              href="/register"
+              href="/contact"
               className="inline-flex items-center justify-center px-12 py-4 text-lg font-semibold text-white bg-black border-2 border-black hover:bg-gray-800 transition-all duration-300 font-mono"
             >
               <span className="mr-2">{t("startNow")}</span>

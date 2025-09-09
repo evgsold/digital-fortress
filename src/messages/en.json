@@ -184,39 +184,39 @@
     }
   },
   "home": {
-    "heroTitle": "Digital Fortress",
-    "heroSubtitle": "Advanced Cybersecurity Education Platform",
-    "mission": "Master cybersecurity fundamentals through hands-on training and real-world scenarios.",
-    "getStartedClient": "Start Learning",
-    "getStartedPro": "Instructor Access",
-    "featuresTitle": "Platform Features",
-    "clientBenefitsTitle": "For Students",
-    "proBenefitsTitle": "For Instructors",
+    "heroTitle": "Cybersecurity Portfolio",
+    "heroSubtitle": "Showcasing expertise in identifying and mitigating digital threats.",
+    "mission": "A collection of solved cybersecurity cases and analysis of modern threats.",
+    "getStartedClient": "View Portfolio",
+    "getStartedPro": "Contact Me",
+    "featuresTitle": "Areas of Expertise",
+    "clientBenefitsTitle": "Services Offered",
+    "proBenefitsTitle": "Key Skills",
     "clientBenefits": [
-      "Interactive cybersecurity modules",
-      "Real-world attack simulations",
-      "Progress tracking and certification",
-      "24/7 learning environment"
+      "Vulnerability Assessment",
+      "Penetration Testing",
+      "Incident Response",
+      "Security Audits"
     ],
     "proBenefits": [
-      "Course management tools",
-      "Student progress analytics",
-      "Custom scenario builder",
-      "Assessment framework"
+      "Network Security",
+      "Ethical Hacking",
+      "Threat Intelligence",
+      "Cryptography"
     ],
-    "howItWorksTitle": "Learning Process",
+    "howItWorksTitle": "My Process",
     "steps": [
-      "Create Account",
-      "Choose Learning Path",
-      "Complete Modules",
-      "Practice Scenarios",
-      "Get Certified"
+      "Initial Consultation",
+      "Problem Analysis",
+      "Solution Implementation",
+      "Security Report",
+      "Follow-up"
     ],
-    "ctaTitle": "Secure Your Future",
-    "ctaDescription": "Join thousands of cybersecurity professionals who started their journey with Digital Fortress.",
-    "startNow": "Begin Training",
+    "ctaTitle": "Have a Cybersecurity Challenge?",
+    "ctaDescription": "Let's work together to secure your digital assets. Reach out for a consultation.",
+    "startNow": "Get in Touch",
     "faqTitle": "Frequently Asked Questions",
-    "footerText": "Building the next generation of cybersecurity professionals through comprehensive education and hands-on experience."
+    "footerText": "Dedicated to protecting digital environments through expertise and vigilance."
   },
   "profile": {
     "title": "User Profile",
