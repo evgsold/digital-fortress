@@ -11,7 +11,10 @@ import {
   where, 
   orderBy, 
   limit,
-  addDoc
+  addDoc,
+  writeBatch, // Важно для транзакционных удалений
+  arrayUnion, // Для добавления элементов в массив
+  arrayRemove
 } from 'firebase/firestore';
 import { 
   userSchema,
@@ -38,9 +41,7 @@ import type {
   BlogCategory,
   BlogAuthor,
   BlogPost,
-  
 } from '@/types/database';
-import { get } from 'http';
 
 // Базовые операции CRUD для Firestore
 const createOperation = async <T>(

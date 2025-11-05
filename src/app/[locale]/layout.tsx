@@ -120,7 +120,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <SiteHeader locale={locale} />
-            <main className="min-h-screen px-3 sm:px-0">{children}</main>
+            <main className="min-h-screen sm:px-0">{children}</main>
           </Providers>
         </NextIntlClientProvider>
       </body>

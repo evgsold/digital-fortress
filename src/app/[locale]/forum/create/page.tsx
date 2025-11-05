@@ -23,10 +23,10 @@ const scamTypes = [
 ];
 
 const severityLevels = [
-  { value: 'low', label: 'Low', color: 'bg-green-100 text-green-800 border-green-300', icon: '🟢', description: 'Minor inconvenience, no financial loss' },
-  { value: 'medium', label: 'Medium', color: 'bg-yellow-100 text-yellow-800 border-yellow-300', icon: '🟡', description: 'Some impact, potential for small losses' },
-  { value: 'high', label: 'High', color: 'bg-orange-100 text-orange-800 border-orange-300', icon: '🟠', description: 'Significant impact, substantial losses possible' },
-  { value: 'critical', label: 'Critical', color: 'bg-red-100 text-red-800 border-red-300', icon: '🔴', description: 'Severe impact, major financial or personal losses' }
+  { value: 'low', label: 'Low', icon: '🟢', description: 'Minor inconvenience, no financial loss' },
+  { value: 'medium', label: 'Medium', icon: '🟡', description: 'Some impact, potential for small losses' },
+  { value: 'high', label: 'High', icon: '🟠', description: 'Significant impact, substantial losses possible' },
+  { value: 'critical', label: 'Critical', icon: '🔴', description: 'Severe impact, major financial or personal losses' }
 ];
 
 export default function CreateForumPostPage() {
@@ -36,7 +36,6 @@ export default function CreateForumPostPage() {
   const { categories, createPost, loadingCategories } = useForum();
 
   const [formData, setFormData] = useState(() => {
-    // Try to restore from localStorage
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('forum-draft');
       if (saved) {
@@ -63,16 +62,14 @@ export default function CreateForumPostPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [validationStatus, setValidationStatus] = useState<Record<string, 'valid' | 'invalid' | 'pending'>>({});
 
-  // Memoized data to prevent unnecessary re-renders
   const memoizedScamTypes = useMemo(() => scamTypes, []);
   const memoizedSeverityLevels = useMemo(() => severityLevels, []);
   
-  // Auto-save draft to localStorage
   useEffect(() => {
     if (typeof window !== 'undefined' && (formData.title || formData.content)) {
       const timeoutId = setTimeout(() => {
         localStorage.setItem('forum-draft', JSON.stringify(formData));
-      }, 1000); // Debounce saves
+      }, 1000);
       
       return () => clearTimeout(timeoutId);
     }
@@ -84,7 +81,6 @@ export default function CreateForumPostPage() {
     }
   }, [currentUser, router]);
   
-  // Clear draft on successful submission
   const clearDraft = useCallback(() => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('forum-draft');
@@ -112,7 +108,6 @@ export default function CreateForumPostPage() {
       setErrors((prev: Record<string, string>) => ({ ...prev, [field]: '' }));
     }
     
-    // Real-time validation
     setValidationStatus((prev: Record<string, 'valid' | 'invalid' | 'pending'>) => ({ ...prev, [field]: 'pending' }));
     
     setTimeout(() => {
@@ -142,39 +137,16 @@ export default function CreateForumPostPage() {
     const newErrors: Record<string, string> = {};
     const suggestions: Record<string, string> = {};
 
-    if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
-      suggestions.title = 'Try: "Phishing email from fake bank" or "Suspicious phone call claiming to be tech support"';
-    } else if (formData.title.length < 5) {
-      newErrors.title = 'Title must be at least 5 characters';
-      suggestions.title = 'Make your title more descriptive to help others understand the threat';
-    } else if (formData.title.length > 200) {
-      newErrors.title = 'Title must be less than 200 characters';
-      suggestions.title = 'Keep the title concise - save details for the description';
-    }
+    if (!formData.title.trim()) newErrors.title = 'Title is required';
+    else if (formData.title.length < 5) newErrors.title = 'Title must be at least 5 characters';
+    else if (formData.title.length > 200) newErrors.title = 'Title must be less than 200 characters';
 
-    if (!formData.content.trim()) {
-      newErrors.content = 'Content is required';
-      suggestions.content = 'Describe: What happened? What red flags did you notice? How did you respond?';
-    } else if (formData.content.length < 10) {
-      newErrors.content = 'Content must be at least 10 characters';
-      suggestions.content = 'Please provide more details to help others learn from your experience';
-    }
+    if (!formData.content.trim()) newErrors.content = 'Content is required';
+    else if (formData.content.length < 10) newErrors.content = 'Content must be at least 10 characters';
 
-    if (!formData.categoryId) {
-      newErrors.categoryId = 'Category is required';
-      suggestions.categoryId = 'Choose the category that best fits your cybersecurity incident';
-    }
-
-    if (!formData.scamType) {
-      newErrors.scamType = 'Scam type is required';
-      suggestions.scamType = 'Select the type of scam or threat you encountered';
-    }
-
-    if (!formData.severity) {
-      newErrors.severity = 'Severity level is required';
-      suggestions.severity = 'Rate the impact: Low (no loss), Medium (minor loss), High (significant loss), Critical (major loss)';
-    }
+    if (!formData.categoryId) newErrors.categoryId = 'Category is required';
+    if (!formData.scamType) newErrors.scamType = 'Scam type is required';
+    if (!formData.severity) newErrors.severity = 'Severity level is required';
 
     setErrors({ ...newErrors, ...suggestions });
     return Object.keys(newErrors).length === 0;
@@ -198,7 +170,7 @@ export default function CreateForumPostPage() {
           isResolved: formData.isResolved,
           isPinned: false,
           isLocked: false,
-          authorId: currentUser.userId // Fixed: using currentUser.userId
+          authorId: currentUser.userId
       });
 
       clearDraft();
@@ -216,25 +188,25 @@ export default function CreateForumPostPage() {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#01032C] text-[#A1CCB0] flex items-center justify-center">
         <div className="text-2xl font-mono">{t('create.redirectToLogin')}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#01032C] text-[#91B1C0]">
       {/* Header */}
-      <div className="bg-black border-b-2 border-white">
+      <div className="bg-[#01032C] border-b-2 border-[#91B1C0]/20">
         <div className="container mx-auto px-4 py-6">
           <Link 
             href="/forum"
-            className="inline-flex items-center gap-2 text-white hover:text-gray-300 mb-4 font-mono"
+            className="inline-flex items-center gap-2 text-[#91B1C0] hover:text-[#A1CCB0] mb-4 font-mono"
           >
             <ArrowLeft className="w-5 h-5" />
             {t('post.backToForum')}
           </Link>
-          <h1 className="text-3xl font-bold font-mono">{t('create.title')}</h1>
+          <h1 className="text-3xl font-bold font-mono text-[#A1CCB0]">{t('create.title')}</h1>
         </div>
       </div>
 
@@ -243,20 +215,18 @@ export default function CreateForumPostPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white text-black border-2 border-black p-8"
+            className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-8 rounded-xl"
           >
             <form onSubmit={handleSubmit} className="space-y-8">
-              {/* General Error */}
               {errors.general && (
-                <div className="flex items-center gap-2 text-red-700 bg-red-50 border-2 border-red-200 px-4 py-3">
+                <div className="flex items-center gap-2 text-red-400 bg-red-500/10 border border-red-500/30 px-4 py-3 rounded-lg">
                   <AlertTriangle className="w-5 h-5" />
                   <span className="font-mono">{errors.general}</span>
                 </div>
               )}
               
-              {/* Draft Status */}
               {typeof window !== 'undefined' && localStorage.getItem('forum-draft') && (
-                <div className="flex items-center gap-2 text-blue-700 bg-blue-50 border-2 border-blue-200 px-4 py-3">
+                <div className="flex items-center gap-2 text-[#A1CCB0] bg-[#91B1C0]/10 border border-[#91B1C0]/30 px-4 py-3 rounded-lg">
                   <Info className="w-5 h-5" />
                   <span className="font-mono">{t('create.draftSaved')}</span>
                 </div>
@@ -264,7 +234,7 @@ export default function CreateForumPostPage() {
 
               {/* Title */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.titleLabel')} *
                 </label>
                 <div className="relative">
@@ -273,34 +243,34 @@ export default function CreateForumPostPage() {
                     value={formData.title}
                     onChange={(e) => handleInputChange('title', e.target.value)}
                     placeholder={t('create.titlePlaceholder')}
-                    className={`w-full px-4 py-3 pr-10 border-2 focus:outline-none font-mono ${
+                    className={`w-full px-4 py-3 pr-10 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 focus:outline-none font-mono rounded-lg placeholder-[#91B1C0]/50 ${
                       errors.title ? 'border-red-500' : 
-                      validationStatus.title === 'valid' ? 'border-green-500' :
-                      'border-gray-300 focus:border-black'
+                      validationStatus.title === 'valid' ? 'border-[#A1CCB0]' :
+                      'border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0]'
                     }`}
                   />
                   {validationStatus.title === 'valid' && (
-                    <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-green-500" />
+                    <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#A1CCB0]" />
                   )}
                 </div>
                 {errors.title && (
-                  <p className="text-red-600 text-sm mt-1 font-mono">{errors.title}</p>
+                  <p className="text-red-500 text-sm mt-1 font-mono">{errors.title}</p>
                 )}
-                <p className="text-gray-600 text-sm mt-1 font-mono">
+                <p className="text-[#91B1C0]/80 text-sm mt-1 font-mono">
                   {t('create.charsCount', { count: formData.title.length })}
                 </p>
               </div>
 
               {/* Category */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.categoryLabel')} *
                 </label>
                 <select
                   value={formData.categoryId}
                   onChange={(e) => handleInputChange('categoryId', e.target.value)}
-                  className={`w-full px-4 py-3 border-2 focus:outline-none font-mono ${
-                    errors.categoryId ? 'border-red-500' : 'border-gray-300 focus:border-black'
+                  className={`w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 focus:outline-none font-mono rounded-lg ${
+                    errors.categoryId ? 'border-red-500' : 'border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0]'
                   }`}
                 >
                   <option value="">{t('create.selectCategory')}</option>
@@ -311,13 +281,13 @@ export default function CreateForumPostPage() {
                   ))}
                 </select>
                 {errors.categoryId && (
-                  <p className="text-red-600 text-sm mt-1 font-mono">{errors.categoryId}</p>
+                  <p className="text-red-500 text-sm mt-1 font-mono">{errors.categoryId}</p>
                 )}
               </div>
 
               {/* Scam Type */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.scamTypeLabel')} *
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -326,10 +296,10 @@ export default function CreateForumPostPage() {
                       key={type.value}
                       type="button"
                       onClick={() => handleInputChange('scamType', type.value)}
-                      className={`p-4 text-left border-2 transition-colors ${
+                      className={`p-4 text-left border-2 transition-all duration-200 rounded-lg ${
                         formData.scamType === type.value
-                          ? 'bg-black text-white border-black'
-                          : 'bg-white text-black border-gray-300 hover:bg-gray-50'
+                          ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]'
+                          : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-2">
@@ -341,13 +311,13 @@ export default function CreateForumPostPage() {
                   ))}
                 </div>
                 {errors.scamType && (
-                  <p className="text-red-600 text-sm mt-1 font-mono">{errors.scamType}</p>
+                  <p className="text-red-500 text-sm mt-1 font-mono">{errors.scamType}</p>
                 )}
               </div>
 
               {/* Severity */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.severityLabel')} *
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -356,10 +326,10 @@ export default function CreateForumPostPage() {
                       key={level.value}
                       type="button"
                       onClick={() => handleInputChange('severity', level.value)}
-                      className={`p-4 text-left border-2 transition-colors ${
+                      className={`p-4 text-left border-2 transition-all duration-200 rounded-lg ${
                         formData.severity === level.value
-                          ? 'bg-black text-white border-black'
-                          : `bg-white border-gray-300 hover:bg-gray-50 ${level.color}`
+                          ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]'
+                          : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-2">
@@ -371,13 +341,13 @@ export default function CreateForumPostPage() {
                   ))}
                 </div>
                 {errors.severity && (
-                  <p className="text-red-600 text-sm mt-1 font-mono">{errors.severity}</p>
+                  <p className="text-red-500 text-sm mt-1 font-mono">{errors.severity}</p>
                 )}
               </div>
 
               {/* Content */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.descriptionLabel')} *
                 </label>
                 <div className="relative">
@@ -386,27 +356,27 @@ export default function CreateForumPostPage() {
                     onChange={(e) => handleInputChange('content', e.target.value)}
                     placeholder={t('create.descriptionPlaceholder')}
                     rows={12}
-                    className={`w-full px-4 py-3 pr-10 border-2 focus:outline-none font-mono resize-none ${
+                    className={`w-full px-4 py-3 pr-10 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 focus:outline-none font-mono resize-none rounded-lg placeholder-[#91B1C0]/50 ${
                       errors.content ? 'border-red-500' : 
-                      validationStatus.content === 'valid' ? 'border-green-500' :
-                      'border-gray-300 focus:border-black'
+                      validationStatus.content === 'valid' ? 'border-[#A1CCB0]' :
+                      'border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0]'
                     }`}
                   />
                   {validationStatus.content === 'valid' && (
-                    <CheckCircle className="absolute right-3 top-3 w-5 h-5 text-green-500" />
+                    <CheckCircle className="absolute right-3 top-3 w-5 h-5 text-[#A1CCB0]" />
                   )}
                 </div>
                 {errors.content && (
-                  <p className="text-red-600 text-sm mt-1 font-mono">{errors.content}</p>
+                  <p className="text-red-500 text-sm mt-1 font-mono">{errors.content}</p>
                 )}
-                <p className="text-gray-600 text-sm mt-1 font-mono">
+                <p className="text-[#91B1C0]/80 text-sm mt-1 font-mono">
                   {t('create.minChars')}
                 </p>
               </div>
 
               {/* Tags */}
               <div>
-                <label className="block text-lg font-bold mb-2 font-mono">
+                <label className="block text-lg font-bold mb-2 font-mono text-[#A1CCB0]">
                   {t('create.tagsLabel')}
                 </label>
                 <div className="flex gap-2 mb-3">
@@ -416,12 +386,12 @@ export default function CreateForumPostPage() {
                     onChange={(e) => setNewTag(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                     placeholder={t('create.tagPlaceholder')}
-                    className="flex-1 px-3 py-2 border-2 border-gray-300 focus:border-black focus:outline-none font-mono"
+                    className="flex-1 px-3 py-2 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] focus:outline-none font-mono rounded-lg placeholder-[#91B1C0]/50"
                   />
                   <button
                     type="button"
                     onClick={addTag}
-                    className="px-4 py-2 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black flex items-center gap-2"
+                    className="px-4 py-2 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] flex items-center gap-2 rounded-lg transition-colors"
                   >
                     <Plus className="w-4 h-4" />
                     {t('create.add')}
@@ -433,14 +403,14 @@ export default function CreateForumPostPage() {
                     {formData.tags.map((tag: string, index: number) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-gray-200 text-gray-800 font-mono text-sm flex items-center gap-2 border-2 border-gray-300"
+                        className="px-3 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] font-mono text-sm flex items-center gap-2 rounded-md"
                       >
                         <Tag className="w-3 h-3" />
                         {tag}
                         <button
                           type="button"
                           onClick={() => removeTag(tag)}
-                          className="text-red-600 hover:text-red-800"
+                          className="text-red-500 hover:text-red-400"
                         >
                           <X className="w-3 h-3" />
                         </button>
@@ -449,7 +419,7 @@ export default function CreateForumPostPage() {
                   </div>
                 )}
                 
-                <p className="text-gray-600 text-sm font-mono">
+                <p className="text-[#91B1C0]/80 text-sm font-mono">
                   {t('create.tagsHint')}
                 </p>
               </div>
@@ -461,34 +431,34 @@ export default function CreateForumPostPage() {
                     type="checkbox"
                     checked={formData.isResolved}
                     onChange={(e) => handleInputChange('isResolved', e.target.checked)}
-                    className="w-5 h-5"
+                    className="w-5 h-5 rounded text-[#A1CCB0] bg-[#91B1C0]/20 border-[#91B1C0]/50 focus:ring-[#A1CCB0]"
                   />
                   <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-green-600" />
-                    <span className="font-bold font-mono">{t('create.markResolved')}</span>
+                    <Shield className="w-5 h-5 text-[#A1CCB0]" />
+                    <span className="font-bold font-mono text-[#A1CCB0]">{t('create.markResolved')}</span>
                   </div>
                 </label>
-                <p className="text-gray-600 text-sm mt-1 ml-8 font-mono">
+                <p className="text-[#91B1C0]/80 text-sm mt-1 ml-8 font-mono">
                   {t('create.markResolvedHint')}
                 </p>
               </div>
 
               {/* Submit Button */}
-              <div className="flex justify-end gap-4 pt-6 border-t-2 border-gray-200">
+              <div className="flex justify-end gap-4 pt-6 border-t-2 border-[#91B1C0]/20">
                 <Link
                   href="/forum"
-                  className="px-6 py-3 text-gray-600 hover:bg-gray-100 font-mono border-2 border-gray-300"
+                  className="px-6 py-3 text-[#91B1C0] bg-transparent hover:bg-[#91B1C0]/10 font-mono border-2 border-[#91B1C0] rounded-lg transition-colors"
                 >
                   {t('common.cancel')}
                 </Link>
                 <button
                   type="submit"
-                  disabled={isSubmitting || Object.keys(errors).length > 0}
-                  className="px-8 py-3 bg-black text-white hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed font-mono border-2 border-black flex items-center gap-2 transition-all duration-300"
+                  disabled={isSubmitting || Object.values(validationStatus).some(s => s === 'invalid')}
+                  className="px-8 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 disabled:bg-[#91B1C0]/20 disabled:text-[#91B1C0]/50 disabled:border-transparent disabled:cursor-not-allowed font-mono font-bold border-2 border-[#A1CCB0] flex items-center gap-2 transition-all duration-300 rounded-lg"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <div className="w-5 h-5 border-2 border-[#01032C] border-t-transparent rounded-full animate-spin"></div>
                       {t('create.creating')}
                     </>
                   ) : (

@@ -1,45 +1,57 @@
 import type { SeoConfig } from '../../types/seo';
 
 export const seoConfig: SeoConfig = {
-  siteName: 'Beauty Platform',
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://beauty-platform.com',
-  description: 'Find the best beauty salons near you. Book appointments online with verified beauty professionals.',
+  // Основная информация о сайте
+  siteName: 'Digital Fortress',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://digitalfortress.vercel.app',
+  description: 'Портфолио, демонстрирующее опыт в выявлении и смягчении цифровых угроз, с коллекцией решенных кейсов по кибербезопасности и форумом для обсуждений.',
+  
+  // Ключевые слова для поисковых систем
   keywords: [
-    'beauty salon',
-    'beauty services',
-    'hair salon',
-    'nail salon',
-    'spa',
-    'massage',
-    'beauty booking',
-    'online booking',
-    'beauty appointments',
-    'salon management',
-    'beauty professionals',
-    'cosmetology',
-    'beauty platform'
+    'кибербезопасность',
+    'цифровые угрозы',
+    'смягчение угроз',
+    'информационная безопасность',
+    'портфолио по кибербезопасности',
+    'этичный хакинг',
+    'тестирование на проникновение',
+    'анализ уязвимостей',
+    'анализ вредоносных программ',
+    'реагирование на инциденты',
+    'форум по кибербезопасности',
+    'фишинг',
+    'мошенничество',
+    'защита данных'
   ],
-  author: 'Beauty Platform Team',
-  creator: 'Beauty Platform',
-  publisher: 'Beauty Platform',
+
+  // Информация об авторе и издателе
+  author: 'Digital Fortress Team',
+  creator: 'Digital Fortress',
+  publisher: 'Digital Fortress',
+
+  // Open Graph метаданные (для Facebook, LinkedIn и т.д.)
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    siteName: 'Beauty Platform',
+    locale: 'ru_RU', // Указываем русскую локаль
+    siteName: 'Digital Fortress',
     images: [
       {
-        url: '/images/logo.jpg',
+        url: '/og-image.png', // Рекомендуется создать специальное изображение для соцсетей
         width: 1200,
         height: 630,
-        alt: 'Beauty Platform - Find the best beauty salons near you',
+        alt: 'Digital Fortress - Форум и портфолио по кибербезопасности',
       },
     ],
   },
+
+  // Twitter метаданные
   twitter: {
     card: 'summary_large_image',
-    creator: '@beautyplatform',
-    images: ['/og-image.jpg'],
+    creator: '@DigitalFortress', // Замените на ваш реальный Twitter handle, если он есть
+    images: ['/twitter-image.png'], // Можно использовать то же изображение, что и для Open Graph
   },
+
+  // Инструкции для поисковых роботов
   robots: {
     index: true,
     follow: true,
@@ -51,6 +63,8 @@ export const seoConfig: SeoConfig = {
       'max-snippet': -1,
     },
   },
+
+  // Коды верификации для поисковых систем
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || 'your-google-verification-code',
     yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || 'your-yandex-verification-code',

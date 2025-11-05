@@ -5,7 +5,7 @@ import {
   forumCategoryOperations,
   forumPostOperations,
   forumCommentOperations,
-  forumReportOperations
+  forumReportOperations,
 } from '@/lib/firebase/database';
 import { useUser } from './UserContext';
 import type { 
@@ -14,8 +14,6 @@ import type {
   ForumPost,
   ForumComment,
   ForumReport,
-  ForumPostWithAuthor,
-  ForumCommentWithAuthor
 } from '@/types/database';
 
 interface AdminContextType {
@@ -38,6 +36,7 @@ interface AdminContextType {
   // Reports
   reports: ForumReport[];
   loadingReports: boolean;
+
   
   // User operations
   loadUsers: () => Promise<void>;
@@ -103,6 +102,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [loadingComments, setLoadingComments] = useState(false);
   const [loadingReports, setLoadingReports] = useState(false);
+  const [loadingTests, setLoadingTests] = useState(false); // Add tests loading state
   
   // Cache and refs
   const cacheRef = useRef<AdminCache>({
@@ -110,73 +110,48 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
     categories: null,
     posts: null,
     comments: null,
-    reports: null
+    reports: null,
   });
   
-  // Cache duration (5 minutes)
   const CACHE_DURATION = 5 * 60 * 1000;
-  
-  // Check if user is admin
   const isAdmin = useMemo(() => currentUser?.role === 'admin', [currentUser?.role]);
   
-  // Cache validation helper
   const isCacheValid = useCallback((cacheEntry: CacheEntry<any> | null): boolean => {
     if (!cacheEntry) return false;
     return Date.now() - cacheEntry.timestamp < CACHE_DURATION;
   }, [CACHE_DURATION]);
   
-  // Cache update helper
   const updateCache = useCallback((key: keyof AdminCache, data: any) => {
-    cacheRef.current[key] = {
-      data,
-      timestamp: Date.now()
-    } as any;
+    cacheRef.current[key] = { data, timestamp: Date.now() } as any;
   }, []);
   
-  // Cache invalidation helper
   const invalidateCache = useCallback((keys?: (keyof AdminCache)[]) => {
     if (keys) {
-      keys.forEach(key => {
-        cacheRef.current[key] = null;
-      });
+      keys.forEach(key => { cacheRef.current[key] = null; });
     } else {
-      // Invalidate all cache
-      cacheRef.current = {
-        users: null,
-        categories: null,
-        posts: null,
-        comments: null,
-        reports: null
-      };
+      cacheRef.current = { users: null, categories: null, posts: null, comments: null, reports: null };
     }
   }, []);
   
-  // User operations with caching
+  // User operations (no changes)
   const loadUsers = useCallback(async () => {
     if (!isAdmin || loadingUsers) return;
-    
-    // Check cache first
     const cachedUsers = cacheRef.current.users;
     if (isCacheValid(cachedUsers)) {
       setUsers(cachedUsers!.data);
       return;
     }
-    
     try {
       setLoadingUsers(true);
       const usersData = await userOperations.list();
       setUsers(usersData);
       updateCache('users', usersData);
-    } catch (error) {
-      console.error('Error loading users:', error);
-    } finally {
-      setLoadingUsers(false);
-    }
+    } catch (error) { console.error('Error loading users:', error); } 
+    finally { setLoadingUsers(false); }
   }, [isAdmin, loadingUsers, isCacheValid, updateCache]);
   
   const createUser = useCallback(async (userId: string, userData: Omit<User, 'id'>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await userOperations.create(userId, userData);
     invalidateCache(['users']);
     await loadUsers();
@@ -184,7 +159,6 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const updateUser = useCallback(async (userId: string, userData: Partial<User>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await userOperations.update(userId, userData);
     invalidateCache(['users']);
     await loadUsers();
@@ -192,38 +166,30 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const deleteUser = useCallback(async (userId: string) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await userOperations.delete(userId);
     invalidateCache(['users']);
     await loadUsers();
   }, [isAdmin, loadUsers, invalidateCache]);
   
-  // Category operations with caching
+  // Category operations (no changes)
   const loadCategories = useCallback(async () => {
     if (!isAdmin || loadingCategories) return;
-    
-    // Check cache first
     const cachedCategories = cacheRef.current.categories;
     if (isCacheValid(cachedCategories)) {
       setCategories(cachedCategories!.data);
       return;
     }
-    
     try {
       setLoadingCategories(true);
       const categoriesData = await forumCategoryOperations.list();
       setCategories(categoriesData);
       updateCache('categories', categoriesData);
-    } catch (error) {
-      console.error('Error loading categories:', error);
-    } finally {
-      setLoadingCategories(false);
-    }
+    } catch (error) { console.error('Error loading categories:', error); } 
+    finally { setLoadingCategories(false); }
   }, [isAdmin, loadingCategories, isCacheValid, updateCache]);
   
   const createCategory = useCallback(async (categoryData: Omit<ForumCategory, 'id'>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumCategoryOperations.create(categoryData);
     invalidateCache(['categories']);
     await loadCategories();
@@ -231,7 +197,6 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const updateCategory = useCallback(async (categoryId: string, categoryData: Partial<ForumCategory>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumCategoryOperations.update(categoryId, categoryData);
     invalidateCache(['categories']);
     await loadCategories();
@@ -239,38 +204,30 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const deleteCategory = useCallback(async (categoryId: string) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumCategoryOperations.delete(categoryId);
     invalidateCache(['categories']);
     await loadCategories();
   }, [isAdmin, loadCategories, invalidateCache]);
   
-  // Post operations with caching
+  // Post operations (no changes)
   const loadPosts = useCallback(async () => {
     if (!isAdmin || loadingPosts) return;
-    
-    // Check cache first
     const cachedPosts = cacheRef.current.posts;
     if (isCacheValid(cachedPosts)) {
       setPosts(cachedPosts!.data);
       return;
     }
-    
     try {
       setLoadingPosts(true);
-      const postsData = await forumPostOperations.list(undefined, 100); // Load more posts for admin
+      const postsData = await forumPostOperations.list(undefined, 100);
       setPosts(postsData);
       updateCache('posts', postsData);
-    } catch (error) {
-      console.error('Error loading posts:', error);
-    } finally {
-      setLoadingPosts(false);
-    }
+    } catch (error) { console.error('Error loading posts:', error); } 
+    finally { setLoadingPosts(false); }
   }, [isAdmin, loadingPosts, isCacheValid, updateCache]);
   
   const createPost = useCallback(async (postData: Omit<ForumPost, 'id'>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumPostOperations.create(postData);
     invalidateCache(['posts']);
     await loadPosts();
@@ -278,7 +235,6 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const updatePost = useCallback(async (postId: string, postData: Partial<ForumPost>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumPostOperations.update(postId, postData);
     invalidateCache(['posts']);
     await loadPosts();
@@ -286,52 +242,38 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const deletePost = useCallback(async (postId: string) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumPostOperations.delete(postId);
     invalidateCache(['posts']);
     await loadPosts();
   }, [isAdmin, loadPosts, invalidateCache]);
   
-  // Comment operations with caching
+  // Comment operations (no changes)
   const loadComments = useCallback(async () => {
     if (!isAdmin || loadingComments) return;
-    
-    // Check cache first
     const cachedComments = cacheRef.current.comments;
     if (isCacheValid(cachedComments)) {
       setComments(cachedComments!.data);
       return;
     }
-    
     try {
       setLoadingComments(true);
-      // Load all comments from all posts (this is a simplified approach)
-      // In a real app, you might want to paginate or filter this
       const postsData = await forumPostOperations.list(undefined, 100);
       const allComments: ForumComment[] = [];
-      
       for (const post of postsData) {
         const postComments = await forumCommentOperations.getByPost(post.id);
         postComments.forEach(comment => {
           allComments.push(comment);
-          if (comment.replies) {
-            allComments.push(...comment.replies);
-          }
+          if (comment.replies) { allComments.push(...comment.replies); }
         });
       }
-      
       setComments(allComments);
       updateCache('comments', allComments);
-    } catch (error) {
-      console.error('Error loading comments:', error);
-    } finally {
-      setLoadingComments(false);
-    }
+    } catch (error) { console.error('Error loading comments:', error); } 
+    finally { setLoadingComments(false); }
   }, [isAdmin, loadingComments, isCacheValid, updateCache]);
   
   const updateComment = useCallback(async (commentId: string, commentData: Partial<ForumComment>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumCommentOperations.update(commentId, commentData);
     invalidateCache(['comments']);
     await loadComments();
@@ -339,38 +281,30 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const deleteComment = useCallback(async (commentId: string) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumCommentOperations.delete(commentId);
     invalidateCache(['comments']);
     await loadComments();
   }, [isAdmin, loadComments, invalidateCache]);
   
-  // Report operations with caching
+  // Report operations (no changes)
   const loadReports = useCallback(async () => {
     if (!isAdmin || loadingReports) return;
-    
-    // Check cache first
     const cachedReports = cacheRef.current.reports;
     if (isCacheValid(cachedReports)) {
       setReports(cachedReports!.data);
       return;
     }
-    
     try {
       setLoadingReports(true);
       const reportsData = await forumReportOperations.listPending();
       setReports(reportsData);
       updateCache('reports', reportsData);
-    } catch (error) {
-      console.error('Error loading reports:', error);
-    } finally {
-      setLoadingReports(false);
-    }
+    } catch (error) { console.error('Error loading reports:', error); } 
+    finally { setLoadingReports(false); }
   }, [isAdmin, loadingReports, isCacheValid, updateCache]);
   
   const updateReport = useCallback(async (reportId: string, reportData: Partial<ForumReport>) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumReportOperations.update(reportId, reportData);
     invalidateCache(['reports']);
     await loadReports();
@@ -378,7 +312,6 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   
   const deleteReport = useCallback(async (reportId: string) => {
     if (!isAdmin) throw new Error('Access denied');
-    
     await forumReportOperations.delete(reportId);
     invalidateCache(['reports']);
     await loadReports();
@@ -387,75 +320,43 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   // Refresh all data
   const refreshData = useCallback(async () => {
     if (!isAdmin) return;
-    
-    // Invalidate all cache before refreshing
     invalidateCache();
-    
     await Promise.all([
       loadUsers(),
       loadCategories(),
       loadPosts(),
       loadComments(),
-      loadReports()
+      loadReports(),
     ]);
   }, [isAdmin, invalidateCache, loadUsers, loadCategories, loadPosts, loadComments, loadReports]);
   
-  // Memoized selectors for filtered data
-  const memoizedUsers = useMemo(() => users, [users]);
-  const memoizedCategories = useMemo(() => categories, [categories]);
-  const memoizedPosts = useMemo(() => posts, [posts]);
-  const memoizedComments = useMemo(() => comments, [comments]);
-  const memoizedReports = useMemo(() => reports, [reports]);
-  
-  // Memoized context value
   const contextValue = useMemo(() => ({
-    users: memoizedUsers,
-    loadingUsers,
-    categories: memoizedCategories,
-    loadingCategories,
-    posts: memoizedPosts,
-    loadingPosts,
-    comments: memoizedComments,
-    loadingComments,
-    reports: memoizedReports,
-    loadingReports,
-    
-    loadUsers,
-    createUser,
-    updateUser,
-    deleteUser,
-    
-    loadCategories,
-    createCategory,
-    updateCategory,
-    deleteCategory,
-    
-    loadPosts,
-    createPost,
-    updatePost,
-    deletePost,
-    
-    loadComments,
-    updateComment,
-    deleteComment,
-    
-    loadReports,
-    updateReport,
-    deleteReport,
-    
-    refreshData
-  }), [
-    memoizedUsers, loadingUsers,
-    memoizedCategories, loadingCategories,
-    memoizedPosts, loadingPosts,
-    memoizedComments, loadingComments,
-    memoizedReports, loadingReports,
+    users, loadingUsers,
+    categories, loadingCategories,
+    posts, loadingPosts,
+    comments, loadingComments,
+    reports, loadingReports,
     
     loadUsers, createUser, updateUser, deleteUser,
     loadCategories, createCategory, updateCategory, deleteCategory,
     loadPosts, createPost, updatePost, deletePost,
     loadComments, updateComment, deleteComment,
     loadReports, updateReport, deleteReport,
+    
+    refreshData
+  }), [
+    users, loadingUsers,
+    categories, loadingCategories,
+    posts, loadingPosts,
+    comments, loadingComments,
+    reports, loadingReports,
+    
+    loadUsers, createUser, updateUser, deleteUser,
+    loadCategories, createCategory, updateCategory, deleteCategory,
+    loadPosts, createPost, updatePost, deletePost,
+    loadComments, updateComment, deleteComment,
+    loadReports, updateReport, deleteReport,
+    
     refreshData
   ]);
   

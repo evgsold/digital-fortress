@@ -5,6 +5,8 @@
     "profile": "Profile",
     "language": "Language",
     "search": "Search",
+        "login": "Вход",
+    "register": "Регистрация",
     "username": "User",
     "notifications": "Notifications",
     "errorTitle": "System Error",

@@ -1,5 +1,5 @@
 'use client';
-import { motion } from 'framer-motion';
+import { easeInOut, motion } from 'framer-motion';
 import { Shield } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -23,24 +23,19 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // new: validation state
   const [validationErrors, setValidationErrors] = useState<{ name?: string; email?: string; password?: string }>({});
 
-  // validation rules
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const MIN_PASSWORD_LENGTH = 6;
 
-  // map server error messages/codes to localized strings
   const mapServerError = (err: unknown) => {
     const msg = err instanceof Error ? err.message : String(err);
-    // simple mapping by known substrings or keys
     if (/invalid credentials|invalid email or password/i.test(msg)) return tAuth('errors.invalidCredentials');
     if (/email already|already in use/i.test(msg)) return tAuth('errors.emailAlreadyInUse');
     if (/weak password/i.test(msg)) return tAuth('errors.weakPassword');
     if (/passwords do not match/i.test(msg)) return tAuth('errors.passwordsDoNotMatch');
     if (/invalid email/i.test(msg)) return tAuth('errors.invalidEmail');
     if (/required/i.test(msg)) return tAuth('errors.requiredField');
-    // fallback to raw message (localized wrapper)
     return msg;
   };
 
@@ -58,7 +53,6 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    // client-side validation
     if (!validate()) return;
 
     setLoading(true);
@@ -76,7 +70,6 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
     }
   };
 
-  // clear specific validation error on change
   const handleNameChange = (v: string) => { setName(v); if (validationErrors.name) setValidationErrors(prev => ({ ...prev, name: undefined })); };
   const handleEmailChange = (v: string) => { setEmail(v); if (validationErrors.email) setValidationErrors(prev => ({ ...prev, email: undefined })); };
   const handlePasswordChange = (v: string) => { setPassword(v); if (validationErrors.password) setValidationErrors(prev => ({ ...prev, password: undefined })); };
@@ -89,7 +82,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
       if (result !== null) {
         router.push('/profile');
       } else {
-        setError(tAuth('continueWithGoogle')); // localized hint about redirect
+        setError(tAuth('continueWithGoogle'));
         setTimeout(() => {
           if (loading) {
             setLoading(false);
@@ -110,35 +103,34 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
       transition: {
         duration: 8,
         repeat: Number.POSITIVE_INFINITY,
-        ease: 'easeInOut',
+        ease: easeInOut,
       },
     },
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden px-4">
-      {/* Minimal geometric decorative elements */}
+    <div className="relative min-h-screen flex items-center justify-center bg-[#01032C] text-[#91B1C0] overflow-hidden px-4">
       <motion.div
-        className="absolute top-20 left-10 w-2 h-32 bg-white/10"
+        className="absolute top-20 left-10 w-2 h-32 bg-[#91B1C0]/10 rounded-full"
         variants={floatingVariants}
         animate="animate"
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-32 h-2 bg-white/10"
+        className="absolute bottom-20 right-10 w-32 h-2 bg-[#91B1C0]/10 rounded-full"
         variants={floatingVariants}
         animate="animate"
         transition={{ delay: 2 }}
       />
 
       <motion.div
-        className="relative w-full max-w-md space-y-6 sm:space-y-8 p-8 sm:p-12 bg-white border border-gray-300"
+        className="relative w-full max-w-md space-y-6 sm:space-y-8 p-8 sm:p-12 bg-[#01032C] border-2 border-[#91B1C0]/20 rounded-xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <div className="text-center">
           <motion.div
-            className="inline-flex items-center gap-3 px-4 py-2 bg-black text-white mb-6"
+            className="inline-flex items-center gap-3 px-4 py-2 bg-[#A1CCB0] text-[#01032C] mb-6 rounded-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -146,7 +138,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
             <Shield className="w-4 h-4" />
             <span className="text-sm font-mono font-semibold tracking-wider">DIGITAL FORTRESS</span>
           </motion.div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-black font-mono">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#A1CCB0] font-mono">
             {mode === 'login' ? tAuth('login.title') : tAuth('register.title')}
           </h2>
         </div>
@@ -162,12 +154,12 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                   name="name"
                   type="text"
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-300 placeholder-gray-500 text-black bg-white focus:outline-none focus:border-black transition-colors text-base font-mono"
+                  className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
                   placeholder={tCommon('name')}
                   value={name}
                   onChange={(e) => handleNameChange(e.target.value)}
                 />
-                {validationErrors.name && <div className="text-black text-sm mt-2 font-mono">{validationErrors.name}</div>}
+                {validationErrors.name && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.name}</div>}
               </div>
             )}
             <div>
@@ -179,12 +171,12 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                 name="email"
                 type="email"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 placeholder-gray-500 text-black bg-white focus:outline-none focus:border-black transition-colors text-base font-mono"
+                className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
                 placeholder={tCommon('email')}
                 value={email}
                 onChange={(e) => handleEmailChange(e.target.value)}
               />
-              {validationErrors.email && <div className="text-black text-sm mt-2 font-mono">{validationErrors.email}</div>}
+              {validationErrors.email && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.email}</div>}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -195,28 +187,28 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                 name="password"
                 type="password"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 placeholder-gray-500 text-black bg-white focus:outline-none focus:border-black transition-colors text-base font-mono"
+                className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
                 placeholder={tCommon('password')}
                 value={password}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              {validationErrors.password && <div className="text-black text-sm mt-2 font-mono">{validationErrors.password}</div>}
+              {validationErrors.password && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.password}</div>}
             </div>
           </div>
 
-          {error && <div className="text-black text-sm text-center font-medium p-3 bg-gray-100 border border-gray-300 font-mono">{error}</div>}
+          {error && <div className="text-red-400 text-sm text-center font-medium p-3 bg-red-500/10 border border-red-500/30 font-mono rounded-lg">{error}</div>}
 
           <div className="space-y-4">
             <motion.button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border-2 border-black text-sm font-semibold text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-mono"
+              className="group relative w-full flex justify-center py-3 px-4 border-2 border-transparent text-sm font-bold text-[#01032C] bg-[#A1CCB0] hover:bg-[#A1CCB0]/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A1CCB0] disabled:bg-[#91B1C0]/20 disabled:text-[#91B1C0]/50 disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {loading ? (
                 <svg
-                  className="animate-spin h-5 w-5 text-white"
+                  className="animate-spin h-5 w-5 text-[#01032C]"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -242,10 +234,10 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200"></div>
+                <div className="w-full border-t border-[#91B1C0]/20"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">{tAuth('or')}</span>
+                <span className="px-2 bg-[#01032C] text-[#91B1C0]">{tAuth('or')}</span>
               </div>
             </div>
 
@@ -253,7 +245,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
               type="button"
               onClick={handleGoogleLogin}
               disabled={loading}
-              className="w-full flex items-center justify-center px-4 py-3 border-2 border-gray-300 text-sm font-semibold text-black bg-white hover:bg-gray-100 focus:outline-none focus:border-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-mono"
+              className="w-full flex items-center justify-center px-4 py-3 border-2 border-[#91B1C0] text-sm font-semibold text-[#91B1C0] bg-transparent hover:bg-[#91B1C0]/10 focus:outline-none focus:border-[#A1CCB0] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -267,18 +259,18 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
               <span className="sm:hidden">Google</span>
             </motion.button>
 
-            <div className="text-center text-sm text-black font-mono">
+            <div className="text-center text-sm text-[#91B1C0] font-mono">
               {mode === 'login' ? (
                 <>
                   {tAuth('noAccount')}{' '}
-                  <Link href="/register" className="font-semibold text-black hover:underline">
+                  <Link href="/register" className="font-semibold text-[#A1CCB0] hover:underline">
                     {tAuth('switchToRegister')}
                   </Link>
                 </>
               ) : (
                 <>
                   {tAuth('haveAccount')}{' '}
-                  <Link href="/login" className="font-semibold text-black hover:underline">
+                  <Link href="/login" className="font-semibold text-[#A1CCB0] hover:underline">
                     {tAuth('switchToLogin')}
                   </Link>
                 </>

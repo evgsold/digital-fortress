@@ -12,7 +12,6 @@ export interface User {
   };
 }
 
-// Forum Types
 export interface ForumCategory {
   id: string;
   name: string;
@@ -95,7 +94,6 @@ export interface ForumReport {
   moderatorNotes?: string;
 }
 
-// Extended types with populated data
 export interface ForumPostWithAuthor extends ForumPost {
   author: User;
   category: ForumCategory;
@@ -162,44 +160,27 @@ export type BlockColor =
   | 'green' 
   | 'yellow';
 
-// --- Определения для каждого типа контентного блока ---
-
-/**
- * Блок для обычного текстового абзаца.
- */
 export interface ParagraphBlock {
   type: 'paragraph';
   content: string;
 }
 
-/**
- * Блок для заголовков разных уровней (H2, H3, H4).
- */
 export interface HeadingBlock {
   type: 'heading';
   level: 2 | 3 | 4;
   content: string;
 }
 
-/**
- * Блок для маркированного списка.
- */
 export interface ListBlock {
   type: 'list';
   items: string[];
 }
 
-/**
- * Блок для пошаговых инструкций.
- */
 export interface StepsBlock {
   type: 'steps';
   steps: string[];
 }
 
-/**
- * Блок для выделения советов или важных заметок.
- */
 export interface TipBlock {
   type: 'tip';
   title: string;
@@ -207,9 +188,6 @@ export interface TipBlock {
   color: BlockColor;
 }
 
-/**
- * Информационный блок с заголовком и списком пунктов.
- */
 export interface InfoBoxBlock {
   type: 'infoBox';
   title: string;
@@ -217,13 +195,12 @@ export interface InfoBoxBlock {
   color: BlockColor;
 }
 
-/**
- * Блок для обзора продукта с рейтингом.
- */
 export interface ProductRatingBlock {
   type: 'productRating';
   name: string;
-  rating: string; // Например, "9/10"
+  rating: string;
   description: string;
   color: BlockColor;
 }
+
+export type BlogPostBlock = ParagraphBlock | HeadingBlock | ListBlock | StepsBlock | TipBlock | InfoBoxBlock | ProductRatingBlock;

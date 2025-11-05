@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Search, Filter, MessageSquare, ChevronUp, ChevronDown, Calendar, User, Tag } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useForum } from '@/contexts/ForumContext';
 import { useUser } from '@/contexts/UserContext';
@@ -22,11 +22,56 @@ const scamTypes = [
 ];
 
 const severityLevels = [
-  { value: 'low', color: 'bg-green-100 text-green-800', icon: '🟢' },
-  { value: 'medium', color: 'bg-yellow-100 text-yellow-800', icon: '🟡' },
-  { value: 'high', color: 'bg-orange-100 text-orange-800', icon: '🟠' },
-  { value: 'critical', color: 'bg-red-100 text-red-800', icon: '🔴' }
+  { value: 'low', icon: '🟢' },
+  { value: 'medium', icon: '🟡' },
+  { value: 'high', icon: '🟠' },
+  { value: 'critical', icon: '🔴' }
 ];
+
+// Компонент с содержимым фильтров, чтобы избежать дублирования кода
+const FilterSections = ({
+  selectedCategory,
+  selectedScamType,
+  selectedSeverity,
+  categories,
+  handleCategoryChange,
+  handleScamTypeChange,
+  handleSeverityChange,
+  clearFilters,
+  t
+}: any) => (
+  <div className="space-y-6 pt-4 lg:pt-0">
+    {/* Categories */}
+    <div>
+      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.categories')}</h3>
+      <div className="space-y-2">
+        <button onClick={() => handleCategoryChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedCategory ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allCategories')}</button>
+        {categories.map((category: any) => (<button key={category.id} onClick={() => handleCategoryChange(category.id)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${selectedCategory === category.id ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{category.name}</button>))}
+      </div>
+    </div>
+
+    {/* Scam Types */}
+    <div>
+      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.scamTypes')}</h3>
+      <div className="space-y-2">
+        <button onClick={() => handleScamTypeChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedScamType ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allTypes')}</button>
+        {scamTypes.map((type) => (<button key={type.value} onClick={() => handleScamTypeChange(type.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedScamType === type.value ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}><span>{type.icon}</span><span>{t(`scamTypes.${type.value}`)}</span></button>))}
+      </div>
+    </div>
+
+    {/* Severity */}
+    <div>
+      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.severity')}</h3>
+      <div className="space-y-2">
+        <button onClick={() => handleSeverityChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedSeverity ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allLevels')}</button>
+        {severityLevels.map((level) => (<button key={level.value} onClick={() => handleSeverityChange(level.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedSeverity === level.value ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}><span>{level.icon}</span><span>{t(`severity.${level.value}`)}</span></button>))}
+      </div>
+    </div>
+    
+    <button onClick={clearFilters} className="w-full px-4 py-2 bg-[#91B1C0]/20 text-[#A1CCB0] hover:bg-[#91B1C0]/30 font-mono border-2 border-transparent rounded-lg transition-colors">{t('filters.clear')}</button>
+  </div>
+);
+
 
 export default function ForumPage() {
   const t = useTranslations('forum');
@@ -100,10 +145,22 @@ export default function ForumPage() {
     return scamTypes.find(s => s.value === scamType) || scamTypes[scamTypes.length - 1];
   };
 
+  const filterProps = {
+    selectedCategory,
+    selectedScamType,
+    selectedSeverity,
+    categories,
+    handleCategoryChange: (value: string | null) => { setSelectedCategory(value); handleFilterChange(); },
+    handleScamTypeChange: (value: string | null) => { setSelectedScamType(value); handleFilterChange(); },
+    handleSeverityChange: (value: string | null) => { setSelectedSeverity(value); handleFilterChange(); },
+    clearFilters,
+    t
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#01032C] text-[#91B1C0]">
       {/* Header */}
-      <div className="bg-black border-b-2 border-white">
+      <div className="bg-[#01032C] border-b-2 border-[#91B1C0]/20">
         <div className="container mx-auto px-4 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -112,14 +169,12 @@ export default function ForumPage() {
             className="text-center"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="p-3 bg-white">
-                <MessageSquare className="w-8 h-8 text-black" />
+              <div className="p-3 bg-[#A1CCB0] rounded-lg">
+                <MessageSquare className="w-8 h-8 text-[#01032C]" />
               </div>
-              {/* Уменьшен размер текста на мобильных устройствах для лучшей читаемости */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono">{t('title')}</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-[#A1CCB0]">{t('title')}</h1>
             </div>
-            {/* Уменьшен размер текста подзаголовка на мобильных устройствах */}
-            <p className="text-lg sm:text-xl text-gray-300 font-mono">{t('subtitle')}</p>
+            <p className="text-lg sm:text-xl text-[#91B1C0] font-mono">{t('subtitle')}</p>
           </motion.div>
         </div>
       </div>
@@ -128,122 +183,38 @@ export default function ForumPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
-            {/* Изменено позиционирование для мобильных: теперь не "sticky" */}
-            <div className="bg-white text-black border-2 border-black p-4 md:p-6 lg:sticky lg:top-24">
+            <div className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-6 lg:sticky lg:top-24 rounded-xl">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold font-mono">{t('filters.title')}</h2>
+                <h2 className="text-lg font-bold font-mono text-[#A1CCB0]">{t('filters.title')}</h2>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="lg:hidden p-2 hover:bg-gray-100"
+                  className="lg:hidden p-2 hover:bg-[#91B1C0]/10 rounded-lg"
                 >
-                  {/* Добавлены иконки для лучшего UX */}
                   {showFilters ? <ChevronUp className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
                 </button>
               </div>
 
-              <div className={`space-y-6 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-                {/* Categories, Scam Types, Severity... (без изменений) */}
-                <div>
-                  <h3 className="font-bold mb-3 font-mono">{t('filters.categories')}</h3>
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => {
-                        setSelectedCategory(null);
-                        handleFilterChange();
-                      }}
-                      className={`w-full text-left px-3 py-2 text-sm font-mono border-2 ${
-                        !selectedCategory ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                      }`}
+              {/* Animated container for mobile */}
+              <div className="lg:hidden">
+                <AnimatePresence>
+                  {showFilters && (
+                    <motion.div
+                      key="filters-mobile"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      {t('filters.allCategories')}
-                    </button>
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => {
-                          setSelectedCategory(category.id);
-                          handleFilterChange();
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm font-mono border-2 ${
-                          selectedCategory === category.id ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                        }`}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                      <FilterSections {...filterProps} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
-                <div>
-                  <h3 className="font-bold mb-3 font-mono">{t('filters.scamTypes')}</h3>
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => {
-                        setSelectedScamType(null);
-                        handleFilterChange();
-                      }}
-                      className={`w-full text-left px-3 py-2 text-sm font-mono border-2 ${
-                        !selectedScamType ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                      }`}
-                    >
-                      {t('filters.allTypes')}
-                    </button>
-                    {scamTypes.map((type) => (
-                      <button
-                        key={type.value}
-                        onClick={() => {
-                          setSelectedScamType(type.value);
-                          handleFilterChange();
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 ${
-                          selectedScamType === type.value ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                        }`}
-                      >
-                        <span>{type.icon}</span>
-                        <span>{t(`scamTypes.${type.value}`)}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-bold mb-3 font-mono">{t('filters.severity')}</h3>
-                  <div className="space-y-2">
-                    <button
-                      onClick={() => {
-                        setSelectedSeverity(null);
-                        handleFilterChange();
-                      }}
-                      className={`w-full text-left px-3 py-2 text-sm font-mono border-2 ${
-                        !selectedSeverity ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                      }`}
-                    >
-                      {t('filters.allLevels')}
-                    </button>
-                    {severityLevels.map((level) => (
-                      <button
-                        key={level.value}
-                        onClick={() => {
-                          setSelectedSeverity(level.value);
-                          handleFilterChange();
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 ${
-                          selectedSeverity === level.value ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300 hover:bg-gray-100'
-                        }`}
-                      >
-                        <span>{level.icon}</span>
-                        <span>{t(`severity.${level.value}`)}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                
-                <button
-                  onClick={clearFilters}
-                  className="w-full px-4 py-2 bg-gray-100 text-black hover:bg-gray-200 font-mono border-2 border-black"
-                >
-                  {t('filters.clear')}
-                </button>
+              {/* Static container for desktop */}
+              <div className="hidden lg:block">
+                <FilterSections {...filterProps} />
               </div>
             </div>
           </div>
@@ -251,8 +222,7 @@ export default function ForumPage() {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Search Bar */}
-            <div className="bg-white border-2 border-black p-4 mb-6">
-              {/* flex-col на мобильных, чтобы элементы располагались друг под другом */}
+            <div className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-4 mb-6 rounded-xl">
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
@@ -260,14 +230,13 @@ export default function ForumPage() {
                   value={localSearchTerm}
                   onChange={(e) => setLocalSearchTerm(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="flex-1 px-4 py-3 border-2 border-gray-300 focus:border-black focus:outline-none font-mono"
+                  className="flex-1 px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] focus:outline-none font-mono rounded-lg placeholder-[#91B1C0]/50"
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black flex items-center justify-center gap-2"
+                  className="px-6 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] flex items-center justify-center gap-2 rounded-lg transition-colors"
                 >
                   <Search className="w-5 h-5" />
-                  {/* Скрываем текст на очень маленьких экранах, оставляя только иконку */}
                   <span className="sm:inline">{t('search.button')}</span>
                 </button>
               </div>
@@ -276,10 +245,9 @@ export default function ForumPage() {
             {/* Create Post Button */}
             {currentUser && (
               <div className="mb-6">
-                {/* Кнопка занимает всю ширину на мобильных устройствах для удобства нажатия */}
                 <Link
                   href="/forum/create"
-                  className="flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-black text-white hover:bg-gray-800 font-mono border-2 border-black"
+                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] rounded-lg transition-colors"
                 >
                   <MessageSquare className="w-5 h-5" />
                   {t('createPost')}
@@ -291,12 +259,12 @@ export default function ForumPage() {
             <div className="space-y-4">
               {loadingPosts ? (
                 <div className="text-center py-8">
-                  <div className="text-xl font-mono">{t('loadingPosts')}</div>
+                  <div className="text-xl font-mono text-[#91B1C0]">{t('loadingPosts')}</div>
                 </div>
               ) : posts.length === 0 ? (
-                <div className="bg-white text-black border-2 border-black p-8 text-center">
-                  <h3 className="text-xl font-bold mb-2 font-mono">{t('noPostsTitle')}</h3>
-                  <p className="text-gray-600 font-mono">{t('noPostsHint')}</p>
+                <div className="bg-[#01032C] border-2 border-dashed border-[#91B1C0]/30 p-8 text-center rounded-xl">
+                  <h3 className="text-xl font-bold mb-2 font-mono text-[#A1CCB0]">{t('noPostsTitle')}</h3>
+                  <p className="text-[#91B1C0] font-mono">{t('noPostsHint')}</p>
                 </div>
               ) : (
                 posts.map((post) => {
@@ -308,39 +276,36 @@ export default function ForumPage() {
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      /* Уменьшены отступы на мобильных устройствах */
-                      className="bg-white text-black border-2 border-black p-4 md:p-6 hover:shadow-lg transition-shadow"
+                      className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-6 hover:border-[#A1CCB0] transition-colors duration-300 rounded-xl"
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          {/* Теги теперь переносятся на новую строку для лучшей компоновки */}
                           <div className="flex flex-wrap items-center gap-2 mb-2">
                             {post.isPinned && (
-                              <span className="px-2 py-1 bg-black text-white text-xs font-mono">PINNED</span>
+                              <span className="px-2 py-1 bg-[#91B1C0] text-[#01032C] text-xs font-mono font-bold rounded-md">PINNED</span>
                             )}
-                            <span className={`px-2 py-1 text-xs font-mono ${severityInfo.color}`}>
+                            <span className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono rounded-md">
                               {severityInfo.icon} {t(`severity.${post.severity}`).toUpperCase()}
                             </span>
-                            <span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-mono">
+                            <span className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono rounded-md">
                               {scamTypeInfo.icon} {t(`scamTypes.${post.scamType}`).toUpperCase()}
                             </span>
                           </div>
                           
                           <Link href={`/forum/${post.id}`}>
-                            {/* Уменьшен размер заголовка на мобильных */}
-                            <h3 className="text-lg md:text-xl font-bold my-2 hover:underline font-mono cursor-pointer">
+                            <h3 className="text-lg md:text-xl font-bold my-2 text-[#A1CCB0] hover:text-opacity-80 font-mono cursor-pointer transition-colors">
                               {post.title}
                             </h3>
                           </Link>
                           
-                          <p className="text-gray-600 mb-4 font-mono line-clamp-3">
+                          <p className="text-[#91B1C0] mb-4 font-mono line-clamp-3">
                             {post.content.substring(0, 200)}...
                           </p>
                           
                           {post.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-4">
                               {post.tags.map((tag, index) => (
-                                <span key={index} className="px-2 py-1 bg-gray-200 text-gray-700 text-xs font-mono flex items-center gap-1">
+                                <span key={index} className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono flex items-center gap-1 rounded-md">
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                 </span>
@@ -350,8 +315,7 @@ export default function ForumPage() {
                         </div>
                       </div>
                       
-                      {/* Метаданные поста: вертикальное расположение на мобильных, горизонтальное на десктопе */}
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between text-sm text-gray-600 font-mono gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between text-sm text-[#91B1C0] font-mono gap-4">
                         <div className="flex items-center gap-4 flex-wrap">
                           <div className="flex items-center gap-1">
                             <User className="w-4 h-4" />
@@ -370,11 +334,11 @@ export default function ForumPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <div className="flex items-center gap-1">
-                              <ChevronUp className="w-4 h-4 text-green-600" />
+                              <ChevronUp className="w-4 h-4 text-[#A1CCB0]" />
                               <span>{post.upvotes}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                              <ChevronDown className="w-4 h-4 text-red-600" />
+                              <ChevronDown className="w-4 h-4 text-[#91B1C0]" />
                               <span>{post.downvotes}</span>
                             </div>
                           </div>

@@ -23,6 +23,7 @@ const navigation = [
   { name: 'Комментарии', href: '/admin/comments', icon: MessageCircle },
   { name: 'Жалобы', href: '/admin/reports', icon: AlertTriangle },
   { name: 'Блог', href: '/admin/content', icon: Book },
+  { name: 'Тесты', href: '/admin/tests', icon: Book },
 ];
 
 export default function AdminSidebar() {
