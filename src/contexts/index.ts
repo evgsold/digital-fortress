@@ -4,3 +4,5 @@ export { UserProvider, useUser } from './UserContext';
 export { ForumProvider, useForum } from './ForumContext';
 export { AdminProvider, useAdmin } from './AdminContext';
 export { BlogAdminProvider, useBlogAdmin } from './BlogAdminContext';
+export { GameProvider, useGame } from './GameContext';
+export { GameAdminProvider, useGameAdmin } from './GameAdminContext';

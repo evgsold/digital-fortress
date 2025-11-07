@@ -153,3 +153,62 @@ export const blogPostSchema = z.object({
     keywords: z.array(z.string()).optional(),
   }).optional(),
 });
+
+export const gameScenarioSchema = z.object({
+  // Описание ситуации, которое видит пользователь
+  description: z.string().min(10, "Описание должно содержать не менее 10 символов"),
+  
+  // Является ли ситуация мошенничеством
+  isScam: z.boolean(),
+  
+  // Объяснение, если пользователь выбрал "Да, это мошенники"
+  explanationForScam: z.string().min(10, "Объяснение должно содержать не менее 10 символов"),
+  
+  // Объяснение, если пользователь выбрал "Нет, это не мошенники"
+  explanationForNotScam: z.string().min(10, "Объяснение должно содержать не менее 10 символов"),
+});
+
+// Схема для игровой сессии
+export const gameSessionSchema = z.object({
+  // ID пользователя, который играет
+  userId: z.string(),
+  
+  // Массив ID сценариев для этой сессии
+  scenarioIds: z.array(z.string()).nonempty("В сессии должен быть хотя бы один сценарий"),
+  
+  // Индекс текущего сценария в массиве
+  currentScenarioIndex: z.number().int().nonnegative().default(0),
+  
+  // Текущий счет игрока
+  score: z.number().int().nonnegative().default(0),
+  
+  // Статус сессии
+  status: z.enum(['in-progress', 'completed']).default('in-progress'),
+  
+  // Дата создания
+  createdAt: z.string(),
+  
+  // Дата последнего обновления
+  updatedAt: z.string(),
+});
+
+// Схема для ответа пользователя
+export const userAnswerSchema = z.object({
+  // ID сессии, к которой относится ответ
+  sessionId: z.string(),
+  
+  // ID сценария, на который дан ответ
+  scenarioId: z.string(),
+  
+  // ID пользователя
+  userId: z.string(),
+  
+  // Ответ пользователя (true - думает, что это мошенничество)
+  userGuess: z.boolean(),
+  
+  // Был ли ответ правильным
+  isCorrect: z.boolean(),
+  
+  // Дата ответа
+  answeredAt: z.string(),
+});

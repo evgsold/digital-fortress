@@ -26,6 +26,8 @@ import {
   blogAuthorSchema,
   blogCategorySchema,
   blogPostSchema,
+  gameScenarioSchema,
+  gameSessionSchema,
 } from './schemas';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject, listAll, ref } from 'firebase/storage';
 
@@ -41,6 +43,9 @@ import type {
   BlogCategory,
   BlogAuthor,
   BlogPost,
+  GameSession,
+  UserAnswer,
+  GameScenario,
 } from '@/types/database';
 
 // Базовые операции CRUD для Firestore
@@ -534,4 +539,93 @@ export const deleteBlogImage = async (storagePath: string) => {
   const storage = getStorage();
   const sref = storageRef(storage, storagePath);
   await deleteObject(sref);
+};
+
+
+export const gameScenarioOperations = {
+  // Создание нового сценария
+  create: async (data: Omit<GameScenario, 'id'>): Promise<GameScenario> => {
+    const scenariosCollection = collection(db, 'gameScenarios');
+    // Валидация данных перед отправкой (рекомендуется создать gameScenarioSchema)
+    // const validatedData = gameScenarioSchema.parse(data); 
+    const docRef = await addDoc(scenariosCollection, data);
+    return { id: docRef.id, ...data };
+  },
+
+  // Получение одного сценария по ID
+  read: (scenarioId: string): Promise<GameScenario | null> => {
+    return readOperation<GameScenario>('gameScenarios', scenarioId);
+  },
+
+  // Получение списка всех сценариев
+  list: async (): Promise<GameScenario[]> => {
+    const scenariosCollection = collection(db, 'gameScenarios');
+    const snapshot = await getDocs(scenariosCollection);
+    const scenarios: GameScenario[] = [];
+    snapshot.forEach((doc) => {
+      scenarios.push({ ...doc.data() as Omit<GameScenario, 'id'>, id: doc.id });
+    });
+    return scenarios;
+  },
+  
+  // (Опционально) Обновление и удаление сценариев
+  update: (scenarioId: string, data: Partial<GameScenario>) =>
+    updateOperation('gameScenarios', scenarioId, data, gameScenarioSchema),
+
+  delete: (scenarioId: string) => deleteOperation('gameScenarios', scenarioId),
+};
+
+
+// --- Операции для игровых сессий ---
+
+export const gameSessionOperations = {
+  // Создание новой игровой сессии для пользователя
+  create: async (data: Omit<GameSession, 'id'>): Promise<GameSession> => {
+    const sessionsCollection = collection(db, 'gameSessions');
+    // const validatedData = gameSessionSchema.parse(data);
+    const docRef = await addDoc(sessionsCollection, data);
+    return { id: docRef.id, ...data };
+  },
+
+  // Получение данных сессии по ID
+  read: (sessionId: string): Promise<GameSession | null> => {
+    return readOperation<GameSession>('gameSessions', sessionId);
+  },
+
+  // Обновление сессии (например, переход к следующему вопросу, изменение счета)
+  update: (sessionId: string, data: Partial<GameSession>) => {
+    // Добавляем/обновляем дату последнего изменения
+    const updateData = { ...data, updatedAt: new Date().toISOString() };
+    return updateOperation('gameSessions', sessionId, updateData, gameSessionSchema);
+  },
+
+  // Получение последней активной сессии пользователя
+  getActiveSession: async (userId: string): Promise<GameSession | null> => {
+    const sessionsCollection = collection(db, 'gameSessions');
+    const q = query(
+      sessionsCollection,
+      where('userId', '==', userId),
+      where('status', '==', 'in-progress'),
+      orderBy('createdAt', 'desc'),
+      limit(1)
+    );
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) return null;
+    
+    const doc = snapshot.docs[0];
+    return { ...doc.data() as Omit<GameSession, 'id'>, id: doc.id };
+  }
+};
+
+
+// --- Операции для ответов пользователей ---
+
+export const userAnswerOperations = {
+  // Сохранение ответа пользователя
+  create: async (data: Omit<UserAnswer, 'id'>): Promise<UserAnswer> => {
+    const answersCollection = collection(db, 'userAnswers');
+    // const validatedData = userAnswerSchema.parse(data);
+    const docRef = await addDoc(answersCollection, data);
+    return { id: docRef.id, ...data };
+  }
 };

@@ -232,5 +232,30 @@
       "register": "Create Account"
     },
     "loading": "Loading profile..."
+  },
+  "games": {
+    "title": "Explore Games",
+    "subtitle": "Test your knowledge and learn to spot scams!",
+    "loadingGames": "Loading games...",
+    "mainGameTitle": "Scam Quiz",
+    "mainGameDescription": "A quiz with {count} real-life scenarios. Can you tell what's a scam?",
+    "playButton": "Play Now",
+    "continueButton": "Continue Game",
+    "gameInProgress": "You have a game in progress!",
+    "loginPrompt": "Please log in to start the game.",
+    "startGameError": "Failed to start the game. Please try again."
+  },
+  "gamePlay": {
+    "questionProgress": "Question {current} of {total}",
+    "scamButton": "It's a Scam",
+    "notScamButton": "It's Not a Scam",
+    "correct": "Correct!",
+    "incorrect": "Incorrect!",
+    "loadingNext": "Loading next question...",
+    "loadingGame": "Loading your game...",
+    "gameOverTitle": "Game Over!",
+    "finalScore": "Your final score is {score} out of {total}.",
+    "playAgainButton": "Play Again",
+    "backToGames": "Back to Games Overview"
   }
 }

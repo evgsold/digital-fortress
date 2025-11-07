@@ -12,7 +12,8 @@ import {
   Home,
   ChevronLeft,
   ChevronRight,
-  Book
+  Book,
+  Gamepad
 } from 'lucide-react';
 
 const navigation = [
@@ -24,6 +25,7 @@ const navigation = [
   { name: 'Жалобы', href: '/admin/reports', icon: AlertTriangle },
   { name: 'Блог', href: '/admin/content', icon: Book },
   { name: 'Тесты', href: '/admin/tests', icon: Book },
+  { name: 'Игры', href: '/admin/games', icon: Gamepad },
 ];
 
 export default function AdminSidebar() {

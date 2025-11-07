@@ -7,7 +7,9 @@ import {
    UserProvider,
    ForumProvider,
    AdminProvider,
-   BlogAdminProvider
+   BlogAdminProvider,
+   GameProvider,
+   GameAdminProvider
    } from '@/contexts';
 
 export function Providers({ children }: { children: ReactNode }) {
@@ -17,7 +19,11 @@ export function Providers({ children }: { children: ReactNode }) {
         <ForumProvider>
           <AdminProvider>
             <BlogAdminProvider>
-              {children}
+              <GameProvider>
+                <GameAdminProvider>
+                  {children}
+                </GameAdminProvider>
+              </GameProvider>
             </BlogAdminProvider>
           </AdminProvider>
         </ForumProvider>

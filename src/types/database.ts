@@ -204,3 +204,45 @@ export interface ProductRatingBlock {
 }
 
 export type BlogPostBlock = ParagraphBlock | HeadingBlock | ListBlock | StepsBlock | TipBlock | InfoBoxBlock | ProductRatingBlock;
+
+// Описывает один игровой сценарий или ситуацию
+export interface GameScenario {
+  id: string;
+  // Текст ситуации, который показывается игроку
+  description: string;
+  // Правильный ответ: true, если это мошенничество, false - если нет
+  isScam: boolean;
+  // Объяснение, которое показывается, если пользователь ответил "Да, это мошенники"
+  explanationForScam: string;
+  // Объяснение, которое показывается, если пользователь ответил "Нет, это не мошенники"
+  explanationForNotScam: string;
+}
+
+// Описывает игровую сессию конкретного пользователя
+export interface GameSession {
+  id: string;
+  userId: string;
+  // Массив ID сценариев, которые будут в этой игре
+  scenarioIds: string[];
+  // Индекс текущего вопроса в массиве scenarioIds
+  currentScenarioIndex: number;
+  // Количество правильных ответов
+  score: number;
+  // Статус игры: 'in-progress' (в процессе) или 'completed' (завершена)
+  status: 'in-progress' | 'completed';
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Ответ пользователя на конкретный сценарий в рамках сессии
+export interface UserAnswer {
+  id: string;
+  sessionId: string;
+  scenarioId: string;
+  userId: string;
+  // Ответ пользователя (true - считает, что это мошенничество)
+  userGuess: boolean;
+  // Был ли ответ правильным
+  isCorrect: boolean;
+  answeredAt: string;
+}

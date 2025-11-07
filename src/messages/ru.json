@@ -305,5 +305,30 @@
     "startSafetyCheck": "Начать проверку безопасности",
 
     "footerText": "Deepsek Chat является частью Digital Fortress, посвященной созданию более безопасного цифрового будущего для всех."
+  },
+  "games": {
+    "title": "Игры",
+    "subtitle": "Проверьте свои знания и научитесь распознавать мошенников!",
+    "loadingGames": "Загрузка игр...",
+    "mainGameTitle": "Викторина о мошенничестве",
+    "mainGameDescription": "Викторина из {count} реальных сценариев. Сможете ли вы определить, где обман?",
+    "playButton": "Начать игру",
+    "continueButton": "Продолжить игру",
+    "gameInProgress": "У вас есть незаконченная игра!",
+    "loginPrompt": "Пожалуйста, войдите в систему, чтобы начать игру.",
+    "startGameError": "Не удалось начать игру. Пожалуйста, попробуйте снова."
+  },
+  "gamePlay": {
+    "questionProgress": "Вопрос {current} из {total}",
+    "scamButton": "Это мошенники",
+    "notScamButton": "Это не мошенники",
+    "correct": "Правильно!",
+    "incorrect": "Неправильно!",
+    "loadingNext": "Загрузка следующего вопроса...",
+    "loadingGame": "Загрузка вашей игры...",
+    "gameOverTitle": "Игра окончена!",
+    "finalScore": "Ваш итоговый счет: {score} из {total}.",
+    "playAgainButton": "Сыграть еще раз",
+    "backToGames": "Вернуться к списку игр"
   }
 }
