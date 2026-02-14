@@ -49,6 +49,7 @@ export default function SiteHeader({ locale }: Props) {
     { href: `/${locale}/forum`, label: t('header.nav.forum') },
     { href: `/${locale}/blog`, label: t('header.nav.blog') },
     { href: `/${locale}/chat`, label: t('header.nav.chat') },
+    {href: `/${locale}/games`, label: "игры"}
   ];
 
   const isActive = (href: string) => {
