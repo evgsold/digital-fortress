@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Loader2, CheckCircle, XCircle, Award, BrainCircuit } from 'lucide-react';
@@ -19,8 +19,22 @@ export default function GamePlayPage() {
     loadingSession,
     loadingCurrentScenario,
     submitAnswer,
-    startGame, // Для кнопки "Сыграть еще раз"
+    startGame, // Для кнопки \"Сыграть еще раз\"
+    clearLastAnswerResult, // Добавлено
   } = useGame();
+
+  const [showResultDelay, setShowResultDelay] = useState(false);
+
+  useEffect(() => {
+    if (lastAnswerResult) {
+      setShowResultDelay(true);
+      const timer = setTimeout(() => {
+        setShowResultDelay(false);
+        clearLastAnswerResult(); // Очищаем результат после задержки
+      }, 5000); // Задержка в 5 секунд
+      return () => clearTimeout(timer);
+    }
+  }, [lastAnswerResult, clearLastAnswerResult]);
 
   // Если пользователь попал сюда без активной сессии, отправляем его обратно
   useEffect(() => {
@@ -70,7 +84,7 @@ export default function GamePlayPage() {
     }
 
     // 2. Показываем результат ответа
-    if (lastAnswerResult) {
+    if (lastAnswerResult && showResultDelay) {
       return (
         <motion.div
           key="answer-result"
@@ -87,7 +101,18 @@ export default function GamePlayPage() {
           <h2 className={`text-4xl font-bold font-mono mb-4 ${lastAnswerResult.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
             {lastAnswerResult.isCorrect ? t('correct') : t('incorrect')}
           </h2>
-          <p className="text-lg text-[#91B1C0] font-mono">{lastAnswerResult.explanation}</p>
+          <p className="text-lg text-[#91B1C0] font-mono mb-6">{lastAnswerResult.explanation}</p>
+          
+          <button
+            onClick={() => {
+              setShowResultDelay(false);
+              clearLastAnswerResult();
+            }}
+            className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] rounded-lg transition-colors mt-4"
+          >
+            {t('nextButton') || "Next"} 
+          </button>
+
           {loadingCurrentScenario && (
             <div className="flex justify-center items-center gap-2 mt-8 text-sm font-mono">
               <Loader2 className="w-4 h-4 animate-spin" />

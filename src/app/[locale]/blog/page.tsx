@@ -124,7 +124,7 @@ export default function BlogPage() {
               <div className="p-3 bg-[#A1CCB0] rounded-lg">
                 <Sparkles className="w-8 h-8 text-[#01032C]" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-[#A1CCB0]">Digital Fortress Blog</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-[#A1CCB0]">Blog</h1>
             </div>
             <p className="text-xl text-[#91B1C0]">Экспертные статьи, инсайды и обзоры из мира кибербезопасности и IT.</p>
           </motion.div>

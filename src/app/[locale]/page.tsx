@@ -114,15 +114,6 @@ return (
       </div>
 
       <div className="container mx-auto max-w-6xl text-center relative z-10">
-        <motion.div
-          className="inline-flex items-center gap-3 px-4 py-2 bg-[#A1CCB0] text-[#01032C] mb-8 rounded-full"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Shield className="w-4 h-4" />
-          <span className="text-sm font-mono font-bold tracking-wider">DIGITAL FORTRESS</span>
-        </motion.div>
 
         <motion.h1
           className="text-xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight text-[#A1CCB0] font-mono px-2"
@@ -367,12 +358,6 @@ return (
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-[#A1CCB0] text-[#01032C] rounded-lg">
-              <Shield className="w-6 h-6" />
-            </div>
-            <span className="text-2xl font-bold text-[#A1CCB0] font-mono">DIGITAL FORTRESS</span>
-          </div>
           <p className="text-base text-[#91B1C0]/80 leading-relaxed max-w-2xl font-medium font-mono">
             {t("footerText")}
           </p>

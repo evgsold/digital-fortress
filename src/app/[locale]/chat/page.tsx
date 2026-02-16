@@ -90,7 +90,7 @@ export default function DeepsekChatPage() {
           <Bot className="w-6 h-6 text-[#01032C]" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-[#A1CCB0]">Deepsek Chat</h1>
+          <h1 className="text-xl font-bold text-[#A1CCB0]">Chat</h1>
           <p className="text-sm text-[#91B1C0]">Ваш AI-гид по онлайн-безопасности</p>
         </div>
       </motion.header>

@@ -321,6 +321,7 @@
   "gamePlay": {
     "questionProgress": "Вопрос {current} из {total}",
     "scamButton": "Это мошенники",
+    "nextButton": "Следующий вопрос",
     "notScamButton": "Это не мошенники",
     "correct": "Правильно!",
     "incorrect": "Неправильно!",

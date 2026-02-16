@@ -31,6 +31,7 @@ interface GameContextType {
     explanation: string;
   } | null;
   gameIsOver: boolean;
+  clearLastAnswerResult: () => void; // Добавлено
 
   // Состояния загрузки
   loadingScenarios: boolean;
@@ -188,6 +189,10 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     setLastAnswerResult(null);
   }, [activeSession]);
 
+  const clearLastAnswerResult = useCallback(() => {
+    setLastAnswerResult(null);
+  }, []);
+
   // Эффект для загрузки текущего сценария при изменении сессии
 useEffect(() => {
   if (!activeSession || activeSession.status === 'completed') {
@@ -212,7 +217,7 @@ useEffect(() => {
       }
       
       // 4. Сбрасываем результат предыдущего ответа при показе нового вопроса
-      setLastAnswerResult(null);
+      // setLastAnswerResult(null); // Убрано, чтобы результат показывался дольше
     } catch (error) {
       console.error("Error loading current scenario:", error);
       setCurrentScenario(null);
@@ -253,6 +258,7 @@ useEffect(() => {
     loadActiveSession,
     submitAnswer,
     endGame,
+    clearLastAnswerResult, // Добавлено
   }), [
     scenarios,
     activeSession,
@@ -265,7 +271,8 @@ useEffect(() => {
     startGame,
     loadActiveSession,
     submitAnswer,
-    endGame
+    endGame,
+    clearLastAnswerResult // Добавлено
   ]);
 
   return (

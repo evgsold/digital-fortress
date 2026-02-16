@@ -113,9 +113,6 @@ export default function SiteHeader({ locale }: Props) {
                 <div className="p-2 bg-[#A1CCB0] group-hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
                   <Shield className="w-6 h-6 text-[#01032C]" />
                 </div>
-                <span className="text-xl font-bold text-[#A1CCB0] font-mono tracking-wider hidden sm:block">
-                  {t('header.brand')}
-                </span>
               </Link>
               <nav className="hidden md:flex items-center gap-1 ml-4">
                 {nav.map((item) => (

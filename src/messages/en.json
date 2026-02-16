@@ -248,6 +248,7 @@
   "gamePlay": {
     "questionProgress": "Question {current} of {total}",
     "scamButton": "It's a Scam",
+    "nextButton": "Next Question",
     "notScamButton": "It's Not a Scam",
     "correct": "Correct!",
     "incorrect": "Incorrect!",

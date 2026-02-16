@@ -135,8 +135,6 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Shield className="w-4 h-4" />
-            <span className="text-sm font-mono font-semibold tracking-wider">DIGITAL FORTRESS</span>
           </motion.div>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#A1CCB0] font-mono">
             {mode === 'login' ? tAuth('login.title') : tAuth('register.title')}
