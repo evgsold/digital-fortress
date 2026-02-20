@@ -216,6 +216,8 @@ export interface GameScenario {
   explanationForScam: string;
   // Объяснение, которое показывается, если пользователь ответил "Нет, это не мошенники"
   explanationForNotScam: string;
+  // Категория вопроса
+  category: string;
 }
 
 // Описывает игровую сессию конкретного пользователя

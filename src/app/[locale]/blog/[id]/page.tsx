@@ -5,7 +5,7 @@ import { Calendar, Clock, Share2, ArrowLeft, Tag, Copy, Check, Loader2 } from "l
 import Link from "next/link"
 import Image from "next/image"
 import { useParams } from "next/navigation"
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useRef } from "react"
 import copy from "copy-to-clipboard"
 import {
   FacebookShareButton, TwitterShareButton, LinkedinShareButton, TelegramShareButton, WhatsappShareButton,
@@ -47,9 +47,12 @@ export default function BlogPostPage() {
 
   const [currentUrl, setCurrentUrl] = useState("")
   const [isCopied, setIsCopied] = useState(false)
+  const initialized = useRef(false)
+
 
   useEffect(() => {
-    if (!posts.length && !loading) {
+    if (!initialized.current && posts.length === 0 && !loading) {
+      initialized.current = true;
       loadAll();
     }
   }, [loadAll, posts.length, loading]);
@@ -83,17 +86,14 @@ export default function BlogPostPage() {
     setTimeout(() => setIsCopied(false), 2000)
   }
 
-  if (loading && !post) {
+  if (loading) {
     return <LoadingState />;
   }
 
-  if (!loading && !post) {
+  if (!post) {
     return <NotFoundState locale={locale} />;
   }
-  
-  if (!category) {
-      return <LoadingState />;
-  }
+
 
   return (
     <div className="min-h-screen bg-[#01032C] text-[#91B1C0] font-mono">
@@ -106,7 +106,7 @@ export default function BlogPostPage() {
               Назад к блогу
             </Link>
             <div className="text-center">
-              <span className="px-3 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-sm font-bold mb-4 inline-block rounded-md">{category.name}</span>
+              <span className="px-3 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-sm font-bold mb-4 inline-block rounded-md">{category?.name}</span>
               <h1 className="text-3xl md:text-5xl font-bold mb-4 text-[#A1CCB0]">{post?.title}</h1>
               <div className="flex items-center justify-center gap-6 text-[#91B1C0] text-sm">
                 <div className="flex items-center gap-2"><Calendar className="w-4 h-4" /><span>{new Date(post?.publishedAt || "20.06.2000").toLocaleDateString("ru-RU")}</span></div>

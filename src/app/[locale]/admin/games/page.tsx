@@ -11,6 +11,17 @@ import {
 import { useGameAdmin } from "@/contexts/index" 
 import type { GameScenario } from '@/types/database'
 
+const SCENARIO_CATEGORIES = [
+  { value: 'phishing', label: 'Фишинг' },
+  { value: 'social_engineering', label: 'Социальная инженерия' },
+  { value: 'fake_websites', label: 'Поддельные сайты' },
+  { value: 'phone_scams', label: 'Телефонное мошенничество' },
+  { value: 'email_scams', label: 'Email мошенничество' },
+  { value: 'investment_fraud', label: 'Инвестиционное мошенничество' },
+  { value: 'identity_theft', label: 'Кража личности' },
+  { value: 'other', label: 'Другое' },
+];
+
 // --- КОМПОНЕНТ РЕДАКТОРА СЦЕНАРИЕВ ---
 const ScenarioEditorModal = ({
   show,
@@ -34,6 +45,7 @@ const ScenarioEditorModal = ({
       isScam: true,
       explanationForScam: '',
       explanationForNotScam: '',
+      category: 'phishing', // Default category
     };
     // Глубокое копирование, чтобы избежать мутаций исходного объекта
     const initialData = initialScenario ? JSON.parse(JSON.stringify(initialScenario)) : {};
@@ -57,6 +69,19 @@ const ScenarioEditorModal = ({
         </div>
         
         <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-4">
+          <div>
+            <label className="label">Категория</label>
+            <select
+              value={scenarioData.category || 'phishing'}
+              onChange={e => handleFieldChange('category', e.target.value)}
+              className="input"
+            >
+              {SCENARIO_CATEGORIES.map(cat => (
+                <option key={cat.value} value={cat.value}>{cat.label}</option>
+              ))}
+            </select>
+          </div>
+
           <div>
             <label className="label">Описание ситуации (вопрос для игрока)</label>
             <textarea
@@ -129,6 +154,7 @@ export default function AdminGamesPage() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isScamFilter, setIsScamFilter] = useState("all"); // "all", "true", "false"
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const [selectedScenario, setSelectedScenario] = useState<GameScenario | null>(null);
   const [showEditorModal, setShowEditorModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -139,9 +165,10 @@ export default function AdminGamesPage() {
 
   const filteredScenarios = useMemo(() => scenarios.filter((scenario : GameScenario) => {
     const matchesSearch = scenario.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = isScamFilter === "all" || String(scenario.isScam) === isScamFilter;
-    return matchesSearch && matchesFilter;
-  }), [scenarios, searchTerm, isScamFilter]);
+    const matchesScamFilter = isScamFilter === "all" || String(scenario.isScam) === isScamFilter;
+    const matchesCategoryFilter = categoryFilter === "all" || scenario.category === categoryFilter;
+    return matchesSearch && matchesScamFilter && matchesCategoryFilter;
+  }), [scenarios, searchTerm, isScamFilter, categoryFilter]);
 
   const openCreate = () => {
     setSelectedScenario(null);
@@ -154,7 +181,7 @@ export default function AdminGamesPage() {
   };
 
   const handleSaveScenario = async (scenarioData: Partial<GameScenario>) => {
-    if (!scenarioData.description || !scenarioData.explanationForScam || !scenarioData.explanationForNotScam) {
+    if (!scenarioData.description || !scenarioData.explanationForScam || !scenarioData.explanationForNotScam || !scenarioData.category) {
       alert("Пожалуйста, заполните все поля.");
       return;
     }
@@ -174,6 +201,12 @@ export default function AdminGamesPage() {
     await deleteScenario(selectedScenario.id);
     setShowDeleteModal(false);
     setSelectedScenario(null);
+  };
+
+  const getCategoryLabel = (value?: string) => {
+    if (!value) return 'Общее';
+    const category = SCENARIO_CATEGORIES.find(c => c.value === value);
+    return category ? category.label : value;
   };
 
   return (
@@ -206,7 +239,7 @@ export default function AdminGamesPage() {
         ) : (
           <>
             <div className="bg-white rounded-lg shadow mb-6 p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="relative md:col-span-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <input
@@ -222,9 +255,19 @@ export default function AdminGamesPage() {
                   onChange={(e) => setIsScamFilter(e.target.value)}
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
-                  <option value="all">Все типы</option>
+                  <option value="all">Все типы (Мошенничество)</option>
                   <option value="true">Мошенничество</option>
                   <option value="false">Не мошенничество</option>
+                </select>
+                <select
+                  value={categoryFilter}
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="all">Все категории</option>
+                  {SCENARIO_CATEGORIES.map(cat => (
+                    <option key={cat.value} value={cat.value}>{cat.label}</option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -234,7 +277,8 @@ export default function AdminGamesPage() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="th w-3/5">Описание ситуации</th>
+                      <th className="th w-2/5">Описание ситуации</th>
+                      <th className="th">Категория</th>
                       <th className="th">Правильный ответ</th>
                       <th className="th text-right">Действия</th>
                     </tr>
@@ -244,6 +288,11 @@ export default function AdminGamesPage() {
                       <tr key={scenario.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                           <p className="text-sm text-gray-800 line-clamp-3">{scenario.description}</p>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {getCategoryLabel(scenario.category)}
+                          </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className={`badge ${scenario.isScam ? 'badge-red' : 'badge-green'}`}>

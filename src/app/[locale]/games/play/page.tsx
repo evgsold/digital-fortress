@@ -49,6 +49,21 @@ export default function GamePlayPage() {
     }
   };
 
+  const getCategoryLabel = (category?: string) => {
+    if (!category) return 'Общее';
+    const categories: Record<string, string> = {
+      phishing: 'Фишинг',
+      social_engineering: 'Социальная инженерия',
+      fake_websites: 'Поддельные сайты',
+      phone_scams: 'Телефонное мошенничество',
+      email_scams: 'Email мошенничество',
+      investment_fraud: 'Инвестиционное мошенничество',
+      identity_theft: 'Кража личности',
+      other: 'Другое',
+    };
+    return categories[category] || category;
+  };
+
   // Основной рендер в зависимости от состояния игры
   const renderGameState = () => {
     // 1. Игра окончена
@@ -135,6 +150,11 @@ export default function GamePlayPage() {
           <p className="font-mono text-sm text-[#A1CCB0] mb-4 text-center">
             {t('questionProgress', { current: activeSession.currentScenarioIndex + 1, total: activeSession.scenarioIds.length })}
           </p>
+          <div className="flex justify-center mb-6">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#A1CCB0]/20 text-[#A1CCB0] border border-[#A1CCB0]/30">
+              {getCategoryLabel(currentScenario.category)}
+            </span>
+          </div>
           <p className="text-xl md:text-2xl text-white font-mono text-center mb-10 leading-relaxed">
             {currentScenario.description}
           </p>

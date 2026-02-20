@@ -243,7 +243,28 @@
     "continueButton": "Continue Game",
     "gameInProgress": "You have a game in progress!",
     "loginPrompt": "Please log in to start the game.",
-    "startGameError": "Failed to start the game. Please try again."
+    "startGameError": "Failed to start the game. Please try again.",
+    "noQuestionsInCategory": "No questions found in this category yet.",
+    "gameCategories": {
+      "all": "All Scenarios",
+      "allDesc": "A random mix of all questions",
+      "phishing": "Phishing",
+      "phishingDesc": "Spot fake websites and emails",
+      "socialEngineering": "Social Engineering",
+      "socialEngineeringDesc": "Don't get manipulated",
+      "fakeWebsites": "Fake Websites",
+      "fakeWebsitesDesc": "Find differences from originals",
+      "phoneScams": "Phone Scams",
+      "phoneScamsDesc": "Calls from 'security services'",
+      "emailScams": "Email Scams",
+      "emailScamsDesc": "Dangerous attachments and links",
+      "investmentFraud": "Investment Fraud",
+      "investmentFraudDesc": "Pyramid schemes and 'hot' deals",
+      "identityTheft": "Identity Theft",
+      "identityTheftDesc": "Protect your personal data",
+      "other": "Other",
+      "otherDesc": "Various types of scams"
+    }
   },
   "gamePlay": {
     "questionProgress": "Question {current} of {total}",

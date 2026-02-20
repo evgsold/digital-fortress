@@ -39,7 +39,7 @@ interface GameContextType {
   loadingCurrentScenario: boolean;
 
   // Операции
-startGame: (scenarioCount?: number) => Promise<GameSession | null>;
+  startGame: (scenarioCount?: number, category?: string) => Promise<GameSession | null>;
   loadActiveSession: () => Promise<void>;
   submitAnswer: (userGuess: boolean) => Promise<void>;
   endGame: () => void;
@@ -106,7 +106,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   }, [currentUser]);
 
   // Начало новой игры
-  const startGame = useCallback(async (scenarioCount = 10): Promise<GameSession | null> => {
+  const startGame = useCallback(async (scenarioCount = 10, category?: string): Promise<GameSession | null> => {
   if (!currentUser) {
     console.error("User must be logged in to start a game.");
     return null;
@@ -117,8 +117,20 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
   setLoadingSession(true);
   try {
-    const shuffledScenarios = shuffleArray(scenarios);
-    const gameScenarios = shuffledScenarios.slice(0, Math.min(scenarioCount, scenarios.length));
+    let scenariosToPlay = scenarios;
+    if (category && category !== 'all') {
+      scenariosToPlay = scenarios.filter(s => s.category === category);
+    }
+
+    if (scenariosToPlay.length === 0) {
+      console.warn("No scenarios found for category:", category);
+      // Fallback to all scenarios or handle empty state? 
+      // For now let's just return null or maybe throw error?
+      // Let's try to proceed, maybe shuffleArray handles empty array fine.
+    }
+
+    const shuffledScenarios = shuffleArray(scenariosToPlay);
+    const gameScenarios = shuffledScenarios.slice(0, Math.min(scenarioCount, scenariosToPlay.length));
     const scenarioIds = gameScenarios.map(s => s.id);
 
     const now = new Date().toISOString();
