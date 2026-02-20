@@ -1,12 +1,12 @@
 {
   "common": {
     "home": "Home",
-    "settings": "Settings",
     "profile": "Profile",
+    "login": "Login",
+    "register": "Register",
+    "settings": "Settings",
     "language": "Language",
     "search": "Search",
-        "login": "Вход",
-    "register": "Регистрация",
     "username": "User",
     "notifications": "Notifications",
     "errorTitle": "System Error",
@@ -14,7 +14,7 @@
     "unknownError": "Unknown system error",
     "tryAgain": "Retry",
     "backToHome": "Return to Dashboard",
-    "clearError": "Clear error",
+    "clearError": "Clear Error",
     "notFoundTitle": "Resource Not Found",
     "notFoundDescription": "The requested resource does not exist or has been moved.",
     "loading": "Loading...",
@@ -39,7 +39,40 @@
       "nav": {
         "forum": "Forum",
         "create": "Create Post",
-        "blog": "Blog"
+        "blog": "Blog",
+        "chat": "Chat"
+      },
+      "post": {
+        "loading": "Loading post...",
+        "notFoundTitle": "Post not found",
+        "backToForum": "Back to forum",
+        "pinned": "PINNED",
+        "resolved": "RESOLVED",
+        "comments": "COMMENTS ({{count}})",
+        "newCommentPlaceholder": "Share your thoughts or advice...",
+        "postComment": "Post",
+        "loginPrompt": "Log in to leave comments",
+        "loginHere": "Login",
+        "loadingComments": "Loading comments...",
+        "noComments": "No comments yet. Be the first!",
+        "replyPlaceholder": "Write a reply...",
+        "reply": "Reply",
+        "report": {
+          "title": "Report",
+          "reason": "Reason:",
+          "selectReason": "Select a reason",
+          "additional": "Additional details (optional):",
+          "submit": "Submit Report"
+        }
+      },
+      "reportReasons": {
+        "spam": "Spam",
+        "inappropriate_content": "Inappropriate Content",
+        "harassment": "Harassment",
+        "misinformation": "Misinformation",
+        "off_topic": "Off Topic",
+        "duplicate": "Duplicate",
+        "other": "Other"
       },
       "openMenu": "Open menu",
       "closeMenu": "Close menu"
@@ -50,7 +83,7 @@
       "title": "Access Control"
     },
     "register": {
-      "title": "Create Account"
+      "title": "Account Creation"
     },
     "signIn": "Sign In",
     "signUp": "Register",
@@ -58,8 +91,8 @@
     "continueWithGoogle": "Continue with Google",
     "noAccount": "No account?",
     "haveAccount": "Already have an account?",
-    "switchToRegister": "Create one",
-    "switchToLogin": "Sign in",
+    "switchToRegister": "Create",
+    "switchToLogin": "Login",
     "errors": {
       "invalidCredentials": "Invalid credentials",
       "emailAlreadyInUse": "Email already in use",
@@ -75,21 +108,86 @@
     "filters": {
       "title": "Filters",
       "categories": "Categories",
-      "allCategories": "All Categories",
+      "allCategories": "All categories",
       "scamTypes": "Scam Types",
-      "allTypes": "All Types",
-      "severity": "Severity",
-      "allLevels": "All Levels",
+      "allTypes": "All types",
+      "severity": "Severity Level",
+      "allLevels": "All levels",
       "clear": "Clear Filters"
     },
     "search": {
       "placeholder": "Search forum posts...",
       "button": "Search"
     },
-    "createPost": "Create New Post",
+    "create": {
+      "redirectToLogin": "Redirecting to login...",
+      "title": "Create new post",
+      "draftSaved": "Draft automatically saved",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Briefly describe the cybersecurity incident...",
+      "charsCount": "{{count}}/200 characters",
+      "categoryLabel": "Category",
+      "selectCategory": "Select a category",
+      "scamTypeLabel": "Scam Type",
+      "scamTypeDesc": {
+        "phishing": "Fake emails or websites to steal data",
+        "social_engineering": "Manipulation to obtain information",
+        "fake_websites": "Fake websites mimicking services",
+        "phone_scams": "Fraudulent calls",
+        "email_scams": "Deceptive emails",
+        "investment_fraud": "Fake investments and schemes",
+        "romance_scams": "Romantic scams",
+        "tech_support_scams": "False technical support",
+        "cryptocurrency_scams": "Crypto scams",
+        "identity_theft": "Identity theft",
+        "other": "Other threats"
+      },
+      "severityLabel": "Severity Level",
+      "severityDesc": {
+        "low": "Minor consequences, no losses",
+        "medium": "Some impact, possible small losses",
+        "high": "Significant impact, possible significant losses",
+        "critical": "Critical impact, major losses"
+      },
+      "descriptionLabel": "Detailed description",
+      "descriptionPlaceholder": "Describe in detail what happened. Include:\n• How the scam was attempted\n• What signs raised suspicion\n• How you reacted\n• What conclusions you drew\n\nThis will help others recognize similar threats.",
+      "minChars": "Minimum 10 characters",
+      "tagsLabel": "Tags (optional)",
+      "tagPlaceholder": "Add a tag...",
+      "add": "Add",
+      "tagsHint": "Tags help find the post. No more than 10 tags.",
+      "markResolved": "Mark as resolved",
+      "markResolvedHint": "Mark if the issue is resolved or you are sharing a resolved case.",
+      "creating": "Creating post...",
+      "submit": "Create post"
+    },
+    "post": {
+      "loading": "Loading post...",
+      "notFoundTitle": "Post not found",
+      "backToForum": "Back to forum",
+      "pinned": "PINNED",
+      "resolved": "RESOLVED",
+      "comments": "COMMENTS ({{count}})",
+      "newCommentPlaceholder": "Share your thoughts or advice...",
+      "postComment": "Post",
+      "loginPrompt": "Please log in to leave a comment",
+      "loginHere": "Login",
+      "loadingComments": "Loading comments...",
+      "noComments": "No comments yet. Be the first!",
+      "replyPlaceholder": "Write a reply...",
+      "reply": "Reply",
+      "report": {
+        "title": "Report",
+        "reason": "Reason:",
+        "selectReason": "Select a reason",
+        "additional": "Additional details (optional):",
+        "submit": "Submit Report"
+      }
+    },
+    "createPost": "Create new post",
     "loadingPosts": "Loading posts...",
     "noPostsTitle": "No posts found",
-    "noPostsHint": "Try adjusting your search or filters",
+    "noPostsHint": "Try changing search parameters or filters",
     "author": "Author #{{id}}",
     "scamTypes": {
       "phishing": "Phishing",
@@ -109,117 +207,43 @@
       "medium": "Medium",
       "high": "High",
       "critical": "Critical"
-    },
-    "post": {
-      "loading": "Loading post...",
-      "notFoundTitle": "Post not found",
-      "backToForum": "Back to forum",
-      "pinned": "PINNED",
-      "resolved": "RESOLVED",
-      "comments": "COMMENTS ({{count}})",
-      "newCommentPlaceholder": "Share your thoughts or advice...",
-      "postComment": "Post comment",
-      "loginPrompt": "Please log in to post comments",
-      "loginHere": "Login here",
-      "loadingComments": "Loading comments...",
-      "noComments": "No comments yet. Be the first to share your thoughts!",
-      "replyPlaceholder": "Write your reply...",
-      "reply": "Reply",
-      "report": {
-        "title": "Report content",
-        "reason": "Reason:",
-        "selectReason": "Select a reason",
-        "additional": "Additional Details (optional):",
-        "submit": "Submit Report"
-      }
-    },
-    "reportReasons": {
-      "spam": "Spam",
-      "inappropriate_content": "Inappropriate Content",
-      "harassment": "Harassment",
-      "misinformation": "Misinformation",
-      "off_topic": "Off Topic",
-      "duplicate": "Duplicate",
-      "other": "Other"
-    },
-    "create": {
-      "redirectToLogin": "Redirecting to login...",
-      "title": "Create New Post",
-      "draftSaved": "Draft automatically saved",
-      "titleLabel": "Post title",
-      "titlePlaceholder": "Describe your cybersecurity incident briefly...",
-      "charsCount": "{{count}}/200 characters",
-      "categoryLabel": "Category",
-      "selectCategory": "Select a category",
-      "scamTypeLabel": "Scam type",
-      "scamTypeDesc": {
-        "phishing": "Fraudulent emails or websites designed to steal personal information",
-        "social_engineering": "Manipulation tactics to trick people into revealing information",
-        "fake_websites": "Counterfeit websites that mimic legitimate services",
-        "phone_scams": "Fraudulent calls attempting to steal money or information",
-        "email_scams": "Deceptive emails with malicious intent",
-        "investment_fraud": "Fake investment opportunities and financial scams",
-        "romance_scams": "Fake romantic relationships used to exploit victims financially",
-        "tech_support_scams": "Fake technical support calls or pop-ups",
-        "cryptocurrency_scams": "Fraudulent cryptocurrency schemes and fake exchanges",
-        "identity_theft": "Unauthorized use of personal information",
-        "other": "Other types of cybersecurity threats"
-      },
-      "severityLabel": "Severity level",
-      "severityDesc": {
-        "low": "Minor inconvenience, no financial loss",
-        "medium": "Some impact, potential for small losses",
-        "high": "Significant impact, substantial losses possible",
-        "critical": "Severe impact, major financial or personal losses"
-      },
-      "descriptionLabel": "Detailed description",
-      "descriptionPlaceholder": "Describe what happened in detail. Include:\n• How the scam was attempted\n• What red flags you noticed\n• How you responded\n• What you learned\n\nThis helps others recognize similar threats.",
-      "minChars": "Minimum 10 characters required",
-      "tagsLabel": "Tags (optional)",
-      "tagPlaceholder": "Add a tag...",
-      "add": "Add",
-      "tagsHint": "Tags help others find your post. Max 10 tags.",
-      "markResolved": "Mark as resolved",
-      "markResolvedHint": "Check this if the issue has been resolved or if you're sharing a resolved case for educational purposes.",
-      "creating": "Creating post...",
-      "submit": "Create post"
     }
   },
-  "home": {
-    "heroTitle": "Cybersecurity Portfolio",
-    "heroSubtitle": "Showcasing expertise in identifying and mitigating digital threats.",
-    "mission": "A collection of solved cybersecurity cases and analysis of modern threats.",
-    "getStartedClient": "View Portfolio",
-    "getStartedPro": "Contact Me",
-    "featuresTitle": "Areas of Expertise",
-    "clientBenefitsTitle": "Services Offered",
-    "proBenefitsTitle": "Key Skills",
-    "clientBenefits": [
-      "Vulnerability Assessment",
-      "Penetration Testing",
-      "Incident Response",
-      "Security Audits"
-    ],
-    "proBenefits": [
-      "Network Security",
-      "Ethical Hacking",
-      "Threat Intelligence",
-      "Cryptography"
-    ],
-    "howItWorksTitle": "My Process",
-    "steps": [
-      "Initial Consultation",
-      "Problem Analysis",
-      "Solution Implementation",
-      "Security Report",
-      "Follow-up"
-    ],
-    "ctaTitle": "Have a Cybersecurity Challenge?",
-    "ctaDescription": "Let's work together to secure your digital assets. Reach out for a consultation.",
-    "startNow": "Get in Touch",
-    "faqTitle": "Frequently Asked Questions",
-    "footerText": "Dedicated to protecting digital environments through expertise and vigilance."
-  },
+
+    "home": {
+      "heroTitle": "Your Digital Fortress",
+      "heroSubtitle": "Learn to recognize online scammers through interactive games and communication.",
+      "mission": "Our mission is to equip you with knowledge for safe and confident navigation in the digital world. This is a non-profit project created for everyone.",
+      "ctaGames": "Start Learning",
+      "ctaForum": "Join the Forum",
+      "featuresTitle": "What do we offer?",
+      "gamesTitle": "Interactive Games",
+      "gamesBenefits": [
+        "Learning in a safe simulator environment.",
+        "Developing critical thinking to identify tricks.",
+        "Realistic scenarios: from phishing to phone scams.",
+        "Instant feedback to reinforce knowledge."
+      ],
+      "communityTitle": "Supportive Community",
+      "communityBenefits": [
+        "Share real stories and experiences.",
+        "Ask questions and get advice from other members.",
+        "Help newcomers by sharing your knowledge.",
+        "Stay informed about new types of scams."
+      ],
+      "howItWorksTitle": "How it works?",
+      "steps": [
+        "Register",
+        "Play and learn",
+        "Recognize tricks",
+        "Discuss on the forum",
+        "Share knowledge"
+      ],
+      "ctaTitle": "Ready to become invulnerable to scammers?",
+      "ctaDescription": "Join our free community today. Your safety is in your hands, and we will help you strengthen it.",
+      "startNow": "Join for free",
+      "footerText": "Our platform is a non-profit project created by enthusiasts to increase digital literacy. All materials on the site are available absolutely free."
+    },
   "profile": {
     "title": "User Profile",
     "settings": {
@@ -227,41 +251,90 @@
     },
     "requireLogin": {
       "title": "Authentication Required",
-      "desc": "Please sign in to access your profile and training progress.",
-      "login": "Sign In",
+      "desc": "Log in to access your profile and learning progress.",
+      "login": "Login",
       "register": "Create Account"
     },
     "loading": "Loading profile..."
   },
+  "deepsekChat": {
+    "heroTitle": "Deepsek Chat: Your AI Guide to Online Safety",
+    "heroSubtitle": "Understand and reduce digital threats through interactive scenarios.",
+    "mission": "Expand your knowledge for a safer online experience.",
+    "startChatting": "Start Chatting Now",
+    "learnMore": "Learn More about Security",
+
+    "howItWorksTitle": "How Deepsek Helps You Stay Safe",
+    "steps": [
+      "Describe your situation",
+      "Deepsek analyzes",
+      "Get clear advice",
+      "Learn and stay safe"
+    ],
+
+    "safetyAreasTitle": "Key Areas Covered by Deepsek",
+    "safetyAreas": [
+      {
+        "title": "Phishing Scams",
+        "description": "Learn to recognize fake emails, messages, and websites designed to steal your information."
+      },
+      {
+        "title": "Malware and Viruses",
+        "description": "Understand how malicious software works and how to protect your devices from infection."
+      },
+      {
+        "title": "Deepfakes and Disinformation",
+        "description": "Develop critical thinking to identify manipulated media and false narratives online."
+      },
+      {
+        "title": "Password Security",
+        "description": "Master the art of creating strong, unique passwords and managing them effectively."
+      },
+      {
+        "title": "Social Engineering",
+        "description": "Recognize psychological manipulation tactics used by attackers to gain your trust."
+      },
+      {
+        "title": "Privacy Concerns",
+        "description": "Understand your digital footprint and how to protect your personal data online."
+      }
+    ],
+
+    "ctaTitle": "Ready to enhance your online security?",
+    "ctaDescription": "Deepsek is here to guide you through the complexities of the digital world. Start your personalized security check today.",
+    "startSafetyCheck": "Start Safety Check",
+
+    "footerText": "Deepsek Chat is part of Digital Fortress, dedicated to creating a safer digital future for everyone."
+  },
   "games": {
-    "title": "Explore Games",
-    "subtitle": "Test your knowledge and learn to spot scams!",
+    "title": "Games",
+    "subtitle": "Test your knowledge and learn to recognize scammers!",
     "loadingGames": "Loading games...",
     "mainGameTitle": "Scam Quiz",
-    "mainGameDescription": "A quiz with {count} real-life scenarios. Can you tell what's a scam?",
-    "playButton": "Play Now",
+    "mainGameDescription": "A quiz with {count} real-life scenarios. Can you identify where the deception is?",
+    "playButton": "Start Game",
     "continueButton": "Continue Game",
-    "gameInProgress": "You have a game in progress!",
+    "gameInProgress": "You have an unfinished game!",
     "loginPrompt": "Please log in to start the game.",
     "startGameError": "Failed to start the game. Please try again.",
-    "noQuestionsInCategory": "No questions found in this category yet.",
+    "noQuestionsInCategory": "No questions in this category yet.",
     "gameCategories": {
       "all": "All Scenarios",
       "allDesc": "A random mix of all questions",
       "phishing": "Phishing",
-      "phishingDesc": "Spot fake websites and emails",
+      "phishingDesc": "Recognize fake websites and emails",
       "socialEngineering": "Social Engineering",
-      "socialEngineeringDesc": "Don't get manipulated",
+      "socialEngineeringDesc": "Don't get tricked by manipulators",
       "fakeWebsites": "Fake Websites",
-      "fakeWebsitesDesc": "Find differences from originals",
+      "fakeWebsitesDesc": "Find differences from the original",
       "phoneScams": "Phone Scams",
-      "phoneScamsDesc": "Calls from 'security services'",
+        "phoneScamsDesc": "Calls from 'security services'",
       "emailScams": "Email Scams",
       "emailScamsDesc": "Dangerous attachments and links",
       "investmentFraud": "Investment Fraud",
-      "investmentFraudDesc": "Pyramid schemes and 'hot' deals",
+      "investmentFraudDesc": "Pyramid schemes and 'profitable' offers",
       "identityTheft": "Identity Theft",
-      "identityTheftDesc": "Protect your personal data",
+      "identityTheftDesc": "Protect personal data",
       "other": "Other",
       "otherDesc": "Various types of scams"
     }
@@ -276,8 +349,8 @@
     "loadingNext": "Loading next question...",
     "loadingGame": "Loading your game...",
     "gameOverTitle": "Game Over!",
-    "finalScore": "Your final score is {score} out of {total}.",
+    "finalScore": "Your final score: {score} out of {total}.",
     "playAgainButton": "Play Again",
-    "backToGames": "Back to Games Overview"
+    "backToGames": "Back to Games List"
   }
 }

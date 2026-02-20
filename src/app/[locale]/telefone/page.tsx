@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MessageSquare, Phone, ArrowLeft, Battery, Wifi, Signal, CheckCircle, XCircle, ShieldAlert, User, Search, AlertCircle, Menu } from 'lucide-react';
 
@@ -459,6 +459,23 @@ export default function AppSimulationPage() {
   const [isVerified, setIsVerified] = useState(false);
   const [callFeedback, setCallFeedback] = useState<string | null>(null);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isWideScreen, setIsWideScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsWideScreen(window.innerWidth >= 768);
+    
+    // Check immediately if window is available (client-side)
+    if (typeof window !== 'undefined') {
+      handleResize();
+      window.addEventListener('resize', handleResize);
+    }
+    
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+      }
+    };
+  }, []);
 
   const startGame = (scenario: Scenario) => {
     setCurrentScenario(scenario);
@@ -525,7 +542,7 @@ export default function AppSimulationPage() {
 
       {/* Game UI Overlay / Sidebar */}
       <AnimatePresence>
-        {(showMobileMenu || window.innerWidth >= 768) && (
+        {(showMobileMenu || isWideScreen) && (
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
