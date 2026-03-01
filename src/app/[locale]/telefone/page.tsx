@@ -772,12 +772,12 @@ export default function AppSimulationPage() {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="absolute inset-0 bg-red-500/95 backdrop-blur-md z-50 flex flex-col items-center justify-center text-white p-6 text-center"
+                className="absolute inset-0 bg-red backdrop-blur-md z-50 flex flex-col items-center justify-center text-white p-6 text-center"
               >
                 <XCircle size={80} className="mb-6" />
                 <h2 className="text-3xl font-bold mb-4">Вы проиграли</h2>
                 <p className="mb-8 text-lg leading-relaxed">Вы поверили мошенникам. Всегда проверяйте информацию перед тем, как переводить деньги или переходить по ссылкам.</p>
-                <button onClick={resetGame} className="bg-white text-red-600 px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Попробовать снова</button>
+                <button onClick={resetGame} className="bg-white text-red px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Попробовать снова</button>
               </motion.div>
             )}
           </AnimatePresence>
