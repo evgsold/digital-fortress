@@ -151,17 +151,17 @@ const PostEditorModal = ({
     );
 
     switch (block.type) {
-      case 'paragraph': return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}<textarea value={block.content} onChange={(e) => handleContentChange(index, { content: e.target.value })} placeholder="Введите текст параграфа..." className="input" rows={4}/></div>;
-      case 'heading': return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}<div className="flex gap-2"><select value={block.level} onChange={(e) => handleContentChange(index, { level: Number(e.target.value) })} className="input w-20"><option value={2}>H2</option><option value={3}>H3</option><option value={4}>H4</option></select><input type="text" value={block.content} onChange={(e) => handleContentChange(index, { content: e.target.value })} placeholder="Введите заголовок..." className="input font-bold"/></div></div>;
+      case 'paragraph': return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}<textarea value={block.content} onChange={(e) => handleContentChange(index, { content: e.target.value })} placeholder="Введите текст параграфа..." className="input" rows={4}/></div>;
+      case 'heading': return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}<div className="flex gap-2"><select value={block.level} onChange={(e) => handleContentChange(index, { level: Number(e.target.value) })} className="input w-20"><option value={2}>H2</option><option value={3}>H3</option><option value={4}>H4</option></select><input type="text" value={block.content} onChange={(e) => handleContentChange(index, { content: e.target.value })} placeholder="Введите заголовок..." className="input font-bold"/></div></div>;
       case 'list': case 'steps': {
         const items = block.type === 'list' ? block.items : block.steps;
         const key = block.type === 'list' ? 'items' : 'steps';
         const Icon = block.type === 'list' ? List : ListOrdered;
-        return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}{items.map((item, itemIndex) => (<div key={itemIndex} className="flex items-center gap-2"><Icon size={16} className="text-gray-400 flex-shrink-0" /><input type="text" value={item} onChange={(e) => { const newItems = [...items]; newItems[itemIndex] = e.target.value; handleContentChange(index, { [key]: newItems }); }} placeholder="Элемент списка" className="input"/><button onClick={() => { const newItems = items.filter((_, i) => i !== itemIndex); handleContentChange(index, { [key]: newItems }); }} className="text-gray-400 hover:text-red-500"><X size={16} /></button></div>))}<button onClick={() => handleContentChange(index, { [key]: [...items, ''] })} className="text-sm text-blue-600 hover:underline mt-2">Добавить элемент</button></div>;
+        return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}{items.map((item, itemIndex) => (<div key={itemIndex} className="flex items-center gap-2"><Icon size={16} className="text-[#718096] flex-shrink-0" /><input type="text" value={item} onChange={(e) => { const newItems = [...items]; newItems[itemIndex] = e.target.value; handleContentChange(index, { [key]: newItems }); }} placeholder="Элемент списка" className="input"/><button onClick={() => { const newItems = items.filter((_, i) => i !== itemIndex); handleContentChange(index, { [key]: newItems }); }} className="text-[#718096] hover:text-red-500"><X size={16} /></button></div>))}<button onClick={() => handleContentChange(index, { [key]: [...items, ''] })} className="text-sm text-[#4299E1] hover:underline mt-2">Добавить элемент</button></div>;
       }
-      case 'tip': return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}<div><label className="label text-xs">Заголовок совета</label><input type="text" value={block.title} onChange={e => handleContentChange(index, { title: e.target.value })} className="input"/></div><div><label className="label text-xs">Содержимое</label><textarea value={block.content} onChange={e => handleContentChange(index, { content: e.target.value })} className="input" rows={3}/></div><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
-      case 'infoBox': return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}<div><label className="label text-xs">Заголовок инфо-блока</label><input type="text" value={block.title} onChange={e => handleContentChange(index, { title: e.target.value })} className="input"/></div>{block.items.map((item, itemIndex) => (<div key={itemIndex} className="flex items-center gap-2"><Info size={16} className="text-gray-400 flex-shrink-0" /><input type="text" value={item} onChange={(e) => { const newItems = [...block.items]; newItems[itemIndex] = e.target.value; handleContentChange(index, { items: newItems }); }} placeholder="Элемент инфо-блока" className="input"/><button onClick={() => { const newItems = block.items.filter((_, i) => i !== itemIndex); handleContentChange(index, { items: newItems }); }} className="text-gray-400 hover:text-red-500"><X size={16} /></button></div>))}<button onClick={() => handleContentChange(index, { items: [...block.items, ''] })} className="text-sm text-blue-600 hover:underline mt-2">Добавить элемент</button><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
-      case 'productRating': return <div className="relative p-4 border rounded-md bg-gray-50 space-y-2">{blockControls}<div><label className="label text-xs">Название продукта</label><input type="text" value={block.name} onChange={e => handleContentChange(index, { name: e.target.value })} className="input"/></div><div><label className="label text-xs">Рейтинг (например, 9/10)</label><input type="text" value={block.rating} onChange={e => handleContentChange(index, { rating: e.target.value })} className="input"/></div><div><label className="label text-xs">Описание</label><textarea value={block.description} onChange={e => handleContentChange(index, { description: e.target.value })} className="input" rows={3}/></div><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
+      case 'tip': return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}<div><label className="label text-xs">Заголовок совета</label><input type="text" value={block.title} onChange={e => handleContentChange(index, { title: e.target.value })} className="input"/></div><div><label className="label text-xs">Содержимое</label><textarea value={block.content} onChange={e => handleContentChange(index, { content: e.target.value })} className="input" rows={3}/></div><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
+      case 'infoBox': return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}<div><label className="label text-xs">Заголовок инфо-блока</label><input type="text" value={block.title} onChange={e => handleContentChange(index, { title: e.target.value })} className="input"/></div>{block.items.map((item, itemIndex) => (<div key={itemIndex} className="flex items-center gap-2"><Info size={16} className="text-[#718096] flex-shrink-0" /><input type="text" value={item} onChange={(e) => { const newItems = [...block.items]; newItems[itemIndex] = e.target.value; handleContentChange(index, { items: newItems }); }} placeholder="Элемент инфо-блока" className="input"/><button onClick={() => { const newItems = block.items.filter((_, i) => i !== itemIndex); handleContentChange(index, { items: newItems }); }} className="text-[#718096] hover:text-red-500"><X size={16} /></button></div>))}<button onClick={() => handleContentChange(index, { items: [...block.items, ''] })} className="text-sm text-[#4299E1] hover:underline mt-2">Добавить элемент</button><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
+      case 'productRating': return <div className="relative p-4 border rounded-md bg-[#F7FAFC] space-y-2">{blockControls}<div><label className="label text-xs">Название продукта</label><input type="text" value={block.name} onChange={e => handleContentChange(index, { name: e.target.value })} className="input"/></div><div><label className="label text-xs">Рейтинг (например, 9/10)</label><input type="text" value={block.rating} onChange={e => handleContentChange(index, { rating: e.target.value })} className="input"/></div><div><label className="label text-xs">Описание</label><textarea value={block.description} onChange={e => handleContentChange(index, { description: e.target.value })} className="input" rows={3}/></div><ColorSelector value={block.color} onChange={e => handleContentChange(index, { color: e.target.value as BlockColor })}/></div>;
       default: return null;
     }
   };
@@ -170,8 +170,8 @@ const PostEditorModal = ({
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-start pt-10">
       <div className="relative mx-auto p-5 border w-full max-w-6xl shadow-lg rounded-md bg-white max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between mb-4 pb-4 border-b">
-          <h3 className="text-xl font-semibold text-gray-900">{initialPost ? 'Редактирование статьи' : 'Создание новой статьи'}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X className="h-6 w-6" /></button>
+          <h3 className="text-xl font-semibold text-[#2D3748]">{initialPost ? 'Редактирование статьи' : 'Создание новой статьи'}</h3>
+          <button onClick={onClose} className="text-[#718096] hover:text-[#2D3748]"><X className="h-6 w-6" /></button>
         </div>
         <div className="flex-grow overflow-y-auto pr-4 -mr-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -273,7 +273,7 @@ const AuthorsModal = ({ show, onClose, authors, onSave, onDelete, loading }: { s
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
       <div className="relative p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
-        <div className="flex items-center justify-between mb-4"><h3 className="text-lg font-medium text-gray-900">Управление авторами</h3><button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={24} /></button></div>
+        <div className="flex items-center justify-between mb-4"><h3 className="text-lg font-medium text-[#2D3748]">Управление авторами</h3><button onClick={onClose} className="text-[#718096] hover:text-[#2D3748]"><X size={24} /></button></div>
         {isEditing ? (
           <div>
             <h4 className="text-md font-semibold mb-4">{selectedAuthor ? 'Редактировать автора' : 'Добавить автора'}</h4>
@@ -286,7 +286,7 @@ const AuthorsModal = ({ show, onClose, authors, onSave, onDelete, loading }: { s
         ) : (
           <div>
             <div className="mb-4"><button onClick={handleCreate} className="btn-primary flex items-center"><Plus size={16} className="mr-2" /> Добавить автора</button></div>
-            <table className="min-w-full divide-y divide-gray-200"><thead className="bg-gray-50"><tr><th className="th">Автор</th><th className="th text-right">Действия</th></tr></thead><tbody className="bg-white divide-y divide-gray-200">{authors.map(author => (<tr key={author.id}><td className="px-6 py-4 whitespace-nowrap">{author.name}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3"><button onClick={() => handleEdit(author)} className="text-gray-600 hover:text-gray-900"><Edit size={16} /></button><button onClick={() => onDelete(author)} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></td></tr>))}</tbody></table>
+            <table className="min-w-full divide-y divide-[#E2E8F0]"><thead className="bg-[#F7FAFC]"><tr><th className="th">Автор</th><th className="th text-right">Действия</th></tr></thead><tbody className="bg-white divide-y divide-[#E2E8F0]">{authors.map(author => (<tr key={author.id}><td className="px-6 py-4 whitespace-nowrap">{author.name}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3"><button onClick={() => handleEdit(author)} className="text-[#718096] hover:text-[#2D3748]"><Edit size={16} /></button><button onClick={() => onDelete(author)} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></td></tr>))}</tbody></table>
           </div>
         )}
       </div>
@@ -313,7 +313,7 @@ const CategoriesModal = ({ show, onClose, categories, onSave, onDelete, loading 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
       <div className="relative p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
-        <div className="flex items-center justify-between mb-4"><h3 className="text-lg font-medium text-gray-900">Управление категориями</h3><button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={24} /></button></div>
+        <div className="flex items-center justify-between mb-4"><h3 className="text-lg font-medium text-[#2D3748]">Управление категориями</h3><button onClick={onClose} className="text-[#718096] hover:text-[#2D3748]"><X size={24} /></button></div>
         {isEditing ? (
           <div>
             <h4 className="text-md font-semibold mb-4">{selectedCategory ? 'Редактировать категорию' : 'Добавить категорию'}</h4>
@@ -326,7 +326,7 @@ const CategoriesModal = ({ show, onClose, categories, onSave, onDelete, loading 
         ) : (
           <div>
             <div className="mb-4"><button onClick={handleCreate} className="btn-primary flex items-center"><Plus size={16} className="mr-2" /> Добавить категорию</button></div>
-            <table className="min-w-full divide-y divide-gray-200"><thead className="bg-gray-50"><tr><th className="th">Категория</th><th className="th text-right">Действия</th></tr></thead><tbody className="bg-white divide-y divide-gray-200">{categories.map(category => (<tr key={category.id}><td className="px-6 py-4 whitespace-nowrap">{category.name}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3"><button onClick={() => handleEdit(category)} className="text-gray-600 hover:text-gray-900"><Edit size={16} /></button><button onClick={() => onDelete(category)} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></td></tr>))}</tbody></table>
+            <table className="min-w-full divide-y divide-[#E2E8F0]"><thead className="bg-[#F7FAFC]"><tr><th className="th">Категория</th><th className="th text-right">Действия</th></tr></thead><tbody className="bg-white divide-y divide-[#E2E8F0]">{categories.map(category => (<tr key={category.id}><td className="px-6 py-4 whitespace-nowrap">{category.name}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3"><button onClick={() => handleEdit(category)} className="text-[#718096] hover:text-[#2D3748]"><Edit size={16} /></button><button onClick={() => onDelete(category)} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></td></tr>))}</tbody></table>
           </div>
         )}
       </div>
@@ -415,10 +415,10 @@ export default function AdminContentPage() {
   const handleDeleteCategory = async () => { if (!categoryToDelete) return; await deleteCategory(categoryToDelete.id); setShowDeleteCategoryModal(false); setCategoryToDelete(null); };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F7FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
-          <div><h1 className="text-3xl font-bold text-gray-900">Управление блогом</h1><p className="text-gray-600 mt-1">Создавайте, редактируйте и организуйте статьи, авторов и категории вашего блога.</p></div>
+          <div><h1 className="text-3xl font-bold text-[#2D3748]">Управление блогом</h1><p className="text-[#718096] mt-1">Создавайте, редактируйте и организуйте статьи, авторов и категории вашего блога.</p></div>
           <div className="flex space-x-2">
             <button onClick={openCreate} className="btn-primary flex items-center"><Plus className="h-4 w-4 mr-2" /> Новая статья</button>
             <button onClick={() => setShowAuthorModal(true)} className="btn-secondary flex items-center"><Users className="h-4 w-4 mr-2" /> Управление авторами</button>
@@ -435,28 +435,28 @@ export default function AdminContentPage() {
 
         {loading && posts.length === 0 ? (
           <div className="text-center py-20">
-            <Loader2 className="h-12 w-12 mx-auto animate-spin text-primary-600" />
-            <p className="mt-4 text-gray-500">Загрузка данных...</p>
+            <Loader2 className="h-12 w-12 mx-auto animate-spin text-[#4299E1]" />
+            <p className="mt-4 text-[#718096]">Загрузка данных...</p>
           </div>
         ) : (
           <>
-            <div className="bg-white rounded-lg shadow mb-6 p-6">
+            <div className="bg-white rounded-lg shadow-sm mb-6 p-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="relative"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" /><input type="text" placeholder="Поиск статей..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" /></div>
-                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"><option value="all">Все статусы</option><option value="published">Опубликовано</option><option value="draft">Черновик</option></select>
-                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"><option value="all">Все категории</option>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
-                <div className="flex items-center text-sm text-gray-500">{`Найдено: ${filteredPosts.length} статей`}</div>
+                <div className="relative"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#718096]" /><input type="text" placeholder="Поиск статей..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent" /></div>
+                <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="px-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"><option value="all">Все статусы</option><option value="published">Опубликовано</option><option value="draft">Черновик</option></select>
+                <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="px-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"><option value="all">Все категории</option>{categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
+                <div className="flex items-center text-sm text-[#718096]">{`Найдено: ${filteredPosts.length} статей`}</div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow overflow-hidden">
+            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50"><tr><th className="th">Статья</th><th className="th">Автор</th><th className="th">Категория</th><th className="th">Статус</th><th className="th">Дата публикации</th><th className="th text-right">Действия</th></tr></thead>
-                  <tbody className="bg-white divide-y divide-gray-200">{filteredPosts.map((post) => (<tr key={post.id} className="hover:bg-gray-50"><td className="px-6 py-4"><div className="flex items-center"><img className="h-12 w-12 rounded-lg object-cover" src={post.image || '/placeholder.svg'} alt={post.title} /><div className="ml-4"><div className="text-sm font-medium text-gray-900 mb-1">{post.title}</div><div className="text-sm text-gray-500 line-clamp-2">{post.excerpt}</div></div></div></td><td className="px-6 py-4 whitespace-nowrap text-sm">{getAuthorName(post.authorId)}</td><td className="px-6 py-4 whitespace-nowrap text-sm">{getCategoryName(post.categoryId)}</td><td className="px-6 py-4 whitespace-nowrap"><span className={`badge ${post.status === 'published' ? 'badge-green' : 'badge-yellow'}`}>{post.status === 'published' ? 'Опубликовано' : 'Черновик'}</span></td><td className="px-6 py-4 whitespace-nowrap text-sm">{formatDate(post.publishedAt)}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"><div className="flex items-center justify-end space-x-3"><Link href={`/${locale}/blog/${post.slug}`} target="_blank" className="text-primary-600 hover:text-primary-900"><Eye size={16} /></Link><button onClick={() => openEdit(post)} className="text-gray-600 hover:text-gray-900"><Edit size={16} /></button><button onClick={() => { setSelectedPost(post); setShowDeleteModal(true); }} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></div></td></tr>))}</tbody>
+                <table className="min-w-full divide-y divide-[#E2E8F0]">
+                  <thead className="bg-[#F7FAFC]"><tr><th className="th">Статья</th><th className="th">Автор</th><th className="th">Категория</th><th className="th">Статус</th><th className="th">Дата публикации</th><th className="th text-right">Действия</th></tr></thead>
+                  <tbody className="bg-white divide-y divide-[#E2E8F0]">{filteredPosts.map((post) => (<tr key={post.id} className="hover:bg-[#F7FAFC]"><td className="px-6 py-4"><div className="flex items-center"><img className="h-12 w-12 rounded-lg object-cover" src={post.image || '/placeholder.svg'} alt={post.title} /><div className="ml-4"><div className="text-sm font-medium text-[#2D3748] mb-1">{post.title}</div><div className="text-sm text-[#718096] line-clamp-2">{post.excerpt}</div></div></div></td><td className="px-6 py-4 whitespace-nowrap text-sm">{getAuthorName(post.authorId)}</td><td className="px-6 py-4 whitespace-nowrap text-sm">{getCategoryName(post.categoryId)}</td><td className="px-6 py-4 whitespace-nowrap"><span className={`badge ${post.status === 'published' ? 'badge-green' : 'badge-yellow'}`}>{post.status === 'published' ? 'Опубликовано' : 'Черновик'}</span></td><td className="px-6 py-4 whitespace-nowrap text-sm">{formatDate(post.publishedAt)}</td><td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"><div className="flex items-center justify-end space-x-3"><Link href={`/${locale}/blog/${post.slug}`} target="_blank" className="text-[#4299E1] hover:text-[#2B6CB0]"><Eye size={16} /></Link><button onClick={() => openEdit(post)} className="text-[#718096] hover:text-[#2D3748]"><Edit size={16} /></button><button onClick={() => { setSelectedPost(post); setShowDeleteModal(true); }} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button></div></td></tr>))}</tbody>
                 </table>
               </div>
-              {filteredPosts.length === 0 && !loading && (<div className="text-center py-12"><MessageCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" /><h3 className="text-lg font-medium text-gray-900 mb-2">Статьи не найдены</h3><p className="text-gray-500">Попробуйте изменить параметры поиска</p></div>)}
+              {filteredPosts.length === 0 && !loading && (<div className="text-center py-12"><MessageCircle className="h-12 w-12 text-[#718096] mx-auto mb-4" /><h3 className="text-lg font-medium text-[#2D3748] mb-2">Статьи не найдены</h3><p className="text-[#718096]">Попробуйте изменить параметры поиска</p></div>)}
             </div>
           </>
         )}

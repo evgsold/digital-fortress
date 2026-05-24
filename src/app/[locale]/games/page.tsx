@@ -74,9 +74,9 @@ export default function GamesPage() {
   const hasActiveSession = !!activeSession && activeSession.status === 'in-progress';
 
   return (
-    <div className="min-h-screen bg-[#01032C] text-[#91B1C0]">
+    <div className="min-h-screen bg-[#F7FAFC] text-[#718096]">
       {/* Header */}
-      <div className="bg-[#01032C] border-b-2 border-[#91B1C0]/20">
+      <div className="bg-white border-b-2 border-[#E2E8F0]">
         <div className="container mx-auto px-4 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -85,12 +85,12 @@ export default function GamesPage() {
             className="text-center"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="p-3 bg-[#A1CCB0] rounded-lg">
-                <Gamepad2 className="w-8 h-8 text-[#01032C]" />
+              <div className="p-3 bg-[#4299E1] rounded-lg">
+                <Gamepad2 className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-[#A1CCB0]">Игры</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-[#2D3748]">Игры</h1>
             </div>
-            <p className="text-lg sm:text-xl text-[#91B1C0] font-mono">Проверьте свои знания и научитесь распознавать мошенников!</p>
+            <p className="text-lg sm:text-xl text-[#718096] font-mono">Проверьте свои знания и научитесь распознавать мошенников!</p>
           </motion.div>
         </div>
       </div>
@@ -99,8 +99,8 @@ export default function GamesPage() {
         <div className="max-w-6xl mx-auto">
           {loadingScenarios || loadingSession ? (
             <div className="text-center py-20">
-              <Loader2 className="w-12 h-12 mx-auto animate-spin text-[#A1CCB0]" />
-              <div className="text-xl font-mono text-[#91B1C0] mt-4">Загрузка игр...</div>
+              <Loader2 className="w-12 h-12 mx-auto animate-spin text-[#4299E1]" />
+              <div className="text-xl font-mono text-[#718096] mt-4">Загрузка игр...</div>
             </div>
           ) : (
             <div className="space-y-12">
@@ -110,7 +110,7 @@ export default function GamesPage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-[#01032C] border-2 border-yellow-400/50 p-6 rounded-xl relative overflow-hidden"
+                  className="bg-white border-2 border-yellow-400/50 p-6 rounded-xl relative overflow-hidden shadow-lg"
                 >
                   <div className="absolute top-0 right-0 p-4 opacity-10">
                     <PlayCircle className="w-32 h-32 text-yellow-400" />
@@ -118,11 +118,11 @@ export default function GamesPage() {
                   
                   <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div>
-                      <h3 className="text-2xl font-bold text-yellow-400 font-mono mb-2 flex items-center gap-2">
+                      <h3 className="text-2xl font-bold text-yellow-600 font-mono mb-2 flex items-center gap-2">
                         <AlertTriangle className="w-6 h-6" />
                         У вас есть незаконченная игра!
                       </h3>
-                      <p className="text-[#91B1C0] font-mono">
+                      <p className="text-[#718096] font-mono">
                         Вы остановились на вопросе {activeSession.currentScenarioIndex + 1} из {activeSession.scenarioIds.length}.
                       </p>
                     </div>
@@ -140,8 +140,8 @@ export default function GamesPage() {
 
               {/* Сетка категорий */}
               <div>
-                <h2 className="text-2xl font-bold text-white font-mono mb-6 flex items-center gap-2">
-                  <Gamepad2 className="w-6 h-6 text-[#A1CCB0]" />
+                <h2 className="text-2xl font-bold text-[#2D3748] font-mono mb-6 flex items-center gap-2">
+                  <Gamepad2 className="w-6 h-6 text-[#4299E1]" />
                   Выберите режим игры
                 </h2>
                 
@@ -163,7 +163,7 @@ export default function GamesPage() {
                           ${startingCategory && !isStarting ? 'opacity-50 grayscale' : ''}
                         `}
                       >
-                        <div className={`mb-4 p-3 rounded-lg inline-block bg-[#01032C]/50 ${category.color}`}>
+                        <div className={`mb-4 p-3 rounded-lg inline-block bg-white/50 ${category.color}`}>
                           {isStarting ? (
                             <Loader2 className="w-8 h-8 animate-spin" />
                           ) : (
@@ -175,7 +175,7 @@ export default function GamesPage() {
                           {category.label}
                         </h3>
                         
-                        <p className="text-[#91B1C0] text-sm font-mono mb-4 flex-grow">
+                        <p className="text-[#718096] text-sm font-mono mb-4 flex-grow">
                           {category.description}
                         </p>
                         

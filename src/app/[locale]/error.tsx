@@ -22,9 +22,9 @@ export default function Error({
     <main className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
-          <h1 className="text-6xl font-bold text-black mb-4">Error</h1>
-          <h2 className="text-2xl font-medium text-gray-800 mb-2">{t('errorTitle')}</h2>
-          <p className="text-gray-600">{t('errorDescription')}</p>
+          <h1 className="text-6xl font-bold text-black mb-4">Ошибка</h1>
+          <h2 className="text-2xl font-medium text-gray-800 mb-2">системная ошибка</h2>
+          <p className="text-gray-600">произошла непредвиденная ошибка. Попробуйте снова или вернитесь на главную страницу.</p>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -32,13 +32,13 @@ export default function Error({
             onClick={reset}
             className="px-8 py-3 border-2 border-black text-black font-medium hover:bg-black hover:text-white transition-colors duration-200"
           >
-            {t('tryAgain')}
+            {t('попробовать снова')}
           </button>
           <Link 
             href="/workspaces"
             className="px-8 py-3 border border-gray-400 text-gray-600 font-medium hover:bg-gray-100 transition-colors duration-200"
           >
-            {t('backToHome')}
+            {t('вернуться на главную')}
           </Link>
         </div>
       </div>

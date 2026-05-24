@@ -43,32 +43,32 @@ const FilterSections = ({
   <div className="space-y-6 pt-4 lg:pt-0">
     {/* Categories */}
     <div>
-      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.categories')}</h3>
+      <h3 className="font-bold mb-3 font-mono text-[#2D3748]">{t('filters.categories')}</h3>
       <div className="space-y-2">
-        <button onClick={() => handleCategoryChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedCategory ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allCategories')}</button>
-        {categories.map((category: any) => (<button key={category.id} onClick={() => handleCategoryChange(category.id)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${selectedCategory === category.id ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{category.name}</button>))}
+        <button onClick={() => handleCategoryChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedCategory ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}>{t('filters.allCategories')}</button>
+        {categories.map((category: any) => (<button key={category.id} onClick={() => handleCategoryChange(category.id)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${selectedCategory === category.id ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}>{category.name}</button>))}
       </div>
     </div>
 
     {/* Scam Types */}
     <div>
-      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.scamTypes')}</h3>
+      <h3 className="font-bold mb-3 font-mono text-[#2D3748]">{t('filters.scamTypes')}</h3>
       <div className="space-y-2">
-        <button onClick={() => handleScamTypeChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedScamType ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allTypes')}</button>
-        {scamTypes.map((type) => (<button key={type.value} onClick={() => handleScamTypeChange(type.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedScamType === type.value ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}><span>{type.icon}</span><span>{t(`scamTypes.${type.value}`)}</span></button>))}
+        <button onClick={() => handleScamTypeChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedScamType ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}>{t('filters.allTypes')}</button>
+        {scamTypes.map((type) => (<button key={type.value} onClick={() => handleScamTypeChange(type.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedScamType === type.value ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}><span>{type.icon}</span><span>{t(`scamTypes.${type.value}`)}</span></button>))}
       </div>
     </div>
 
     {/* Severity */}
     <div>
-      <h3 className="font-bold mb-3 font-mono text-[#A1CCB0]">{t('filters.severity')}</h3>
+      <h3 className="font-bold mb-3 font-mono text-[#2D3748]">{t('filters.severity')}</h3>
       <div className="space-y-2">
-        <button onClick={() => handleSeverityChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedSeverity ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}>{t('filters.allLevels')}</button>
-        {severityLevels.map((level) => (<button key={level.value} onClick={() => handleSeverityChange(level.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedSeverity === level.value ? 'bg-[#A1CCB0] text-[#01032C] border-[#A1CCB0]' : 'bg-transparent text-[#91B1C0] border-[#91B1C0]/50 hover:bg-[#91B1C0]/10 hover:border-[#A1CCB0]'}`}><span>{level.icon}</span><span>{t(`severity.${level.value}`)}</span></button>))}
+        <button onClick={() => handleSeverityChange(null)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 rounded-lg transition-colors ${!selectedSeverity ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}>{t('filters.allLevels')}</button>
+        {severityLevels.map((level) => (<button key={level.value} onClick={() => handleSeverityChange(level.value)} className={`w-full text-left px-3 py-2 text-sm font-mono border-2 flex items-center gap-2 rounded-lg transition-colors ${selectedSeverity === level.value ? 'bg-[#4299E1] text-white border-[#4299E1]' : 'bg-transparent text-[#718096] border-[#E2E8F0] hover:bg-[#F7FAFC] hover:border-[#4299E1]'}`}><span>{level.icon}</span><span>{t(`severity.${level.value}`)}</span></button>))}
       </div>
     </div>
     
-    <button onClick={clearFilters} className="w-full px-4 py-2 bg-[#91B1C0]/20 text-[#A1CCB0] hover:bg-[#91B1C0]/30 font-mono border-2 border-transparent rounded-lg transition-colors">{t('filters.clear')}</button>
+    <button onClick={clearFilters} className="w-full px-4 py-2 bg-[#E2E8F0] text-[#718096] hover:bg-[#CBD5E0] font-mono border-2 border-transparent rounded-lg transition-colors">{t('filters.clear')}</button>
   </div>
 );
 
@@ -158,9 +158,9 @@ export default function ForumPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#01032C] text-[#91B1C0]">
+    <div className="min-h-screen bg-[#F7FAFC] text-[#718096]">
       {/* Header */}
-      <div className="bg-[#01032C] border-b-2 border-[#91B1C0]/20">
+      <div className="bg-white border-b-2 border-[#E2E8F0]">
         <div className="container mx-auto px-4 py-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -169,12 +169,12 @@ export default function ForumPage() {
             className="text-center"
           >
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="p-3 bg-[#A1CCB0] rounded-lg">
-                <MessageSquare className="w-8 h-8 text-[#01032C]" />
+              <div className="p-3 bg-[#4299E1] rounded-lg">
+                <MessageSquare className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-[#A1CCB0]">{t('title')}</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono text-[#2D3748]">{t('title')}</h1>
             </div>
-            <p className="text-lg sm:text-xl text-[#91B1C0] font-mono">{t('subtitle')}</p>
+            <p className="text-lg sm:text-xl text-[#718096] font-mono">{t('subtitle')}</p>
           </motion.div>
         </div>
       </div>
@@ -183,12 +183,12 @@ export default function ForumPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-6 lg:sticky lg:top-24 rounded-xl">
+            <div className="bg-white border-2 border-[#E2E8F0] p-6 lg:sticky lg:top-24 rounded-xl shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold font-mono text-[#A1CCB0]">{t('filters.title')}</h2>
+                <h2 className="text-lg font-bold font-mono text-[#2D3748]">{t('filters.title')}</h2>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="lg:hidden p-2 hover:bg-[#91B1C0]/10 rounded-lg"
+                  className="lg:hidden p-2 hover:bg-[#F7FAFC] rounded-lg"
                 >
                   {showFilters ? <ChevronUp className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
                 </button>
@@ -222,7 +222,7 @@ export default function ForumPage() {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Search Bar */}
-            <div className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-4 mb-6 rounded-xl">
+            <div className="bg-white border-2 border-[#E2E8F0] p-4 mb-6 rounded-xl shadow-sm">
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
@@ -230,11 +230,11 @@ export default function ForumPage() {
                   value={localSearchTerm}
                   onChange={(e) => setLocalSearchTerm(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="flex-1 px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] focus:outline-none font-mono rounded-lg placeholder-[#91B1C0]/50"
+                  className="flex-1 px-4 py-3 bg-[#F7FAFC] text-[#2D3748] border-2 border-[#E2E8F0] focus:border-[#4299E1] focus:ring-1 focus:ring-[#4299E1] focus:outline-none font-mono rounded-lg placeholder-[#718096]/50"
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-6 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] flex items-center justify-center gap-2 rounded-lg transition-colors"
+                  className="px-6 py-3 bg-[#4299E1] text-white hover:bg-[#3182CE] font-mono font-bold border-2 border-[#4299E1] flex items-center justify-center gap-2 rounded-lg transition-colors"
                 >
                   <Search className="w-5 h-5" />
                   <span className="sm:inline">{t('search.button')}</span>
@@ -247,7 +247,7 @@ export default function ForumPage() {
               <div className="mb-6">
                 <Link
                   href="/forum/create"
-                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] rounded-lg transition-colors"
+                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-[#4299E1] text-white hover:bg-[#3182CE] font-mono font-bold border-2 border-[#4299E1] rounded-lg transition-colors"
                 >
                   <MessageSquare className="w-5 h-5" />
                   {t('createPost')}
@@ -259,12 +259,12 @@ export default function ForumPage() {
             <div className="space-y-4">
               {loadingPosts ? (
                 <div className="text-center py-8">
-                  <div className="text-xl font-mono text-[#91B1C0]">{t('loadingPosts')}</div>
+                  <div className="text-xl font-mono text-[#718096]">{t('loadingPosts')}</div>
                 </div>
               ) : posts.length === 0 ? (
-                <div className="bg-[#01032C] border-2 border-dashed border-[#91B1C0]/30 p-8 text-center rounded-xl">
-                  <h3 className="text-xl font-bold mb-2 font-mono text-[#A1CCB0]">{t('noPostsTitle')}</h3>
-                  <p className="text-[#91B1C0] font-mono">{t('noPostsHint')}</p>
+                <div className="bg-white border-2 border-dashed border-[#E2E8F0] p-8 text-center rounded-xl">
+                  <h3 className="text-xl font-bold mb-2 font-mono text-[#2D3748]">{t('noPostsTitle')}</h3>
+                  <p className="text-[#718096] font-mono">{t('noPostsHint')}</p>
                 </div>
               ) : (
                 posts.map((post) => {
@@ -272,40 +272,41 @@ export default function ForumPage() {
                   const scamTypeInfo = getScamTypeInfo(post.scamType);
                   
                   return (
+                    <Link href={`/forum/${post.id}`}>
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-6 hover:border-[#A1CCB0] transition-colors duration-300 rounded-xl"
+                      className="bg-white border-2 border-[#E2E8F0] p-6 hover:border-[#4299E1] transition-colors duration-300 rounded-xl shadow-sm"
                     >
+
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center gap-2 mb-2">
                             {post.isPinned && (
-                              <span className="px-2 py-1 bg-[#91B1C0] text-[#01032C] text-xs font-mono font-bold rounded-md">PINNED</span>
+                              <span className="px-2 py-1 bg-[#4299E1] text-white text-xs font-mono font-bold rounded-md">PINNED</span>
                             )}
-                            <span className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono rounded-md">
+                            <span className="px-2 py-1 bg-[#4299E1]/10 text-[#4299E1] text-xs font-mono rounded-md">
                               {severityInfo.icon} {t(`severity.${post.severity}`).toUpperCase()}
                             </span>
-                            <span className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono rounded-md">
+                            <span className="px-2 py-1 bg-[#4299E1]/10 text-[#4299E1] text-xs font-mono rounded-md">
                               {scamTypeInfo.icon} {t(`scamTypes.${post.scamType}`).toUpperCase()}
                             </span>
                           </div>
                           
-                          <Link href={`/forum/${post.id}`}>
-                            <h3 className="text-lg md:text-xl font-bold my-2 text-[#A1CCB0] hover:text-opacity-80 font-mono cursor-pointer transition-colors">
+
+                            <h3 className="text-lg md:text-xl font-bold my-2 text-[#2D3748] hover:text-[#4299E1] font-mono cursor-pointer transition-colors">
                               {post.title}
                             </h3>
-                          </Link>
-                          
-                          <p className="text-[#91B1C0] mb-4 font-mono line-clamp-3">
+
+                          <p className="text-[#718096] mb-4 font-mono line-clamp-3">
                             {post.content.substring(0, 200)}...
                           </p>
                           
                           {post.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-4">
                               {post.tags.map((tag, index) => (
-                                <span key={index} className="px-2 py-1 bg-[#91B1C0]/20 text-[#A1CCB0] text-xs font-mono flex items-center gap-1 rounded-md">
+                                <span key={index} className="px-2 py-1 bg-[#4299E1]/10 text-[#4299E1] text-xs font-mono flex items-center gap-1 rounded-md">
                                   <Tag className="w-3 h-3" />
                                   {tag}
                                 </span>
@@ -314,8 +315,10 @@ export default function ForumPage() {
                           )}
                         </div>
                       </div>
+
+                          
                       
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between text-sm text-[#91B1C0] font-mono gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between text-sm text-[#718096] font-mono gap-4">
                         <div className="flex items-center gap-4 flex-wrap">
                           <div className="flex items-center gap-1">
                             <User className="w-4 h-4" />
@@ -334,17 +337,18 @@ export default function ForumPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <div className="flex items-center gap-1">
-                              <ChevronUp className="w-4 h-4 text-[#A1CCB0]" />
+                              <ChevronUp className="w-4 h-4 text-[#4299E1]" />
                               <span>{post.upvotes}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                              <ChevronDown className="w-4 h-4 text-[#91B1C0]" />
+                              <ChevronDown className="w-4 h-4 text-[#718096]" />
                               <span>{post.downvotes}</span>
                             </div>
                           </div>
                         </div>
                       </div>
                     </motion.div>
+                    </Link>
                   );
                 })
               )}

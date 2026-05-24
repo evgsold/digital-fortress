@@ -70,12 +70,12 @@ export default function PostsPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Управление постами</h1>
-          <p className="text-gray-600">Просмотр, создание и редактирование постов форума</p>
+          <h1 className="text-2xl font-bold text-[#2D3748]">Управление постами</h1>
+          <p className="text-[#718096]">Просмотр, создание и редактирование постов форума</p>
         </div>
         <button
           onClick={handleCreate}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+          className="bg-[#4299E1] text-white px-4 py-2 rounded-lg hover:bg-[#3182CE] flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Создать пост</span>
@@ -83,22 +83,22 @@ export default function PostsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#718096]" size={20} />
             <input
               type="text"
               placeholder="Поиск по заголовку или содержанию..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
             />
           </div>
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
           >
             <option value="">Все уровни серьезности</option>
             <option value="low">Низкий</option>
@@ -109,7 +109,7 @@ export default function PostsPage() {
           <select
             value={filterScamType}
             onChange={(e) => setFilterScamType(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
           >
             <option value="">Все типы мошенничества</option>
             <option value="phishing">Фишинг</option>
@@ -128,52 +128,52 @@ export default function PostsPage() {
       </div>
 
       {/* Posts Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {loadingPosts ? (
           <div className="p-6 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Загрузка постов...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4299E1] mx-auto"></div>
+            <p className="mt-2 text-[#718096]">Загрузка постов...</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-[#E2E8F0]">
+              <thead className="bg-[#F7FAFC]">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Заголовок
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Серьезность
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Тип мошенничества
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Статистика
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Статус
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Дата создания
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#718096] uppercase tracking-wider">
                     Действия
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-[#E2E8F0]">
                 {filteredPosts.map((post) => (
-                  <tr key={post.id} className="hover:bg-gray-50">
+                  <tr key={post.id} className="hover:bg-[#F7FAFC]">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         {post.isPinned && <Pin size={16} className="text-blue-500 mr-2" />}
                         {post.isLocked && <Lock size={16} className="text-gray-500 mr-2" />}
                         <div>
-                          <div className="text-sm font-medium text-gray-900 truncate max-w-xs">
+                          <div className="text-sm font-medium text-[#2D3748] truncate max-w-xs">
                             {post.title}
                           </div>
-                          <div className="text-sm text-gray-500 truncate max-w-xs">
+                          <div className="text-sm text-[#718096] truncate max-w-xs">
                             {post.content.substring(0, 100)}...
                           </div>
                         </div>
@@ -184,10 +184,10 @@ export default function PostsPage() {
                         {post.severity}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#2D3748]">
                       {post.scamType.replace(/_/g, ' ')}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#718096]">
                       <div className="space-y-1">
                         <div>👁 {post.viewCount}</div>
                         <div>💬 {post.commentCount}</div>
@@ -213,21 +213,21 @@ export default function PostsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#718096]">
                       {new Date(post.createdAt).toLocaleDateString('ru-RU')}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <button
                           onClick={() => handleView(post)}
-                          className="text-blue-600 hover:text-blue-900 p-1"
+                          className="text-[#4299E1] hover:text-[#2B6CB0] p-1"
                           title="Просмотр"
                         >
                           <Eye size={16} />
                         </button>
                         <button
                           onClick={() => handleEdit(post)}
-                          className="text-indigo-600 hover:text-indigo-900 p-1"
+                          className="text-[#4299E1] hover:text-[#2B6CB0] p-1"
                           title="Редактировать"
                         >
                           <Edit size={16} />
@@ -246,7 +246,7 @@ export default function PostsPage() {
               </tbody>
             </table>
             {filteredPosts.length === 0 && (
-              <div className="p-6 text-center text-gray-500">
+              <div className="p-6 text-center text-[#718096]">
                 {searchTerm || filterSeverity || filterScamType ? 'Посты не найдены' : 'Нет постов'}
               </div>
             )}

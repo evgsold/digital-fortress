@@ -78,20 +78,20 @@ export default function DeepsekChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#01032C] text-[#91B1C0] font-mono">
+    <div className="flex flex-col h-screen bg-[#F7FAFC] text-[#718096] font-mono">
       {/* Header */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-[#01032C]/50 backdrop-blur-lg p-4 border-b border-[#91B1C0]/20 flex items-center gap-3"
+        className="bg-white/50 backdrop-blur-lg p-4 border-b border-[#E2E8F0] flex items-center gap-3"
       >
-        <div className="p-2 bg-[#A1CCB0] rounded-lg">
-          <Bot className="w-6 h-6 text-[#01032C]" />
+        <div className="p-2 bg-[#4299E1] rounded-lg">
+          <Bot className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-[#A1CCB0]">Chat</h1>
-          <p className="text-sm text-[#91B1C0]">Ваш AI-гид по онлайн-безопасности</p>
+          <h1 className="text-xl font-bold text-[#2D3748]">Chat</h1>
+          <p className="text-sm text-[#718096]">Ваш AI-гид по онлайн-безопасности</p>
         </div>
       </motion.header>
 
@@ -117,22 +117,22 @@ export default function DeepsekChatPage() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="p-2 bg-[#91B1C0]/20 rounded-full flex-shrink-0"
+                      className="p-2 bg-[#4299E1]/10 rounded-full flex-shrink-0"
                     >
-                      <Bot className="w-5 h-5 text-[#A1CCB0]" />
+                      <Bot className="w-5 h-5 text-[#4299E1]" />
                     </motion.div>
                   )}
-                  <div className={`max-w-xl p-4 rounded-xl whitespace-pre-wrap ${m.role === 'user' ? 'bg-[#A1CCB0] text-[#01032C] font-semibold' : 'bg-[#91B1C0]/10 text-[#91B1C0]'}`}>
+                  <div className={`max-w-xl p-4 rounded-xl whitespace-pre-wrap ${m.role === 'user' ? 'bg-[#4299E1] text-white font-semibold' : 'bg-white text-[#2D3748] border border-[#E2E8F0] shadow-sm'}`}>
                     {m.content}
-                    {isStreaming && <span className="inline-block w-2 h-5 bg-[#A1CCB0] animate-pulse ml-1 rounded-sm" />}
+                    {isStreaming && <span className="inline-block w-2 h-5 bg-[#4299E1] animate-pulse ml-1 rounded-sm" />}
                   </div>
                   {m.role === 'user' && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="p-2 bg-[#91B1C0]/20 rounded-full flex-shrink-0"
+                      className="p-2 bg-[#4299E1]/10 rounded-full flex-shrink-0"
                     >
-                      <User className="w-5 h-5 text-[#A1CCB0]" />
+                      <User className="w-5 h-5 text-[#4299E1]" />
                     </motion.div>
                   )}
                 </motion.div>
@@ -143,7 +143,7 @@ export default function DeepsekChatPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center text-[#91B1C0]/70 pt-10"
+              className="text-center text-[#718096]/70 pt-10"
             >
               <p>Задайте вопрос о безопасности в интернете.</p>
               <p className="text-sm mt-2">Например: "Мне пришло письмо о выигрыше в лотерею, это безопасно?"</p>
@@ -157,7 +157,7 @@ export default function DeepsekChatPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="p-4 bg-[#01032C] border-t border-[#91B1C0]/20"
+        className="p-4 bg-white border-t border-[#E2E8F0]"
       >
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
           <div className="relative">
@@ -166,7 +166,7 @@ export default function DeepsekChatPage() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Опишите ситуацию или задайте вопрос..."
               rows={1}
-              className="w-full p-4 pr-20 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#A1CCB0] focus:border-[#A1CCB0] transition-all placeholder-[#91B1C0]/50"
+              className="w-full p-4 pr-20 bg-[#F7FAFC] text-[#2D3748] border-2 border-[#E2E8F0] rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#4299E1] focus:border-[#4299E1] transition-all placeholder-[#718096]/50"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
@@ -180,10 +180,10 @@ export default function DeepsekChatPage() {
               disabled={isLoading || !input.trim()}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#A1CCB0] text-[#01032C] rounded-lg hover:bg-[#A1CCB0]/80 disabled:bg-[#91B1C0]/20 disabled:cursor-not-allowed transition-all"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#4299E1] text-white rounded-lg hover:bg-[#3182CE] disabled:bg-[#CBD5E0] disabled:cursor-not-allowed transition-all"
             >
               {isLoading ? (
-                <div className="w-5 h-5 border-2 border-t-transparent border-[#01032C] rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin" />
               ) : (
                 <Send className="w-5 h-5" />
               )}

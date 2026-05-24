@@ -62,10 +62,10 @@ const ScenarioEditorModal = ({
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 overflow-y-auto h-full w-full z-50 flex justify-center items-start pt-10">
       <div className="relative mx-auto p-5 border w-full max-w-3xl shadow-lg rounded-md bg-white max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between mb-4 pb-4 border-b">
-          <h3 className="text-xl font-semibold text-gray-900">
+          <h3 className="text-xl font-semibold text-[#2D3748]">
             {initialScenario ? 'Редактирование сценария' : 'Создание нового сценария'}
           </h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><XCircle className="h-6 w-6" /></button>
+          <button onClick={onClose} className="text-[#718096] hover:text-[#2D3748]"><XCircle className="h-6 w-6" /></button>
         </div>
         
         <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-4">
@@ -210,12 +210,12 @@ export default function AdminGamesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F7FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Управление играми</h1>
-            <p className="text-gray-600 mt-1">Создавайте и редактируйте сценарии для викторины "Мошенники или нет?".</p>
+            <h1 className="text-3xl font-bold text-[#2D3748]">Управление играми</h1>
+            <p className="text-[#718096] mt-1">Создавайте и редактируйте сценарии для викторины "Мошенники или нет?".</p>
           </div>
           <div className="flex space-x-2">
             <button onClick={openCreate} className="btn-primary flex items-center">
@@ -233,27 +233,27 @@ export default function AdminGamesPage() {
 
         {loading && scenarios.length === 0 ? (
           <div className="text-center py-20">
-            <Loader2 className="h-12 w-12 mx-auto animate-spin text-primary-600" />
-            <p className="mt-4 text-gray-500">Загрузка сценариев...</p>
+            <Loader2 className="h-12 w-12 mx-auto animate-spin text-[#4299E1]" />
+            <p className="mt-4 text-[#718096]">Загрузка сценариев...</p>
           </div>
         ) : (
           <>
-            <div className="bg-white rounded-lg shadow mb-6 p-6">
+            <div className="bg-white rounded-lg shadow-sm mb-6 p-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="relative md:col-span-2">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#718096]" />
                   <input
                     type="text"
                     placeholder="Поиск по описанию..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
                   />
                 </div>
                 <select
                   value={isScamFilter}
                   onChange={(e) => setIsScamFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="px-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
                 >
                   <option value="all">Все типы (Мошенничество)</option>
                   <option value="true">Мошенничество</option>
@@ -262,7 +262,7 @@ export default function AdminGamesPage() {
                 <select
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="px-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
                 >
                   <option value="all">Все категории</option>
                   {SCENARIO_CATEGORIES.map(cat => (
@@ -272,10 +272,10 @@ export default function AdminGamesPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow overflow-hidden">
+            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-[#E2E8F0]">
+                  <thead className="bg-[#F7FAFC]">
                     <tr>
                       <th className="th w-2/5">Описание ситуации</th>
                       <th className="th">Категория</th>
@@ -283,11 +283,11 @@ export default function AdminGamesPage() {
                       <th className="th text-right">Действия</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y divide-[#E2E8F0]">
                     {filteredScenarios.map((scenario : GameScenario) => (
-                      <tr key={scenario.id} className="hover:bg-gray-50">
+                      <tr key={scenario.id} className="hover:bg-[#F7FAFC]">
                         <td className="px-6 py-4">
-                          <p className="text-sm text-gray-800 line-clamp-3">{scenario.description}</p>
+                          <p className="text-sm text-[#2D3748] line-clamp-3">{scenario.description}</p>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -301,7 +301,7 @@ export default function AdminGamesPage() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex items-center justify-end space-x-3">
-                            <button onClick={() => openEdit(scenario)} className="text-gray-600 hover:text-gray-900"><Edit size={16} /></button>
+                            <button onClick={() => openEdit(scenario)} className="text-[#718096] hover:text-[#2D3748]"><Edit size={16} /></button>
                             <button onClick={() => { setSelectedScenario(scenario); setShowDeleteModal(true); }} className="text-red-600 hover:text-red-900"><Trash2 size={16} /></button>
                           </div>
                         </td>
@@ -312,9 +312,9 @@ export default function AdminGamesPage() {
               </div>
               {filteredScenarios.length === 0 && !loading && (
                 <div className="text-center py-12">
-                  <Gamepad2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">Сценарии не найдены</h3>
-                  <p className="text-gray-500">Попробуйте изменить параметры поиска или создайте новый сценарий.</p>
+                  <Gamepad2 className="h-12 w-12 text-[#718096] mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-[#2D3748] mb-2">Сценарии не найдены</h3>
+                  <p className="text-[#718096]">Попробуйте изменить параметры поиска или создайте новый сценарий.</p>
                 </div>
               )}
             </div>
@@ -337,8 +337,8 @@ export default function AdminGamesPage() {
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
                 <AlertTriangle className="h-6 w-6 text-red-600" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mt-4">Удалить сценарий</h3>
-              <p className="text-sm text-gray-500 mt-2 px-4">
+              <h3 className="text-lg font-medium text-[#2D3748] mt-4">Удалить сценарий</h3>
+              <p className="text-sm text-[#718096] mt-2 px-4">
                 {`Вы уверены, что хотите удалить этот сценарий? Действие необратимо.`}
               </p>
               <div className="items-center px-4 py-3 mt-4 space-x-4">

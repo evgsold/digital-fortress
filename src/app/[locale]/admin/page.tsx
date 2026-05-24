@@ -57,21 +57,21 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Админ панель</h1>
-        <p className="text-gray-600">Управление системой Digital Fortress</p>
+        <h1 className="text-3xl font-bold text-[#2D3748] font-mono">Админ панель</h1>
+        <p className="text-[#718096] font-mono">Управление системой Digital Fortress</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
-          <div key={stat.name} className="bg-white rounded-lg shadow p-6">
+          <div key={stat.name} className="bg-white rounded-lg shadow-sm border border-[#E2E8F0] p-6">
             <div className="flex items-center">
               <div className={`${stat.color} rounded-md p-3`}>
                 <stat.icon className="h-6 w-6 text-white" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-[#718096] font-mono">{stat.name}</p>
+                <p className="text-2xl font-semibold text-[#2D3748] font-mono">
                   {stat.loading ? '...' : stat.value}
                 </p>
               </div>
@@ -82,15 +82,15 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Users */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900">Последние пользователи</h2>
+        <div className="bg-white rounded-lg shadow-sm border border-[#E2E8F0]">
+          <div className="px-6 py-4 border-b border-[#E2E8F0]">
+            <h2 className="text-lg font-medium text-[#2D3748] font-mono">Последние пользователи</h2>
           </div>
           <div className="p-6">
             {loadingUsers ? (
-              <div className="text-center text-gray-500">Загрузка...</div>
+              <div className="text-center text-[#718096] font-mono">Загрузка...</div>
             ) : recentUsers.length === 0 ? (
-              <div className="text-center text-gray-500">Нет пользователей</div>
+              <div className="text-center text-[#718096] font-mono">Нет пользователей</div>
             ) : (
               <div className="space-y-3">
                 {recentUsers.map((user) => (
@@ -103,10 +103,10 @@ export default function AdminDashboard() {
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-[#2D3748] truncate font-mono">
                         {user.displayName}
                       </p>
-                      <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                      <p className="text-sm text-[#718096] truncate font-mono">{user.email}</p>
                     </div>
                     <div className="flex-shrink-0">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -125,24 +125,24 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Posts */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900">Последние посты</h2>
+        <div className="bg-white rounded-lg shadow-sm border border-[#E2E8F0]">
+          <div className="px-6 py-4 border-b border-[#E2E8F0]">
+            <h2 className="text-lg font-medium text-[#2D3748] font-mono">Последние посты</h2>
           </div>
           <div className="p-6">
             {loadingPosts ? (
-              <div className="text-center text-gray-500">Загрузка...</div>
+              <div className="text-center text-[#718096] font-mono">Загрузка...</div>
             ) : recentPosts.length === 0 ? (
-              <div className="text-center text-gray-500">Нет постов</div>
+              <div className="text-center text-[#718096] font-mono">Нет постов</div>
             ) : (
               <div className="space-y-3">
                 {recentPosts.map((post) => (
-                  <div key={post.id} className="border-b border-gray-100 pb-3 last:border-b-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                  <div key={post.id} className="border-b border-[#E2E8F0] pb-3 last:border-b-0">
+                    <p className="text-sm font-medium text-[#2D3748] truncate font-mono">
                       {post.title}
                     </p>
                     <div className="flex items-center space-x-2 mt-1">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full font-mono ${
                         post.severity === 'critical' ? 'bg-red-100 text-red-800' :
                         post.severity === 'high' ? 'bg-orange-100 text-orange-800' :
                         post.severity === 'medium' ? 'bg-yellow-100 text-yellow-800' :
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
                       }`}>
                         {post.severity}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-[#718096] font-mono">
                         {new Date(post.createdAt).toLocaleDateString('ru-RU')}
                       </span>
                     </div>

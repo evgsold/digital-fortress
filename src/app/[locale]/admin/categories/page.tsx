@@ -54,12 +54,12 @@ export default function CategoriesPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Управление категориями</h1>
-          <p className="text-gray-600">Просмотр, создание и редактирование категорий форума</p>
+          <h1 className="text-2xl font-bold text-[#2D3748]">Управление категориями</h1>
+          <p className="text-[#718096]">Просмотр, создание и редактирование категорий форума</p>
         </div>
         <button
           onClick={handleCreate}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+          className="bg-[#4299E1] text-white px-4 py-2 rounded-lg hover:bg-[#3182CE] flex items-center space-x-2"
         >
           <Plus size={20} />
           <span>Создать категорию</span>
@@ -67,30 +67,30 @@ export default function CategoriesPage() {
       </div>
 
       {/* Search */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-white rounded-lg shadow-sm p-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#718096]" size={20} />
           <input
             type="text"
             placeholder="Поиск по названию или описанию..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-[#E2E8F0] rounded-lg focus:ring-2 focus:ring-[#4299E1] focus:border-transparent"
           />
         </div>
       </div>
 
       {/* Categories Grid */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         {loadingCategories ? (
           <div className="p-6 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Загрузка категорий...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4299E1] mx-auto"></div>
+            <p className="mt-2 text-[#718096]">Загрузка категорий...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
             {filteredCategories.map((category) => (
-              <div key={category.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div key={category.id} className="border border-[#E2E8F0] rounded-lg p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <div 
@@ -102,14 +102,14 @@ export default function CategoriesPage() {
                   <div className="flex space-x-1">
                     <button
                       onClick={() => handleView(category)}
-                      className="text-blue-600 hover:text-blue-900 p-1"
+                      className="text-[#4299E1] hover:text-[#2B6CB0] p-1"
                       title="Просмотр"
                     >
                       <Eye size={16} />
                     </button>
                     <button
                       onClick={() => handleEdit(category)}
-                      className="text-indigo-600 hover:text-indigo-900 p-1"
+                      className="text-[#4299E1] hover:text-[#2B6CB0] p-1"
                       title="Редактировать"
                     >
                       <Edit size={16} />
@@ -124,11 +124,11 @@ export default function CategoriesPage() {
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-[#2D3748] mb-2">
                   {category.name}
                 </h3>
                 
-                <p className="text-gray-600 text-sm mb-3 line-clamp-3">
+                <p className="text-[#718096] text-sm mb-3 line-clamp-3">
                   {category.description}
                 </p>
                 
@@ -141,7 +141,7 @@ export default function CategoriesPage() {
                     {category.isActive ? 'Активна' : 'Неактивна'}
                   </span>
                   
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-[#718096]">
                     {new Date(category.createdAt).toLocaleDateString('ru-RU')}
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function CategoriesPage() {
         )}
         
         {filteredCategories.length === 0 && !loadingCategories && (
-          <div className="p-6 text-center text-gray-500">
+          <div className="p-6 text-center text-[#718096]">
             {searchTerm ? 'Категории не найдены' : 'Нет категорий'}
           </div>
         )}

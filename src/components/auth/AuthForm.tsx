@@ -109,34 +109,35 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#01032C] text-[#91B1C0] overflow-hidden px-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-[#F7FAFC] text-[#718096] overflow-hidden px-4">
       <motion.div
-        className="absolute top-20 left-10 w-2 h-32 bg-[#91B1C0]/10 rounded-full"
+        className="absolute top-20 left-10 w-2 h-32 bg-[#E2E8F0] rounded-full"
         variants={floatingVariants}
         animate="animate"
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-32 h-2 bg-[#91B1C0]/10 rounded-full"
+        className="absolute bottom-20 right-10 w-32 h-2 bg-[#E2E8F0] rounded-full"
         variants={floatingVariants}
         animate="animate"
         transition={{ delay: 2 }}
       />
 
       <motion.div
-        className="relative w-full max-w-md space-y-6 sm:space-y-8 p-8 sm:p-12 bg-[#01032C] border-2 border-[#91B1C0]/20 rounded-xl"
+        className="relative w-full max-w-md space-y-6 sm:space-y-8 p-8 sm:p-12 bg-white border-2 border-[#E2E8F0] rounded-xl shadow-lg"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <div className="text-center">
           <motion.div
-            className="inline-flex items-center gap-3 px-4 py-2 bg-[#A1CCB0] text-[#01032C] mb-6 rounded-lg"
+            className="inline-flex items-center gap-3 px-4 py-2 bg-[#4299E1] text-white mb-6 rounded-lg"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            <Shield size={20} />
           </motion.div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#A1CCB0] font-mono">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#2D3748] font-mono">
             {mode === 'login' ? tAuth('login.title') : tAuth('register.title')}
           </h2>
         </div>
@@ -152,12 +153,12 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                   name="name"
                   type="text"
                   required
-                  className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
+                  className="w-full px-4 py-3 bg-[#F7FAFC] text-[#2D3748] border-2 border-[#E2E8F0] placeholder-[#718096]/50 focus:outline-none focus:border-[#4299E1] focus:ring-1 focus:ring-[#4299E1] transition-colors text-base font-mono rounded-lg"
                   placeholder={tCommon('name')}
                   value={name}
                   onChange={(e) => handleNameChange(e.target.value)}
                 />
-                {validationErrors.name && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.name}</div>}
+                {validationErrors.name && <div className="text-red-500 text-sm mt-2 font-mono">{validationErrors.name}</div>}
               </div>
             )}
             <div>
@@ -169,12 +170,12 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                 name="email"
                 type="email"
                 required
-                className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
+                className="w-full px-4 py-3 bg-[#F7FAFC] text-[#2D3748] border-2 border-[#E2E8F0] placeholder-[#718096]/50 focus:outline-none focus:border-[#4299E1] focus:ring-1 focus:ring-[#4299E1] transition-colors text-base font-mono rounded-lg"
                 placeholder={tCommon('email')}
                 value={email}
                 onChange={(e) => handleEmailChange(e.target.value)}
               />
-              {validationErrors.email && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.email}</div>}
+              {validationErrors.email && <div className="text-red-500 text-sm mt-2 font-mono">{validationErrors.email}</div>}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -185,28 +186,28 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
                 name="password"
                 type="password"
                 required
-                className="w-full px-4 py-3 bg-[#91B1C0]/10 text-[#A1CCB0] border-2 border-[#91B1C0]/30 placeholder-[#91B1C0]/50 focus:outline-none focus:border-[#A1CCB0] focus:ring-1 focus:ring-[#A1CCB0] transition-colors text-base font-mono rounded-lg"
+                className="w-full px-4 py-3 bg-[#F7FAFC] text-[#2D3748] border-2 border-[#E2E8F0] placeholder-[#718096]/50 focus:outline-none focus:border-[#4299E1] focus:ring-1 focus:ring-[#4299E1] transition-colors text-base font-mono rounded-lg"
                 placeholder={tCommon('password')}
                 value={password}
                 onChange={(e) => handlePasswordChange(e.target.value)}
               />
-              {validationErrors.password && <div className="text-red-400 text-sm mt-2 font-mono">{validationErrors.password}</div>}
+              {validationErrors.password && <div className="text-red-500 text-sm mt-2 font-mono">{validationErrors.password}</div>}
             </div>
           </div>
 
-          {error && <div className="text-red-400 text-sm text-center font-medium p-3 bg-red-500/10 border border-red-500/30 font-mono rounded-lg">{error}</div>}
+          {error && <div className="text-red-500 text-sm text-center font-medium p-3 bg-red-50 border border-red-200 font-mono rounded-lg">{error}</div>}
 
           <div className="space-y-4">
             <motion.button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border-2 border-transparent text-sm font-bold text-[#01032C] bg-[#A1CCB0] hover:bg-[#A1CCB0]/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A1CCB0] disabled:bg-[#91B1C0]/20 disabled:text-[#91B1C0]/50 disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
+              className="group relative w-full flex justify-center py-3 px-4 border-2 border-transparent text-sm font-bold text-white bg-[#4299E1] hover:bg-[#3182CE] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4299E1] disabled:bg-[#CBD5E0] disabled:text-[#718096] disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {loading ? (
                 <svg
-                  className="animate-spin h-5 w-5 text-[#01032C]"
+                  className="animate-spin h-5 w-5 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -232,10 +233,10 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#91B1C0]/20"></div>
+                <div className="w-full border-t border-[#E2E8F0]"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[#01032C] text-[#91B1C0]">{tAuth('or')}</span>
+                <span className="px-2 bg-white text-[#718096] font-mono">{tAuth('or')}</span>
               </div>
             </div>
 
@@ -243,7 +244,7 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
               type="button"
               onClick={handleGoogleLogin}
               disabled={loading}
-              className="w-full flex items-center justify-center px-4 py-3 border-2 border-[#91B1C0] text-sm font-semibold text-[#91B1C0] bg-transparent hover:bg-[#91B1C0]/10 focus:outline-none focus:border-[#A1CCB0] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
+              className="w-full flex items-center justify-center px-4 py-3 border-2 border-[#CBD5E0] text-sm font-semibold text-[#2D3748] bg-transparent hover:bg-[#F7FAFC] focus:outline-none focus:border-[#4299E1] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-mono rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -257,18 +258,18 @@ export const AuthForm = ({ mode }: AuthFormProps) => {
               <span className="sm:hidden">Google</span>
             </motion.button>
 
-            <div className="text-center text-sm text-[#91B1C0] font-mono">
+            <div className="text-center text-sm text-[#718096] font-mono">
               {mode === 'login' ? (
                 <>
                   {tAuth('noAccount')}{' '}
-                  <Link href="/register" className="font-semibold text-[#A1CCB0] hover:underline">
+                  <Link href="/register" className="font-semibold text-[#4299E1] hover:underline">
                     {tAuth('switchToRegister')}
                   </Link>
                 </>
               ) : (
                 <>
                   {tAuth('haveAccount')}{' '}
-                  <Link href="/login" className="font-semibold text-[#A1CCB0] hover:underline">
+                  <Link href="/login" className="font-semibold text-[#4299E1] hover:underline">
                     {tAuth('switchToLogin')}
                   </Link>
                 </>

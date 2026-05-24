@@ -80,9 +80,9 @@ export default function GamePlayPage() {
           className="text-center"
         >
           <Award className="w-24 h-24 text-yellow-400 mx-auto mb-4" />
-          <h2 className="text-4xl font-bold text-white font-mono mb-2">{t('gameOverTitle')}</h2>
-          <p className="text-lg text-[#A1CCB0] font-mono mb-6">{t('finalScore', { score, total })}</p>
-          <div className="w-full bg-[#91B1C0]/20 rounded-full h-4 mb-6">
+          <h2 className="text-4xl font-bold text-[#2D3748] font-mono mb-2">{t('gameOverTitle')}</h2>
+          <p className="text-lg text-[#718096] font-mono mb-6">{t('finalScore', { score, total })}</p>
+          <div className="w-full bg-[#E2E8F0] rounded-full h-4 mb-6">
             <div
               className="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded-full"
               style={{ width: `${percentage}%` }}
@@ -90,7 +90,7 @@ export default function GamePlayPage() {
           </div>
           <button
             onClick={handlePlayAgain}
-            className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] rounded-lg transition-colors"
+            className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-[#4299E1] text-white hover:bg-[#3182CE] font-mono font-bold border-2 border-[#4299E1] rounded-lg transition-colors"
           >
             {t('playAgainButton')}
           </button>
@@ -113,17 +113,17 @@ export default function GamePlayPage() {
           ) : (
             <XCircle className="w-24 h-24 text-red-500 mx-auto mb-4" />
           )}
-          <h2 className={`text-4xl font-bold font-mono mb-4 ${lastAnswerResult.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+          <h2 className={`text-4xl font-bold font-mono mb-4 ${lastAnswerResult.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
             {lastAnswerResult.isCorrect ? t('correct') : t('incorrect')}
           </h2>
-          <p className="text-lg text-[#91B1C0] font-mono mb-6">{lastAnswerResult.explanation}</p>
+          <p className="text-lg text-[#2D3748] font-mono mb-6">{lastAnswerResult.explanation}</p>
           
           <button
             onClick={() => {
               setShowResultDelay(false);
               clearLastAnswerResult();
             }}
-            className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-[#A1CCB0] text-[#01032C] hover:bg-[#A1CCB0]/80 font-mono font-bold border-2 border-[#A1CCB0] rounded-lg transition-colors mt-4"
+            className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-[#4299E1] text-white hover:bg-[#3182CE] font-mono font-bold border-2 border-[#4299E1] rounded-lg transition-colors mt-4"
           >
             {t('nextButton') || "Next"} 
           </button>
@@ -147,27 +147,27 @@ export default function GamePlayPage() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
         >
-          <p className="font-mono text-sm text-[#A1CCB0] mb-4 text-center">
+          <p className="font-mono text-sm text-[#718096] mb-4 text-center">
             {t('questionProgress', { current: activeSession.currentScenarioIndex + 1, total: activeSession.scenarioIds.length })}
           </p>
           <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#A1CCB0]/20 text-[#A1CCB0] border border-[#A1CCB0]/30">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#4299E1]/10 text-[#4299E1] border border-[#4299E1]/30">
               {getCategoryLabel(currentScenario.category)}
             </span>
           </div>
-          <p className="text-xl md:text-2xl text-white font-mono text-center mb-10 leading-relaxed">
+          <p className="text-xl md:text-2xl text-[#2D3748] font-mono text-center mb-10 leading-relaxed">
             {currentScenario.description}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
             <button
               onClick={() => submitAnswer(true)}
-              className="p-6 bg-[#91B1C0]/10 border-2 border-[#91B1C0]/30 rounded-lg text-lg font-mono text-white hover:bg-red-500/20 hover:border-red-500 transition-all"
+              className="p-6 bg-[#F7FAFC] border-2 border-[#E2E8F0] rounded-lg text-lg font-mono text-[#2D3748] hover:bg-red-50 hover:border-red-500 transition-all"
             >
               {t('scamButton')}
             </button>
             <button
               onClick={() => submitAnswer(false)}
-              className="p-6 bg-[#91B1C0]/10 border-2 border-[#91B1C0]/30 rounded-lg text-lg font-mono text-white hover:bg-green-500/20 hover:border-green-500 transition-all"
+              className="p-6 bg-[#F7FAFC] border-2 border-[#E2E8F0] rounded-lg text-lg font-mono text-[#2D3748] hover:bg-green-50 hover:border-green-500 transition-all"
             >
               {t('notScamButton')}
             </button>
@@ -179,22 +179,22 @@ export default function GamePlayPage() {
     // 4. Состояние загрузки по умолчанию
     return (
       <div key="loading" className="text-center">
-        <Loader2 className="w-12 h-12 mx-auto animate-spin text-[#A1CCB0]" />
-        <p className="mt-4 text-lg font-mono">{t('loadingGame')}</p>
+        <Loader2 className="w-12 h-12 mx-auto animate-spin text-[#4299E1]" />
+        <p className="mt-4 text-lg font-mono text-[#718096]">{t('loadingGame')}</p>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-[#01032C] text-[#91B1C0] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-[#F7FAFC] text-[#718096] flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="bg-[#01032C] border-2 border-[#91B1C0]/20 p-8 md:p-12 rounded-xl shadow-2xl shadow-black/20">
+        <div className="bg-white border-2 border-[#E2E8F0] p-8 md:p-12 rounded-xl shadow-lg">
           <AnimatePresence mode="wait">
             {renderGameState()}
           </AnimatePresence>
         </div>
         <div className="text-center mt-6">
-          <Link href="/games" className="text-sm font-mono hover:text-white transition-colors">
+          <Link href="/games" className="text-sm font-mono hover:text-[#4299E1] transition-colors">
             {t('backToGames')}
           </Link>
         </div>

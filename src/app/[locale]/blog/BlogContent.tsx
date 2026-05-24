@@ -15,12 +15,12 @@ interface BlogContentProps {
 
 // Компонент параграфа
 function Paragraph({ content, className = "" }: { content: string; className?: string }) {
-  return <p className={`text-[#91B1C0] text-lg leading-relaxed mb-6 ${className}`}>{content}</p>
+  return <p className={`text-[#2D3748] text-lg leading-relaxed mb-6 ${className}`}>{content}</p>
 }
 
 // Компонент заголовка
 function Heading({ level, content }: { level: number; content: string }) {
-  const baseClasses = "font-bold mt-8 mb-4 text-[#A1CCB0]"
+  const baseClasses = "font-bold mt-8 mb-4 text-[#2D3748]"
 
   switch (level) {
     case 2:
@@ -40,7 +40,7 @@ function List({ items, ordered = false }: { items: string[]; ordered?: boolean }
   const listClass = ordered ? "list-decimal" : "list-disc"
 
   return (
-    <ListTag className={`text-[#91B1C0] text-lg ${listClass} list-inside mb-6 pl-4 space-y-2`}>
+    <ListTag className={`text-[#2D3748] text-lg ${listClass} list-inside mb-6 pl-4 space-y-2`}>
       {items.map((item, index) => (
         <li key={index}>{item}</li>
       ))}
@@ -51,12 +51,12 @@ function List({ items, ordered = false }: { items: string[]; ordered?: boolean }
 // Компонент совета/подсказки
 function Tip({ title, content }: { title: string; content: string }) {
   return (
-    <div className="border-l-4 border-[#A1CCB0] p-6 my-8 bg-[#91B1C0]/10 rounded-r-lg">
-      <h3 className="font-bold mb-2 text-[#A1CCB0] flex items-center gap-2">
-        <Lightbulb className="w-5 h-5" />
+    <div className="border-l-4 border-[#4299E1] p-6 my-8 bg-[#4299E1]/10 rounded-r-lg">
+      <h3 className="font-bold mb-2 text-[#2D3748] flex items-center gap-2">
+        <Lightbulb className="w-5 h-5 text-[#4299E1]" />
         {title}
       </h3>
-      <p className="text-[#91B1C0]">{content}</p>
+      <p className="text-[#2D3748]">{content}</p>
     </div>
   )
 }
@@ -64,12 +64,12 @@ function Tip({ title, content }: { title: string; content: string }) {
 // Компонент информационного блока
 function InfoBox({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="border-2 border-[#91B1C0]/30 p-6 my-8 bg-[#91B1C0]/10 rounded-xl">
-      <h3 className="font-bold mb-3 text-[#A1CCB0] flex items-center gap-2">
-        <Info className="w-5 h-5" />
+    <div className="border-2 border-[#E2E8F0] p-6 my-8 bg-[#F7FAFC] rounded-xl">
+      <h3 className="font-bold mb-3 text-[#2D3748] flex items-center gap-2">
+        <Info className="w-5 h-5 text-[#4299E1]" />
         {title}
       </h3>
-      <ul className="list-disc list-inside space-y-1 text-[#91B1C0]">
+      <ul className="list-disc list-inside space-y-1 text-[#2D3748]">
         {items.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
@@ -81,26 +81,26 @@ function InfoBox({ title, items }: { title: string; items: string[] }) {
 // Компонент рейтинга продукта
 function ProductRating({ name, rating, description }: { name: string; rating: string; description: string }) {
   return (
-    <div className="border-2 border-[#91B1C0]/30 p-6 my-8 bg-[#91B1C0]/10 rounded-xl">
-      <h3 className="text-xl font-bold mb-2 text-[#A1CCB0]">{name}</h3>
-      <p className="font-bold mb-2 text-[#A1CCB0] flex items-center gap-1">
+    <div className="border-2 border-[#E2E8F0] p-6 my-8 bg-[#F7FAFC] rounded-xl">
+      <h3 className="text-xl font-bold mb-2 text-[#2D3748]">{name}</h3>
+      <p className="font-bold mb-2 text-[#2D3748] flex items-center gap-1">
         <Star className="w-5 h-5 text-yellow-400" /> {rating}
       </p>
-      <p className="text-[#91B1C0]">{description}</p>
+      <p className="text-[#2D3748]">{description}</p>
     </div>
   )
 }
 
 // Компонент разделителя
 function Divider() {
-  return <hr className="border-t-2 border-[#91B1C0]/20 my-8" />
+  return <hr className="border-t-2 border-[#E2E8F0] my-8" />
 }
 
 // Компонент цитаты
 function Quote({ content }: { content: string }) {
   return (
-    <blockquote className="border-l-4 border-[#A1CCB0] pl-6 my-8 italic">
-      <p className="text-xl text-[#91B1C0]">"{content}"</p>
+    <blockquote className="border-l-4 border-[#4299E1] pl-6 my-8 italic">
+      <p className="text-xl text-[#2D3748]">"{content}"</p>
     </blockquote>
   )
 }
@@ -108,7 +108,7 @@ function Quote({ content }: { content: string }) {
 // Компонент шагов (для туториалов)
 function Steps({ steps }: { steps: string[] }) {
   return (
-    <ol className="list-decimal list-inside mb-6 pl-4 space-y-3 text-[#91B1C0] text-lg">
+    <ol className="list-decimal list-inside mb-6 pl-4 space-y-3 text-[#2D3748] text-lg">
       {steps.map((step, index) => (
         <li key={index} className="pl-2">{step}</li>
       ))}
