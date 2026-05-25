@@ -272,7 +272,7 @@ export default function ForumPage() {
                   const scamTypeInfo = getScamTypeInfo(post.scamType);
                   
                   return (
-                    <Link href={`/forum/${post.id}`}>
+<Link key={post.id} href={`/forum/${post.id}`}>
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}

@@ -43,7 +43,6 @@ const severityLevels = {
   critical: { labelKey: 'severity.critical', icon: '🔴' }
 };
 
-
 export default function ForumPostPage() {
   const params = useParams();
   const router = useRouter();
@@ -82,7 +81,6 @@ export default function ForumPostPage() {
 
   const handleCreateComment = async () => {
     if (!newComment.trim() || !currentUser || !currentPost) return;
-
     try {
       await createComment({
         postId: currentPost.id,
@@ -98,7 +96,6 @@ export default function ForumPostPage() {
 
   const handleCreateReply = async (parentCommentId: string) => {
     if (!replyContent.trim() || !currentUser || !currentPost) return;
-
     try {
       await createComment({
         postId: currentPost.id,
@@ -116,7 +113,6 @@ export default function ForumPostPage() {
 
   const handleVote = async (targetId: string, targetType: 'post' | 'comment', voteType: 'upvote' | 'downvote') => {
     if (!currentUser) return;
-
     try {
       if (targetType === 'post') {
         await voteOnPost(targetId, voteType);
@@ -130,7 +126,6 @@ export default function ForumPostPage() {
 
   const handleReport = async () => {
     if (!reportTarget || !reportReason || !currentUser) return;
-
     try {
       if (reportTarget.type === 'post') {
         await reportPost(reportTarget.id, reportReason, reportDescription);
@@ -155,7 +150,6 @@ export default function ForumPostPage() {
       minute: '2-digit'
     });
   };
-
 
   if (loadingCurrentPost) {
     return (
@@ -204,7 +198,6 @@ export default function ForumPostPage() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white border-2 border-[#E2E8F0] p-6 md:p-8 mb-8 rounded-xl shadow-sm"
           >
-            {/* Post Header */}
             <div className="mb-6">
               <div className="flex flex-col-reverse sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex-1 mt-4 sm:mt-0">
@@ -260,16 +253,15 @@ export default function ForumPostPage() {
               </div>
             </div>
 
-            {/* Post Content */}
             <div className="prose prose-invert max-w-none mb-6">
               <p className="text-[#2D3748] font-mono whitespace-pre-wrap">{currentPost.content}</p>
             </div>
 
-            {/* Tags */}
             {currentPost.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
+                {/* ✅ KEY ADDED EXPLICITLY */}
                 {currentPost.tags.map((tag, index) => (
-                  <span key={index} className="px-3 py-1 bg-[#4299E1]/10 text-[#4299E1] text-sm font-mono flex items-center gap-1 rounded-md">
+                  <span key={`${tag}-${index}`} className="px-3 py-1 bg-[#4299E1]/10 text-[#4299E1] text-sm font-mono flex items-center gap-1 rounded-md">
                     <Tag className="w-3 h-3" />
                     {tag}
                   </span>
@@ -277,21 +269,14 @@ export default function ForumPostPage() {
               </div>
             )}
 
-            {/* Vote Buttons */}
             {currentUser && (
               <div className="flex items-center gap-2 sm:gap-4 pt-4 border-t border-[#E2E8F0]">
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => handleVote(currentPost.id, 'post', 'upvote')}
-                    className="flex items-center gap-1 px-4 py-2 text-[#4299E1] bg-[#F7FAFC] hover:bg-[#E2E8F0] font-mono rounded-lg transition-colors"
-                  >
+                  <button onClick={() => handleVote(currentPost.id, 'post', 'upvote')} className="flex items-center gap-1 px-4 py-2 text-[#4299E1] bg-[#F7FAFC] hover:bg-[#E2E8F0] font-mono rounded-lg transition-colors">
                     <ChevronUp className="w-5 h-5" />
                     <span>{currentPost.upvotes}</span>
                   </button>
-                  <button
-                    onClick={() => handleVote(currentPost.id, 'post', 'downvote')}
-                    className="flex items-center gap-1 px-4 py-2 text-[#718096] bg-[#F7FAFC] hover:bg-[#E2E8F0] font-mono rounded-lg transition-colors"
-                  >
+                  <button onClick={() => handleVote(currentPost.id, 'post', 'downvote')} className="flex items-center gap-1 px-4 py-2 text-[#718096] bg-[#F7FAFC] hover:bg-[#E2E8F0] font-mono rounded-lg transition-colors">
                     <ChevronDown className="w-5 h-5" />
                     <span>{currentPost.downvotes}</span>
                   </button>
@@ -307,7 +292,6 @@ export default function ForumPostPage() {
               {t('post.comments', { count: comments.length })}
             </h2>
 
-            {/* New Comment Form */}
             {currentUser ? (
               <div className="mb-8 p-4 bg-[#F7FAFC] border border-[#E2E8F0] rounded-lg">
                 <textarea
@@ -337,7 +321,6 @@ export default function ForumPostPage() {
               </div>
             )}
 
-            {/* Comments List */}
             {loadingComments ? (
               <div className="text-center py-8">
                 <div className="text-lg font-mono text-[#718096]">{t('post.loadingComments')}</div>
@@ -348,6 +331,7 @@ export default function ForumPostPage() {
               </div>
             ) : (
               <div className="space-y-6">
+                {/* ✅ KEY ON COMMENT ROOT */}
                 {comments.map((comment) => (
                   <div key={comment.id} className="border border-[#E2E8F0] p-4 rounded-lg">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
@@ -367,19 +351,10 @@ export default function ForumPostPage() {
                       
                       {currentUser && (
                         <div className="flex items-center gap-2 flex-shrink-0">
-                          <button
-                            onClick={() => setReplyingTo(comment.id)}
-                            className="p-2 text-[#718096] hover:text-[#4299E1] rounded-full hover:bg-[#F7FAFC] transition-colors"
-                          >
+                          <button onClick={() => setReplyingTo(comment.id)} className="p-2 text-[#718096] hover:text-[#4299E1] rounded-full hover:bg-[#F7FAFC] transition-colors">
                             <Reply className="w-4 h-4" />
                           </button>
-                          <button
-                            onClick={() => {
-                              setReportTarget({ type: 'comment', id: comment.id });
-                              setShowReportModal(true);
-                            }}
-                            className="p-2 text-[#718096] hover:text-red-500 rounded-full hover:bg-[#F7FAFC] transition-colors"
-                          >
+                          <button onClick={() => { setReportTarget({ type: 'comment', id: comment.id }); setShowReportModal(true); }} className="p-2 text-[#718096] hover:text-red-500 rounded-full hover:bg-[#F7FAFC] transition-colors">
                             <Flag className="w-4 h-4" />
                           </button>
                         </div>
@@ -390,17 +365,11 @@ export default function ForumPostPage() {
 
                     {currentUser && (
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => handleVote(comment.id, 'comment', 'upvote')}
-                          className="flex items-center gap-1 px-3 py-1 text-[#A1CCB0] bg-[#A1CCB0]/10 hover:bg-[#A1CCB0]/20 text-sm font-mono rounded-md transition-colors"
-                        >
+                        <button onClick={() => handleVote(comment.id, 'comment', 'upvote')} className="flex items-center gap-1 px-3 py-1 text-[#A1CCB0] bg-[#A1CCB0]/10 hover:bg-[#A1CCB0]/20 text-sm font-mono rounded-md transition-colors">
                           <ChevronUp className="w-4 h-4" />
                           <span>{comment.upvotes}</span>
                         </button>
-                        <button
-                          onClick={() => handleVote(comment.id, 'comment', 'downvote')}
-                          className="flex items-center gap-1 px-3 py-1 text-[#91B1C0] bg-[#91B1C0]/10 hover:bg-[#91B1C0]/20 text-sm font-mono rounded-md transition-colors"
-                        >
+                        <button onClick={() => handleVote(comment.id, 'comment', 'downvote')} className="flex items-center gap-1 px-3 py-1 text-[#91B1C0] bg-[#91B1C0]/10 hover:bg-[#91B1C0]/20 text-sm font-mono rounded-md transition-colors">
                           <ChevronDown className="w-4 h-4" />
                           <span>{comment.downvotes}</span>
                         </button>
@@ -417,17 +386,10 @@ export default function ForumPostPage() {
                           rows={3}
                         />
                         <div className="flex justify-end gap-2 mt-2">
-                          <button
-                            onClick={() => setReplyingTo(null)}
-                            className="px-4 py-2 text-[#718096] bg-transparent hover:bg-[#F7FAFC] font-mono text-sm border border-[#E2E8F0] rounded-md transition-colors"
-                          >
+                          <button onClick={() => setReplyingTo(null)} className="px-4 py-2 text-[#718096] bg-transparent hover:bg-[#F7FAFC] font-mono text-sm border border-[#E2E8F0] rounded-md transition-colors">
                             {t('common.cancel')}
                           </button>
-                          <button
-                            onClick={() => handleCreateReply(comment.id)}
-                            disabled={!replyContent.trim()}
-                            className="px-4 py-2 bg-[#4299E1] text-white hover:bg-[#3182CE] disabled:bg-[#CBD5E0] disabled:text-[#718096] font-mono font-bold text-sm rounded-md transition-colors"
-                          >
+                          <button onClick={() => handleCreateReply(comment.id)} disabled={!replyContent.trim()} className="px-4 py-2 bg-[#4299E1] text-white hover:bg-[#3182CE] disabled:bg-[#CBD5E0] disabled:text-[#718096] font-mono font-bold text-sm rounded-md transition-colors">
                             {t('post.reply')}
                           </button>
                         </div>
@@ -436,6 +398,7 @@ export default function ForumPostPage() {
 
                     {comment.replies && comment.replies.length > 0 && (
                       <div className="mt-4 ml-4 sm:ml-6 space-y-4 border-l-2 border-[#E2E8F0] pl-3 sm:pl-4">
+                        {/* ✅ KEY ON REPLY ROOT */}
                         {comment.replies.map((reply) => (
                           <div key={reply.id} className="border border-[#E2E8F0] p-3 rounded-md">
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -496,17 +459,10 @@ export default function ForumPostPage() {
             </div>
             
             <div className="flex justify-end gap-2 mt-6">
-              <button
-                onClick={() => setShowReportModal(false)}
-                className="px-4 py-2 text-[#718096] bg-transparent hover:bg-[#F7FAFC] font-mono border border-[#E2E8F0] rounded-md transition-colors"
-              >
+              <button onClick={() => setShowReportModal(false)} className="px-4 py-2 text-[#718096] bg-transparent hover:bg-[#F7FAFC] font-mono border border-[#E2E8F0] rounded-md transition-colors">
                 {t('common.cancel')}
               </button>
-              <button
-                onClick={handleReport}
-                disabled={!reportReason}
-                className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 disabled:bg-[#CBD5E0] disabled:text-[#718096] font-mono rounded-md transition-colors"
-              >
+              <button onClick={handleReport} disabled={!reportReason} className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 disabled:bg-[#CBD5E0] disabled:text-[#718096] font-mono rounded-md transition-colors">
                 {t('post.report.submit')}
               </button>
             </div>
