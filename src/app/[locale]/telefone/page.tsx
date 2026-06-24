@@ -187,7 +187,7 @@ const EmailApp = ({ onBack, gameState, onAction, currentScenario }: { onBack: ()
                 {email.isScam && (
                   <div className="mt-auto space-y-3 pb-4">
                     <button onClick={() => onAction('link')} className="w-full p-4 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors text-base shadow-sm">Выполнить требование</button>
-                    <button onClick={() => onAction('block')} className="w-full p-4 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-base shadow-sm"><ShieldAlert size={20} />В спам и удалить</button>
+                    <button onClick={() => onAction('block')} className="w-full p-4 bg-red-500 text-bl rounded-xl font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-base shadow-sm"><ShieldAlert size={20} />В спам и удалить</button>
                   </div>
                 )}
               </div>
@@ -246,7 +246,7 @@ const SMSApp = ({ onBack, gameState, onAction, currentScenario }: { onBack: () =
                   {msg.isScam && (
                     <div className="space-y-3 mt-8 px-4 pb-4">
                       <button onClick={() => onAction('link')} className="w-full p-4 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 text-base shadow-sm">Перейти по ссылке / Перевести</button>
-                      <button onClick={() => onAction('block')} className="w-full p-4 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2 text-base shadow-sm"><ShieldAlert size={20} />Заблокировать</button>
+                      <button onClick={() => onAction('block')} className="w-full p-4 bg-red-500 text-black rounded-xl font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2 shadow-sm"><ShieldAlert size={20} />Заблокировать</button>
                     </div>
                   )}
                 </div>
@@ -290,7 +290,7 @@ const PhoneApp = ({ onBack, gameState, currentScenario, setIsVerified, setCallFe
         )}
       </AnimatePresence>
 
-      <div className="bg-gray-800 p-4 text-white flex items-center gap-3 shadow-md z-10">
+      <div className="bg-gray-800 p-4 flex items-center gap-3 shadow-md z-10">
         <button onClick={onBack} className="hover:bg-gray-700 p-2 rounded-full"><ArrowLeft size={24} /></button>
         <h2 className="font-bold text-xl">Контакты</h2>
       </div>
@@ -758,19 +758,23 @@ export default function AppSimulationPage() {
 
               <AnimatePresence>
                 {(gameState === 'won' || gameState === 'won_warning') && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-green-500/95 backdrop-blur-md z-50 flex flex-col items-center justify-center text-white p-6 text-center">
-                    <CheckCircle size={80} className="mb-6" />
-                    <h2 className="text-3xl font-bold mb-4">{gameState === 'won' ? 'Идеально!' : 'Хорошо, но...'}</h2>
-                    <p className="mb-8 text-lg leading-relaxed">{gameState === 'won' ? 'Вы правильно проверили информацию и заблокировали мошенника.' : 'Вы заблокировали мошенника, но в следующий раз лучше сначала позвонить и проверить.'}</p>
-                    <button onClick={resetGame} className="bg-white text-green-600 px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Играть снова</button>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+                    <motion.div initial={{scale: 0.9}} animate={{scale: 1}} className="bg-white rounded-2xl shadow-xl p-8 text-center w-full max-w-sm">
+                        <CheckCircle size={60} className="mb-4 mx-auto text-green-500" />
+                        <h2 className="text-2xl font-bold mb-2 text-gray-900">{gameState === 'won' ? 'Идеально!' : 'Хорошо, но...'}</h2>
+                        <p className="mb-6 text-gray-600">{gameState === 'won' ? 'Вы правильно проверили информацию и заблокировали мошенника.' : 'Вы заблокировали мошенника, но в следующий раз лучше сначала позвонить и проверить.'}</p>
+                        <button onClick={resetGame} className="bg-white text-green-600 px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Играть снова</button>
+                    </motion.div>
                   </motion.div>
                 )}
                 {gameState === 'lost' && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-red-500/95 backdrop-blur-md z-50 flex flex-col items-center justify-center text-white p-6 text-center">
-                    <XCircle size={80} className="mb-6" />
-                    <h2 className="text-3xl font-bold mb-4">Вы проиграли</h2>
-                    <p className="mb-8 text-lg leading-relaxed">Вы поверили мошенникам. Всегда проверяйте информацию перед тем, как переводить деньги или переходить по ссылкам.</p>
-                    <button onClick={resetGame} className="bg-white text-red-600 px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Попробовать снова</button>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+                    <motion.div initial={{scale: 0.9}} animate={{scale: 1}} className="bg-white rounded-2xl shadow-xl p-8 text-center w-full max-w-sm">
+                        <XCircle size={60} className="mb-4 mx-auto text-red-500" />
+                        <h2 className="text-2xl font-bold mb-2 text-gray-900">Вы проиграли</h2>
+                        <p className="mb-6 text-gray-600">Вы поверили мошенникам. Всегда проверяйте информацию перед тем, как переводить деньги или переходить по ссылкам.</p>
+                        <button onClick={resetGame} className="bg-white text-red-600 px-8 py-3 rounded-full font-bold shadow-xl text-lg hover:scale-105 transition-transform">Попробовать снова</button>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -847,19 +851,23 @@ export default function AppSimulationPage() {
               {/* Desktop Success/Fail Overlays */}
               <AnimatePresence>
                 {(gameState === 'won' || gameState === 'won_warning') && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-green-500/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center text-white p-6 text-center">
-                    <CheckCircle size={80} className="mb-6" />
-                    <h2 className="text-4xl font-bold mb-4">{gameState === 'won' ? 'Идеально!' : 'Хорошо, но...'}</h2>
-                    <p className="mb-8 text-xl max-w-lg leading-relaxed">{gameState === 'won' ? 'Вы правильно проверили информацию и заблокировали мошенника.' : 'Вы заблокировали мошенника, но в следующий раз лучше сначала позвонить и проверить.'}</p>
-                    <button onClick={resetGame} className="bg-white text-green-600 px-8 py-3 rounded font-bold shadow-xl text-lg hover:bg-gray-100 transition-colors">Играть снова</button>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-center">
+                    <motion.div initial={{scale: 0.9}} animate={{scale: 1}} className="bg-white rounded-xl shadow-2xl p-10 max-w-lg">
+                        <CheckCircle size={70} className="mb-5 mx-auto text-green-500" />
+                        <h2 className="text-3xl font-bold mb-3 text-gray-900">{gameState === 'won' ? 'Идеально!' : 'Хорошо, но...'}</h2>
+                        <p className="mb-8 text-lg text-gray-600 leading-relaxed">{gameState === 'won' ? 'Вы правильно проверили информацию и заблокировали мошенника.' : 'Вы заблокировали мошенника, но в следующий раз лучше сначала позвонить и проверить.'}</p>
+                        <button onClick={resetGame} className="bg-white text-green-600 px-8 py-3 rounded font-bold shadow-xl text-lg hover:bg-gray-100 transition-colors">Играть снова</button>
+                    </motion.div>
                   </motion.div>
                 )}
                 {gameState === 'lost' && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-red-600/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center text-white p-6 text-center">
-                    <XCircle size={80} className="mb-6" />
-                    <h2 className="text-4xl font-bold mb-4">Вы проиграли</h2>
-                    <p className="mb-8 text-xl max-w-lg leading-relaxed">Вы поверили мошенникам. Всегда проверяйте информацию перед тем, как переводить деньги или переходить по ссылкам.</p>
-                    <button onClick={resetGame} className="bg-white text-red-600 px-8 py-3 rounded font-bold shadow-xl text-lg hover:bg-gray-100 transition-colors">Попробовать снова</button>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-center">
+                    <motion.div initial={{scale: 0.9}} animate={{scale: 1}} className="bg-white rounded-xl shadow-2xl p-10 max-w-lg">
+                        <XCircle size={70} className="mb-5 mx-auto text-red-500" />
+                        <h2 className="text-3xl font-bold mb-3 text-gray-900">Вы проиграли</h2>
+                        <p className="mb-8 text-lg text-gray-600 leading-relaxed">Вы поверили мошенникам. Всегда проверяйте информацию перед тем, как переводить деньги или переходить по ссылкам.</p>
+                        <button onClick={resetGame} className="bg-white text-red-600 px-8 py-3 rounded font-bold shadow-xl text-lg hover:bg-gray-100 transition-colors">Попробовать снова</button>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
